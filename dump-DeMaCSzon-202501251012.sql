@@ -5,7 +5,7 @@
 -- Dumped from database version 17.0
 -- Dumped by pg_dump version 17.0
 
--- Started on 2025-01-24 17:39:41
+-- Started on 2025-01-25 10:12:26
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -520,6 +520,7 @@ COPY public.recensione (id, id_annuncio, testo, autore) FROM stdin;
 --
 
 COPY public.utente (tipo, username, password, email, amministratore) FROM stdin;
+t	admin	admin		t
 \.
 
 
@@ -721,7 +722,7 @@ ALTER TABLE ONLY public.recensione
     ADD CONSTRAINT recensione_utente_fk FOREIGN KEY (autore) REFERENCES public.utente(username);
 
 
--- Completed on 2025-01-24 17:39:41
+-- Completed on 2025-01-25 10:12:26
 
 --
 -- PostgreSQL database dump complete
