@@ -5,7 +5,7 @@
 -- Dumped from database version 17.0
 -- Dumped by pg_dump version 17.0
 
--- Started on 2025-01-25 16:42:03
+-- Started on 2025-01-26 19:21:22
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -30,7 +30,7 @@ CREATE SCHEMA public;
 ALTER SCHEMA public OWNER TO pg_database_owner;
 
 --
--- TOC entry 4918 (class 0 OID 0)
+-- TOC entry 4904 (class 0 OID 0)
 -- Dependencies: 4
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: pg_database_owner
 --
@@ -43,30 +43,32 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 223 (class 1259 OID 16585)
+-- TOC entry 222 (class 1259 OID 16585)
 -- Name: annuncio; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.annuncio (
     id integer NOT NULL,
-    id_articolo integer NOT NULL,
     prezzo real NOT NULL,
     descrizione character varying,
     foto bytea,
     titolo character varying NOT NULL,
     prezzo_scontato real,
-    venditore character varying NOT NULL
+    venditore character varying NOT NULL,
+    marca character varying NOT NULL,
+    modello character varying NOT NULL,
+    id_categoria integer NOT NULL
 );
 
 
 ALTER TABLE public.annuncio OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 16584)
--- Name: annuncio_id_articolo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- TOC entry 228 (class 1259 OID 16691)
+-- Name: annuncio_id_categoria_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.annuncio_id_articolo_seq
+CREATE SEQUENCE public.annuncio_id_categoria_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -75,15 +77,15 @@ CREATE SEQUENCE public.annuncio_id_articolo_seq
     CACHE 1;
 
 
-ALTER SEQUENCE public.annuncio_id_articolo_seq OWNER TO postgres;
+ALTER SEQUENCE public.annuncio_id_categoria_seq OWNER TO postgres;
 
 --
--- TOC entry 4919 (class 0 OID 0)
--- Dependencies: 222
--- Name: annuncio_id_articolo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- TOC entry 4905 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: annuncio_id_categoria_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.annuncio_id_articolo_seq OWNED BY public.annuncio.id_articolo;
+ALTER SEQUENCE public.annuncio_id_categoria_seq OWNED BY public.annuncio.id_categoria;
 
 
 --
@@ -103,7 +105,7 @@ CREATE SEQUENCE public.annuncio_id_seq
 ALTER SEQUENCE public.annuncio_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4920 (class 0 OID 0)
+-- TOC entry 4906 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: annuncio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -112,103 +114,7 @@ ALTER SEQUENCE public.annuncio_id_seq OWNED BY public.annuncio.id;
 
 
 --
--- TOC entry 228 (class 1259 OID 16615)
--- Name: articolo; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.articolo (
-    id integer NOT NULL,
-    id_categoria integer NOT NULL,
-    colore character varying NOT NULL,
-    lunghezza integer NOT NULL,
-    larghezza integer NOT NULL,
-    "profondità" character varying NOT NULL,
-    marca character varying NOT NULL,
-    modello character varying NOT NULL
-);
-
-
-ALTER TABLE public.articolo OWNER TO postgres;
-
---
--- TOC entry 4921 (class 0 OID 0)
--- Dependencies: 228
--- Name: COLUMN articolo.lunghezza; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public.articolo.lunghezza IS 'cm';
-
-
---
--- TOC entry 4922 (class 0 OID 0)
--- Dependencies: 228
--- Name: COLUMN articolo.larghezza; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public.articolo.larghezza IS 'cm';
-
-
---
--- TOC entry 4923 (class 0 OID 0)
--- Dependencies: 228
--- Name: COLUMN articolo."profondità"; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN public.articolo."profondità" IS 'cm';
-
-
---
--- TOC entry 227 (class 1259 OID 16614)
--- Name: articolo_id_categoria_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.articolo_id_categoria_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public.articolo_id_categoria_seq OWNER TO postgres;
-
---
--- TOC entry 4924 (class 0 OID 0)
--- Dependencies: 227
--- Name: articolo_id_categoria_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.articolo_id_categoria_seq OWNED BY public.articolo.id_categoria;
-
-
---
--- TOC entry 226 (class 1259 OID 16613)
--- Name: articolo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.articolo_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public.articolo_id_seq OWNER TO postgres;
-
---
--- TOC entry 4925 (class 0 OID 0)
--- Dependencies: 226
--- Name: articolo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.articolo_id_seq OWNED BY public.articolo.id;
-
-
---
--- TOC entry 231 (class 1259 OID 16651)
+-- TOC entry 227 (class 1259 OID 16651)
 -- Name: asta; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -224,7 +130,7 @@ CREATE TABLE public.asta (
 ALTER TABLE public.asta OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 16650)
+-- TOC entry 226 (class 1259 OID 16650)
 -- Name: asta_id_annuncio_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -240,8 +146,8 @@ CREATE SEQUENCE public.asta_id_annuncio_seq
 ALTER SEQUENCE public.asta_id_annuncio_seq OWNER TO postgres;
 
 --
--- TOC entry 4926 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 4907 (class 0 OID 0)
+-- Dependencies: 226
 -- Name: asta_id_annuncio_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -249,7 +155,7 @@ ALTER SEQUENCE public.asta_id_annuncio_seq OWNED BY public.asta.id_annuncio;
 
 
 --
--- TOC entry 229 (class 1259 OID 16649)
+-- TOC entry 225 (class 1259 OID 16649)
 -- Name: asta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -265,8 +171,8 @@ CREATE SEQUENCE public.asta_id_seq
 ALTER SEQUENCE public.asta_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4927 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 4908 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: asta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -287,7 +193,7 @@ CREATE TABLE public.categoria (
 ALTER TABLE public.categoria OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 16595)
+-- TOC entry 223 (class 1259 OID 16595)
 -- Name: categoria_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -303,8 +209,8 @@ CREATE SEQUENCE public.categoria_id_seq
 ALTER SEQUENCE public.categoria_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4928 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 4909 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: categoria_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -343,7 +249,7 @@ CREATE SEQUENCE public.recensione_id_annuncio_seq
 ALTER SEQUENCE public.recensione_id_annuncio_seq OWNER TO postgres;
 
 --
--- TOC entry 4929 (class 0 OID 0)
+-- TOC entry 4910 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: recensione_id_annuncio_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -368,7 +274,7 @@ CREATE SEQUENCE public.recensione_id_seq
 ALTER SEQUENCE public.recensione_id_seq OWNER TO postgres;
 
 --
--- TOC entry 4930 (class 0 OID 0)
+-- TOC entry 4911 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: recensione_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -377,7 +283,7 @@ ALTER SEQUENCE public.recensione_id_seq OWNED BY public.recensione.id;
 
 
 --
--- TOC entry 225 (class 1259 OID 16605)
+-- TOC entry 224 (class 1259 OID 16605)
 -- Name: utente; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -393,7 +299,7 @@ CREATE TABLE public.utente (
 ALTER TABLE public.utente OWNER TO postgres;
 
 --
--- TOC entry 4726 (class 2604 OID 16588)
+-- TOC entry 4720 (class 2604 OID 16588)
 -- Name: annuncio id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -401,31 +307,15 @@ ALTER TABLE ONLY public.annuncio ALTER COLUMN id SET DEFAULT nextval('public.ann
 
 
 --
--- TOC entry 4727 (class 2604 OID 16590)
--- Name: annuncio id_articolo; Type: DEFAULT; Schema: public; Owner: postgres
+-- TOC entry 4721 (class 2604 OID 16692)
+-- Name: annuncio id_categoria; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.annuncio ALTER COLUMN id_articolo SET DEFAULT nextval('public.annuncio_id_articolo_seq'::regclass);
-
-
---
--- TOC entry 4729 (class 2604 OID 16618)
--- Name: articolo id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.articolo ALTER COLUMN id SET DEFAULT nextval('public.articolo_id_seq'::regclass);
+ALTER TABLE ONLY public.annuncio ALTER COLUMN id_categoria SET DEFAULT nextval('public.annuncio_id_categoria_seq'::regclass);
 
 
 --
--- TOC entry 4730 (class 2604 OID 16619)
--- Name: articolo id_categoria; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.articolo ALTER COLUMN id_categoria SET DEFAULT nextval('public.articolo_id_categoria_seq'::regclass);
-
-
---
--- TOC entry 4731 (class 2604 OID 16654)
+-- TOC entry 4723 (class 2604 OID 16654)
 -- Name: asta id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -433,7 +323,7 @@ ALTER TABLE ONLY public.asta ALTER COLUMN id SET DEFAULT nextval('public.asta_id
 
 
 --
--- TOC entry 4732 (class 2604 OID 16655)
+-- TOC entry 4724 (class 2604 OID 16655)
 -- Name: asta id_annuncio; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -441,7 +331,7 @@ ALTER TABLE ONLY public.asta ALTER COLUMN id_annuncio SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 4725 (class 2604 OID 16596)
+-- TOC entry 4719 (class 2604 OID 16596)
 -- Name: categoria id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -449,7 +339,7 @@ ALTER TABLE ONLY public.categoria ALTER COLUMN id SET DEFAULT nextval('public.ca
 
 
 --
--- TOC entry 4723 (class 2604 OID 16568)
+-- TOC entry 4717 (class 2604 OID 16568)
 -- Name: recensione id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -457,7 +347,7 @@ ALTER TABLE ONLY public.recensione ALTER COLUMN id SET DEFAULT nextval('public.r
 
 
 --
--- TOC entry 4724 (class 2604 OID 16569)
+-- TOC entry 4718 (class 2604 OID 16569)
 -- Name: recensione id_annuncio; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -465,28 +355,18 @@ ALTER TABLE ONLY public.recensione ALTER COLUMN id_annuncio SET DEFAULT nextval(
 
 
 --
--- TOC entry 4904 (class 0 OID 16585)
--- Dependencies: 223
+-- TOC entry 4892 (class 0 OID 16585)
+-- Dependencies: 222
 -- Data for Name: annuncio; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.annuncio (id, id_articolo, prezzo, descrizione, foto, titolo, prezzo_scontato, venditore) FROM stdin;
+COPY public.annuncio (id, prezzo, descrizione, foto, titolo, prezzo_scontato, venditore, marca, modello, id_categoria) FROM stdin;
 \.
 
 
 --
--- TOC entry 4909 (class 0 OID 16615)
--- Dependencies: 228
--- Data for Name: articolo; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.articolo (id, id_categoria, colore, lunghezza, larghezza, "profondità", marca, modello) FROM stdin;
-\.
-
-
---
--- TOC entry 4912 (class 0 OID 16651)
--- Dependencies: 231
+-- TOC entry 4897 (class 0 OID 16651)
+-- Dependencies: 227
 -- Data for Name: asta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -495,7 +375,7 @@ COPY public.asta (id, id_annuncio, prezzo, acquirente, terminata) FROM stdin;
 
 
 --
--- TOC entry 4901 (class 0 OID 16576)
+-- TOC entry 4890 (class 0 OID 16576)
 -- Dependencies: 220
 -- Data for Name: categoria; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -505,7 +385,7 @@ COPY public.categoria (id, nome) FROM stdin;
 
 
 --
--- TOC entry 4900 (class 0 OID 16565)
+-- TOC entry 4889 (class 0 OID 16565)
 -- Dependencies: 219
 -- Data for Name: recensione; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -515,8 +395,8 @@ COPY public.recensione (id, id_annuncio, testo, autore) FROM stdin;
 
 
 --
--- TOC entry 4906 (class 0 OID 16605)
--- Dependencies: 225
+-- TOC entry 4894 (class 0 OID 16605)
+-- Dependencies: 224
 -- Data for Name: utente; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -526,16 +406,16 @@ t	admin	admin		t
 
 
 --
--- TOC entry 4931 (class 0 OID 0)
--- Dependencies: 222
--- Name: annuncio_id_articolo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- TOC entry 4912 (class 0 OID 0)
+-- Dependencies: 228
+-- Name: annuncio_id_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.annuncio_id_articolo_seq', 1, false);
+SELECT pg_catalog.setval('public.annuncio_id_categoria_seq', 1, false);
 
 
 --
--- TOC entry 4932 (class 0 OID 0)
+-- TOC entry 4913 (class 0 OID 0)
 -- Dependencies: 221
 -- Name: annuncio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -544,26 +424,8 @@ SELECT pg_catalog.setval('public.annuncio_id_seq', 1, false);
 
 
 --
--- TOC entry 4933 (class 0 OID 0)
--- Dependencies: 227
--- Name: articolo_id_categoria_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.articolo_id_categoria_seq', 1, false);
-
-
---
--- TOC entry 4934 (class 0 OID 0)
+-- TOC entry 4914 (class 0 OID 0)
 -- Dependencies: 226
--- Name: articolo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.articolo_id_seq', 1, false);
-
-
---
--- TOC entry 4935 (class 0 OID 0)
--- Dependencies: 230
 -- Name: asta_id_annuncio_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -571,8 +433,8 @@ SELECT pg_catalog.setval('public.asta_id_annuncio_seq', 1, false);
 
 
 --
--- TOC entry 4936 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 4915 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: asta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -580,8 +442,8 @@ SELECT pg_catalog.setval('public.asta_id_seq', 1, false);
 
 
 --
--- TOC entry 4937 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 4916 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: categoria_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -589,7 +451,7 @@ SELECT pg_catalog.setval('public.categoria_id_seq', 1, false);
 
 
 --
--- TOC entry 4938 (class 0 OID 0)
+-- TOC entry 4917 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: recensione_id_annuncio_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -598,7 +460,7 @@ SELECT pg_catalog.setval('public.recensione_id_annuncio_seq', 1, false);
 
 
 --
--- TOC entry 4939 (class 0 OID 0)
+-- TOC entry 4918 (class 0 OID 0)
 -- Dependencies: 217
 -- Name: recensione_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -607,7 +469,7 @@ SELECT pg_catalog.setval('public.recensione_id_seq', 1, false);
 
 
 --
--- TOC entry 4739 (class 2606 OID 16594)
+-- TOC entry 4731 (class 2606 OID 16594)
 -- Name: annuncio annuncio_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -616,16 +478,7 @@ ALTER TABLE ONLY public.annuncio
 
 
 --
--- TOC entry 4743 (class 2606 OID 16623)
--- Name: articolo articolo_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.articolo
-    ADD CONSTRAINT articolo_pk PRIMARY KEY (id);
-
-
---
--- TOC entry 4745 (class 2606 OID 16657)
+-- TOC entry 4735 (class 2606 OID 16657)
 -- Name: asta asta_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -634,7 +487,7 @@ ALTER TABLE ONLY public.asta
 
 
 --
--- TOC entry 4737 (class 2606 OID 16601)
+-- TOC entry 4729 (class 2606 OID 16601)
 -- Name: categoria categoria_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -643,7 +496,7 @@ ALTER TABLE ONLY public.categoria
 
 
 --
--- TOC entry 4735 (class 2606 OID 16574)
+-- TOC entry 4727 (class 2606 OID 16574)
 -- Name: recensione recensione_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -652,7 +505,7 @@ ALTER TABLE ONLY public.recensione
 
 
 --
--- TOC entry 4741 (class 2606 OID 16664)
+-- TOC entry 4733 (class 2606 OID 16664)
 -- Name: utente utente_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -661,16 +514,16 @@ ALTER TABLE ONLY public.utente
 
 
 --
--- TOC entry 4748 (class 2606 OID 16639)
--- Name: annuncio annuncio_articolo_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 4738 (class 2606 OID 16699)
+-- Name: annuncio annuncio_categoria_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.annuncio
-    ADD CONSTRAINT annuncio_articolo_fk FOREIGN KEY (id_articolo) REFERENCES public.articolo(id);
+    ADD CONSTRAINT annuncio_categoria_fk FOREIGN KEY (id_categoria) REFERENCES public.categoria(id);
 
 
 --
--- TOC entry 4749 (class 2606 OID 16665)
+-- TOC entry 4739 (class 2606 OID 16665)
 -- Name: annuncio annuncio_utente_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -679,16 +532,7 @@ ALTER TABLE ONLY public.annuncio
 
 
 --
--- TOC entry 4750 (class 2606 OID 16644)
--- Name: articolo articolo_categoria_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.articolo
-    ADD CONSTRAINT articolo_categoria_fk FOREIGN KEY (id_categoria) REFERENCES public.categoria(id);
-
-
---
--- TOC entry 4751 (class 2606 OID 16658)
+-- TOC entry 4740 (class 2606 OID 16658)
 -- Name: asta asta_annuncio_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -697,7 +541,7 @@ ALTER TABLE ONLY public.asta
 
 
 --
--- TOC entry 4752 (class 2606 OID 16677)
+-- TOC entry 4741 (class 2606 OID 16677)
 -- Name: asta asta_utente_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -706,7 +550,7 @@ ALTER TABLE ONLY public.asta
 
 
 --
--- TOC entry 4746 (class 2606 OID 16629)
+-- TOC entry 4736 (class 2606 OID 16629)
 -- Name: recensione recensione_annuncio_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -715,7 +559,7 @@ ALTER TABLE ONLY public.recensione
 
 
 --
--- TOC entry 4747 (class 2606 OID 16670)
+-- TOC entry 4737 (class 2606 OID 16670)
 -- Name: recensione recensione_utente_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -723,7 +567,7 @@ ALTER TABLE ONLY public.recensione
     ADD CONSTRAINT recensione_utente_fk FOREIGN KEY (autore) REFERENCES public.utente(username);
 
 
--- Completed on 2025-01-25 16:42:03
+-- Completed on 2025-01-26 19:21:22
 
 --
 -- PostgreSQL database dump complete
