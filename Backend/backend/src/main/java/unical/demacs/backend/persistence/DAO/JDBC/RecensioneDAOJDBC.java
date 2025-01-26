@@ -1,9 +1,8 @@
 package unical.demacs.backend.persistence.DAO.JDBC;
 
-import unical.demacs.backend.model.Annuncio;
 import unical.demacs.backend.model.Recensione;
 import unical.demacs.backend.model.Utente;
-import unical.demacs.backend.persistence.DAO.RecensioneDAO;
+import unical.demacs.backend.persistence.DAO.interfaces.RecensioneDAO;
 import unical.demacs.backend.persistence.DBManager;
 
 import java.sql.Connection;
@@ -79,17 +78,27 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
     }
 
     @Override
-    public void save(Recensione recensione, int idAnnuncio) {
+    public void save(Recensione recensione) {
 
         String query = "INSERT INTO recensione (id_annuncio, testo, autore) VALUES (?, ?, ?)";
 
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, recensione.getID());
+            statement.setInt(1, recensione.getAnnuncio().getID());
             statement.setString(2, recensione.getTesto());
             statement.setString(3, recensione.getAutore().getUsername());
             statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        query = "SELECT * FROM annuncio WHERE id_annuncio = ?";
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, recensione.getID());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -1,9 +1,13 @@
 package unical.demacs.backend.persistence;
 
-import unical.demacs.backend.persistence.DAO.*;
 import unical.demacs.backend.persistence.DAO.JDBC.AnnuncioDAOJDBC;
+import unical.demacs.backend.persistence.DAO.JDBC.CategoriaDAOJDBC;
 import unical.demacs.backend.persistence.DAO.JDBC.RecensioneDAOJDBC;
 import unical.demacs.backend.persistence.DAO.JDBC.UtenteDAOJDBC;
+import unical.demacs.backend.persistence.DAO.interfaces.AnnuncioDAO;
+import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
+import unical.demacs.backend.persistence.DAO.interfaces.RecensioneDAO;
+import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +23,7 @@ public class DBManager {
     private AnnuncioDAO annuncioDAO = null;
     private RecensioneDAO recensioneDAO = null;
     private UtenteDAO utenteDAO = null;
+    private CategoriaDAO categoriaDAO = null;
 
 
     public AnnuncioDAO getAnnuncioDAO() {
@@ -42,6 +47,13 @@ public class DBManager {
         return utenteDAO;
     }
 
+    public CategoriaDAO getCategoriaDAO() {
+        if(categoriaDAO == null) {
+            categoriaDAO = new CategoriaDAOJDBC(connection);
+        }
+        return categoriaDAO;
+    }
+
     private DBManager() {}
 
     public static DBManager getInstance() {
@@ -55,7 +67,7 @@ public class DBManager {
         if(this.connection == null){
             try{
 
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/DeMaCSzon", "postgres", "bruno");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/DeMaCSzon", "postgres", "rullo");
             }
             catch (SQLException e){
                 throw new RuntimeException(e);

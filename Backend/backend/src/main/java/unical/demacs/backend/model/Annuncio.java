@@ -6,15 +6,42 @@ import java.util.List;
 
 public class Annuncio {
 
-    private int ID;
-    private Articolo articolo;
-    private float prezzo;
-    private String descrizione;
-    private byte[] foto;
-    private String titolo;
-    private float prezzoScontato;
+    protected int ID;   //
+    private Categoria categoria;
+    private String marca;   //
+    private String modello; //
+    private float prezzo;   //
+    private String descrizione; //
+    private byte[] foto;    //
+    private String titolo;  //
+    private Float prezzoScontato = null;    //
     private Utente venditore;
-    private List<Recensione> recensioni = null;
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModello() {
+        return modello;
+    }
+
+    public void setModello(String modello) {
+        this.modello = modello;
+    }
+
+    protected List<Recensione> recensioni = null;
 
     public int getID() {
         return ID;
@@ -28,17 +55,6 @@ public class Annuncio {
         return recensioni;
     }
 
-    public void setRecensioni(List<Recensione> recensioni) {
-        this.recensioni = recensioni;
-    }
-
-    public Articolo getArticolo() {
-        return articolo;
-    }
-
-    public void setArticolo(Articolo articolo) {
-        this.articolo = articolo;
-    }
 
     public float getPrezzo() {
         return prezzo;
@@ -72,11 +88,11 @@ public class Annuncio {
         this.titolo = titolo;
     }
 
-    public float getPrezzoScontato() {
+    public Float getPrezzoScontato() {
         return prezzoScontato;
     }
 
-    public void setPrezzoScontato(float prezzoScontato) {
+    public void setPrezzoScontato(Float prezzoScontato) {
         this.prezzoScontato = prezzoScontato;
     }
 

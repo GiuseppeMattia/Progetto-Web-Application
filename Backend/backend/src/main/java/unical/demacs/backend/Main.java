@@ -1,59 +1,41 @@
 package unical.demacs.backend;
 
+import org.springframework.aop.aspectj.AspectJAdviceParameterNameDiscoverer;
+import unical.demacs.backend.model.Annuncio;
 import unical.demacs.backend.model.Recensione;
-import unical.demacs.backend.model.Utente;
-import unical.demacs.backend.persistence.DAO.JDBC.RecensioneDAOJDBC;
-import unical.demacs.backend.persistence.DAO.RecensioneDAO;
+import unical.demacs.backend.persistence.DAO.JDBC.AnnuncioDAOJDBC;
+import unical.demacs.backend.persistence.DAO.JDBC.AnnuncioProxy;
 import unical.demacs.backend.persistence.DBManager;
 
+import javax.sound.midi.SysexMessage;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        AnnuncioDAOJDBC annuncioDAOJDBC = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
 
+        List<Annuncio> annunci = annuncioDAOJDBC.findAll();
 
-        //TEST RECENSIONE DAO - findByUtente
+        for (Annuncio annuncio : annunci) {
+            AnnuncioProxy annuncioProxy = new AnnuncioProxy();
 
-        /*
-        Utente autore = new Utente();
-        autore.setUsername("giovanna_verdi");
+            annuncioProxy.setID(annuncio.getID());
+            annuncioProxy.setFoto(annuncio.getFoto());
+            annuncioProxy.setCategoria(annuncio.getCategoria());
+            annuncioProxy.setMarca(annuncio.getMarca());
+            annuncioProxy.setModello(annuncio.getModello());
+            annuncioProxy.setPrezzo(annuncio.getPrezzo());
+            annuncioProxy.setDescrizione(annuncio.getDescrizione());
+            annuncioProxy.setTitolo(annuncio.getTitolo());
+            annuncioProxy.setPrezzoScontato(annuncio.getPrezzoScontato());
+            annuncioProxy.setVenditore(annuncio.getVenditore());
 
-        RecensioneDAO recensioneDAO = new RecensioneDAOJDBC(DBManager.getInstance().getConnection());
-        List<Recensione> recensione = recensioneDAO.findByUtente(autore.getUsername());
+            List<Recensione> recensioni = annuncioProxy.getRecensioni();
 
-        for (Recensione rec : recensione) {
-            System.out.println(rec.getAutore().getUsername());
-            System.out.println(rec.getTesto());
-            System.out.println(rec.getID());
+            for (Recensione recensione : recensioni) {
+                System.out.println("Scritta da: " + recensione.getAutore().getUsername());
+                System.out.println("E dice: " + recensione.getTesto());
+            }
         }
-        */
-
-        //TEST RECENSIONE DAO - findByAnnuncio
-
-        /*
-        RecensioneDAO recensioneDAO = new RecensioneDAOJDBC(DBManager.getInstance().getConnection());
-        List<Recensione> recensioni = recensioneDAO.findByAnnuncio(1);
-
-        for (Recensione rec : recensioni) {
-            System.out.println(rec.getAutore().getUsername());
-            System.out.println(rec.getTesto());
-            System.out.println(rec.getID());
-        }
-         */
-
-
-        //TEST RECENSIONE DAO - save
-
-        Utente autore = new Utente();
-        autore.setUsername("giupeppe");
-        Recensione recensione = new Recensione();
-        recensione.setAutore(autore);
-        recensione.setTesto("SPETTACOLARE MAMMA MIA ");
-        recensione.
-
-
-
-
-
     }
 }

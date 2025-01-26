@@ -1,4 +1,4 @@
-package unical.demacs.backend.persistence.DAO;
+package unical.demacs.backend.persistence.DAO.interfaces;
 
 import unical.demacs.backend.model.Recensione;
 
