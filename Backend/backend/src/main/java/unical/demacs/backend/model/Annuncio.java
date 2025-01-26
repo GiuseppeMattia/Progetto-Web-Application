@@ -17,6 +17,16 @@ public class Annuncio {
     private Float prezzoScontato = null;    //
     private Utente venditore;
 
+    public List<Recensione> getRecensioni() {
+        return recensioni;
+    }
+
+    public void setRecensioni(List<Recensione> recensioni) {
+        this.recensioni = recensioni;
+    }
+
+    protected List<Recensione> recensioni = null;
+
     public Categoria getCategoria() {
         return categoria;
     }
@@ -41,8 +51,6 @@ public class Annuncio {
         this.modello = modello;
     }
 
-    protected List<Recensione> recensioni = null;
-
     public int getID() {
         return ID;
     }
@@ -50,11 +58,6 @@ public class Annuncio {
     public void setID(int ID) {
         this.ID = ID;
     }
-
-    public List<Recensione> getRecensioni() {
-        return recensioni;
-    }
-
 
     public float getPrezzo() {
         return prezzo;

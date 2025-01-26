@@ -4,10 +4,7 @@ import unical.demacs.backend.persistence.DAO.JDBC.AnnuncioDAOJDBC;
 import unical.demacs.backend.persistence.DAO.JDBC.CategoriaDAOJDBC;
 import unical.demacs.backend.persistence.DAO.JDBC.RecensioneDAOJDBC;
 import unical.demacs.backend.persistence.DAO.JDBC.UtenteDAOJDBC;
-import unical.demacs.backend.persistence.DAO.interfaces.AnnuncioDAO;
-import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
-import unical.demacs.backend.persistence.DAO.interfaces.RecensioneDAO;
-import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
+import unical.demacs.backend.persistence.DAO.interfaces.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,13 +15,12 @@ public class DBManager {
     private static DBManager instance = null;
     private Connection connection = null;
 
-    //HO UNA SERIE DI DAO, TUTTI QUA IN DBMANAGER, CHE VENGONO UTILIZZATI (SE MI SERVOMO) ALL'INTERNO DEGLI ALTRI DAO
+    //HO UNA SERIE DI DAO, TUTTI QUA IN DBMANAGER, CHE VENGONO UTILIZZATI (SE MI SERVONO) ALL'INTERNO DEGLI ALTRI DAO
 
     private AnnuncioDAO annuncioDAO = null;
     private RecensioneDAO recensioneDAO = null;
     private UtenteDAO utenteDAO = null;
     private CategoriaDAO categoriaDAO = null;
-
 
     public AnnuncioDAO getAnnuncioDAO() {
         if(annuncioDAO == null) {
@@ -47,12 +43,14 @@ public class DBManager {
         return utenteDAO;
     }
 
+
     public CategoriaDAO getCategoriaDAO() {
         if(categoriaDAO == null) {
             categoriaDAO = new CategoriaDAOJDBC(connection);
         }
         return categoriaDAO;
     }
+
 
     private DBManager() {}
 
@@ -66,8 +64,7 @@ public class DBManager {
     public Connection getConnection() {
         if(this.connection == null){
             try{
-
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/DeMaCSzon", "postgres", "rullo");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/DeMaCSzon", "postgres", "bruno");
             }
             catch (SQLException e){
                 throw new RuntimeException(e);

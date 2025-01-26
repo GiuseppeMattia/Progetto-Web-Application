@@ -45,8 +45,8 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
                 Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("venditore"));
                 annuncio.setVenditore(utente);
 
-                Categoria categoria = DBManager.getInstance().getCategoriaDAO().getByID(resultSet.getInt("id_categoria"));
-                annuncio.setCategoria(categoria);
+                //Categoria categoria = DBManager.getInstance().getCategoriaDAO().getByID(resultSet.getInt("id_categoria"));
+                //annuncio.setCategoria(categoria);
 
                 annunci.add(annuncio);
             }

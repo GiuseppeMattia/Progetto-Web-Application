@@ -2,7 +2,6 @@ package unical.demacs.backend.persistence.DAO.JDBC;
 
 import unical.demacs.backend.model.Utente;
 import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

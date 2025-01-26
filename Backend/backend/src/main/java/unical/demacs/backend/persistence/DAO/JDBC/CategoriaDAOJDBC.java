@@ -2,6 +2,7 @@ package unical.demacs.backend.persistence.DAO.JDBC;
 
 import unical.demacs.backend.model.Categoria;
 import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
+//import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,14 +13,14 @@ import java.util.List;
 
 public class CategoriaDAOJDBC implements CategoriaDAO {
 
-    private Connection connection;
+    private final Connection connection;
 
     public CategoriaDAOJDBC(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public List<Categoria> getAll() {
+    public List<Categoria> findAll() {
         String query = "SELECT * FROM categoria";
 
         try(PreparedStatement statement = connection.prepareStatement(query)) {
@@ -39,11 +40,10 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
             e.printStackTrace();
         }
         return null;
-
     }
 
     @Override
-    public Categoria getByID(int id) {
+    public Categoria findById(int id) {
         String query = "SELECT * FROM categoria WHERE id = ?";
 
         try(PreparedStatement statement = connection.prepareStatement(query)) {
@@ -61,6 +61,10 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
             e.printStackTrace();
         }
         return null;
+    }
 
+    @Override
+    public Categoria findByName(String nome) {
+        return null;
     }
 }
