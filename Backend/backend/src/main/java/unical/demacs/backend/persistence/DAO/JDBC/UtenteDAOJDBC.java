@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UtenteDAOJDBC implements UtenteDAO {
 
@@ -15,6 +17,31 @@ public class UtenteDAOJDBC implements UtenteDAO {
         this.connection = connection;
     }
 
+    //TESTATA E FUNZIONA
+    @Override
+    public List<Utente> findAll() {
+        String query = "SELECT * FROM utente";
+        List<Utente> utenti = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Utente utente = new Utente();
+                utente.setAmministratore(resultSet.getBoolean("amministratore"));
+                utente.setEmail(resultSet.getString("email"));
+                utente.setPassword(resultSet.getString("password"));
+                utente.setUsername(resultSet.getString("username"));
+                utente.setTipo(resultSet.getBoolean("tipo"));
+                utenti.add(utente);
+            }
+
+            return utenti;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     //TESTATA E FUNZIONA
     @Override
@@ -57,6 +84,26 @@ public class UtenteDAOJDBC implements UtenteDAO {
             statement.setString(4, utente.getEmail());
             statement.setBoolean(5, utente.getAmministratore());
             statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    // TESTATA E FUNZIONA
+    @Override
+    public void update(Utente utente, boolean amministratore) {
+
+        //NOTA - LA FUNZIONE UPDATE SERVE SOLAMENTE PER SETTARLO (O MENO) AD AMMINISTRATORE, NIENT'ALTRO
+
+        String query = "UPDATE utente SET amministratore = ? WHERE username = ?";
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setBoolean(1, amministratore);
+            preparedStatement.setString(2, utente.getUsername());
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

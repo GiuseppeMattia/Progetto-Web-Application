@@ -89,4 +89,15 @@ public class Utente {
     public void setAnnunciEffettuati(List<Annuncio> annunciEffettuati) {
         this.annunciEffettuati = annunciEffettuati;
     }
+
+    @Override
+    public String toString() {
+        return "Utente{" +
+                "username='" + username + '\'' +
+                ", tipo=" + tipo +
+                ", amministratore=" + amministratore +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

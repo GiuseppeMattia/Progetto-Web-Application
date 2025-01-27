@@ -38,4 +38,14 @@ public class Recensione {
     public void setAnnuncio(Annuncio annuncio) {
         this.annuncio = annuncio;
     }
+
+    @Override
+    public String toString() {
+        return "Recensione{" +
+                "ID=" + ID +
+                ", testo='" + testo + '\'' +
+                ", autore=" + autore.getUsername() +
+                ", annuncio=" + annuncio +
+                '}';
+    }
 }
