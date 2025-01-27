@@ -1,1 +1,21 @@
-<p>profilo works!</p>
+<h1>Benvenuto nel tuo profilo, {{utente.username}}</h1>
+<div *ngIf="utente.type; else schermataAcquirente">
+  <ul>
+    <li><a routerLink="/create">Crea un nuovo annuncio</a></li>
+    <li>Gestisci i tuoi annunci</li>
+    <li>Gestisci le tue aste</li>
+  </ul>
+</div>
+<ng-template #schermataAcquirente>
+  <ul>
+    <li>Cerca gli annunci che fanno al caso tuo</li>
+    <li>Visualizza le aste in corso</li>
+  </ul>
+</ng-template>
+<div *ngIf="utente.admin">
+  <h5>Pannello amministratore</h5>
+  <ul>
+    <li><a routerLink="/users">Gestione Utenti</a></li>
+  </ul>
+</div>
+<router-outlet></router-outlet>

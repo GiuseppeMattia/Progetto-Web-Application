@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-crea',
@@ -14,6 +15,9 @@ import {NgForOf} from '@angular/common';
 })
 export class CreaComponent {
   categoriaScelta: number | null =null;
+
+  constructor(private router: Router) {}
+
   //per adesso hard-coded, l'idea è quella di popolarlo chiamando il back
   categorie=[
     {id:0, nome:"Display"},
@@ -44,5 +48,8 @@ export class CreaComponent {
         }
       }
     });
+  }
+  back(){
+    this.router.navigate(["/profile"])
   }
 }

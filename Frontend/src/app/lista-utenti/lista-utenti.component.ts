@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {UserModel} from '../modelli/userModel';
 import {NgForOf} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-lista-utenti',
@@ -19,6 +20,8 @@ export class ListaUtentiComponent {
     new UserModel("Watcher",false,"guardo@prova.it",true),
     new UserModel("Joel",true,"joelOriginal@prova.it",true)
   ]
+  constructor(private router: Router) {
+  }
   ban(utente: UserModel){
     //chiamata al back per bannare l'utente
     console.log("Utente bannato!")
@@ -30,5 +33,8 @@ export class ListaUtentiComponent {
     }
     //chiamata al back per promuovere un utente ad amministratore
     console.log("Utente promosso")
+  }
+  back(){
+    this.router.navigate(["/profile"])
   }
 }
