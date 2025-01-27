@@ -11,6 +11,4 @@ import {RouterLink, RouterOutlet} from "@angular/router";
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
-export class HomepageComponent {
-
-}
+export class HomepageComponent {}
