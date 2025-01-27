@@ -2,7 +2,6 @@ package unical.demacs.backend.persistence.DAO.JDBC;
 
 import unical.demacs.backend.model.Categoria;
 import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
-//import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,22 +18,24 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
         this.connection = connection;
     }
 
+
+    //TESTATA E FUNZIONA
     @Override
     public List<Categoria> findAll() {
         String query = "SELECT * FROM categoria";
 
         try(PreparedStatement statement = connection.prepareStatement(query)) {
             List<Categoria> categorie = new ArrayList<>();
-
             ResultSet resultSet = statement.executeQuery();
 
             while(resultSet.next()) {
                 Categoria categoria = new Categoria();
-
                 categoria.setID(resultSet.getInt("id"));
                 categoria.setNome(resultSet.getString("nome"));
                 categorie.add(categoria);
             }
+
+            return categorie;
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -42,6 +43,8 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
         return null;
     }
 
+
+    //TESTATA E FUNZIONA
     @Override
     public Categoria findById(int id) {
         String query = "SELECT * FROM categoria WHERE id = ?";
@@ -49,7 +52,8 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
         try(PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()) {
+
+            if(resultSet.next()) {
                 Categoria categoria = new Categoria();
 
                 categoria.setID(resultSet.getInt("id"));
@@ -63,8 +67,30 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
         return null;
     }
 
+
+    //TESTATA E FUNZIONA
     @Override
     public Categoria findByName(String nome) {
-        return null;
+
+        String query = "SELECT * FROM categoria WHERE nome = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, nome);
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                Categoria categoria = new Categoria();
+                categoria.setID(resultSet.getInt("id"));
+                categoria.setNome(resultSet.getString("nome"));
+                return categoria;
+            }
+
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
