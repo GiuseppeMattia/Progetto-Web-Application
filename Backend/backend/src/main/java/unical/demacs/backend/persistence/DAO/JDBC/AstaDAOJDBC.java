@@ -22,8 +22,6 @@ public class AstaDAOJDBC implements AstaDAO {
         this.connection = connection;
     }
 
-
-
     //TESTATA E FUNZIONA
     @Override
     public List<Asta> findAll() {
@@ -31,23 +29,12 @@ public class AstaDAOJDBC implements AstaDAO {
         List<Asta> aste = new ArrayList<>();
 
         try {
+
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
-                Asta asta = new Asta();
-                Utente acquirente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("acquirente"));
-                asta.setAcquirente(acquirente);
-                //FARE LA CHIAMATA AL DAO PER TROVARE L'ANNUNCIO
-
-                //
-
-                // TO DO
-
-                //
-                asta.setPrezzo(resultSet.getInt("prezzo"));
-                asta.setTerminated(resultSet.getBoolean("terminata"));
-                asta.setID(resultSet.getInt("id"));
-                aste.add(asta);
+                aste.add(buildAstaFromResultSet(resultSet));
             }
 
             return aste;
@@ -68,21 +55,9 @@ public class AstaDAOJDBC implements AstaDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
+
             if (resultSet.next()) {
-                Asta asta = new Asta();
-                Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("acquirente"));
-                //AGGIUNGERE ANNUNCIO UTILIZZANDO IL DAO
-
-                //
-
-                // TO DO
-
-                //
-                asta.setAcquirente(utente);
-                asta.setPrezzo(resultSet.getInt("prezzo"));
-                asta.setTerminated(resultSet.getBoolean("terminata"));
-                asta.setID(resultSet.getInt("id"));
-                return asta;
+                return buildAstaFromResultSet(resultSet);
             }
 
             return null;
@@ -100,23 +75,13 @@ public class AstaDAOJDBC implements AstaDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, annuncio.getID());
             ResultSet resultSet = statement.executeQuery();
+
             if (resultSet.next()) {
-                Asta asta = new Asta();
-                Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("acquirente"));
-                //AGGIUNGERE ANNUNCIO UTILIZZANDO IL DAO
-
-                //
-
-                // TO DO
-
-                //
-                asta.setAcquirente(utente);
-                asta.setPrezzo(resultSet.getInt("prezzo"));
-                asta.setTerminated(resultSet.getBoolean("terminata"));
-                asta.setID(resultSet.getInt("id"));
-                return asta;
+                return buildAstaFromResultSet(resultSet);
             }
+
             return null;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -136,21 +101,7 @@ public class AstaDAOJDBC implements AstaDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Asta asta = new Asta();
-                Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("acquirente"));
-                //AGGIUNGERE ANNUNCIO UTILIZZANDO IL DAO
-
-                //
-
-                // TO DO
-
-                //
-                asta.setAcquirente(utente);
-                asta.setPrezzo(resultSet.getInt("prezzo"));
-                asta.setTerminated(resultSet.getBoolean("terminata"));
-                asta.setID(resultSet.getInt("id"));
-
-                aste.add(asta);
+                aste.add(buildAstaFromResultSet(resultSet));
             }
 
             return aste;
@@ -176,23 +127,11 @@ public class AstaDAOJDBC implements AstaDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Asta asta = new Asta();
-                //AGGIUNGERE ANNUNCIO UTILIZZANDO IL DAO
-
-                //
-
-                // TO DO
-
-                //
-                asta.setAcquirente(utente);
-                asta.setPrezzo(resultSet.getInt("prezzo"));
-                asta.setTerminated(resultSet.getBoolean("terminata"));
-                asta.setID(resultSet.getInt("id"));
-
-                aste.add(asta);
-
+                aste.add(buildAstaFromResultSet(resultSet));
             }
+
             return aste;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -209,24 +148,13 @@ public class AstaDAOJDBC implements AstaDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, venditore.getUsername());
             ResultSet resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
-                Asta asta = new Asta();
-                Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("acquirente"));
-                //AGGIUNGERE ANNUNCIO UTILIZZANDO IL DAO
-
-                //
-
-                // TO DO
-
-                //
-                asta.setAcquirente(utente);
-                asta.setPrezzo(resultSet.getInt("prezzo"));
-                asta.setTerminated(resultSet.getBoolean("terminata"));
-                asta.setID(resultSet.getInt("id"));
-
-                aste.add(asta);
+                aste.add(buildAstaFromResultSet(resultSet));
             }
+
             return aste;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -297,6 +225,17 @@ public class AstaDAOJDBC implements AstaDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    private Asta buildAstaFromResultSet(ResultSet resultSet) throws SQLException {
+        Asta asta = new Asta();
+        Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("acquirente"));
+        Annuncio annuncio = DBManager.getInstance().getAnnuncioDAO().findById(resultSet.getInt("id_annuncio"));
+        asta.setAcquirente(utente);
+        asta.setAnnuncio(annuncio);
+        asta.setPrezzo(resultSet.getInt("prezzo"));
+        asta.setTerminated(resultSet.getBoolean("terminata"));
+        asta.setID(resultSet.getInt("id"));
+        return asta;
     }
 }

@@ -1,5 +1,6 @@
 package unical.demacs.backend.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -16,6 +17,8 @@ public class Annuncio {
     private String titolo;  //
     private Float prezzoScontato = null;    //
     private Utente venditore;
+    protected List<Recensione> recensioni = null;
+
 
     public List<Recensione> getRecensioni() {
         return recensioni;
@@ -25,7 +28,21 @@ public class Annuncio {
         this.recensioni = recensioni;
     }
 
-    protected List<Recensione> recensioni = null;
+    @Override
+    public String toString() {
+        return "Annuncio{" +
+                "ID=" + ID +
+                ", categoria=" + categoria +
+                ", marca='" + marca + '\'' +
+                ", modello='" + modello + '\'' +
+                ", prezzo=" + prezzo +
+                ", descrizione='" + descrizione + '\'' +
+                // ", foto=" + Arrays.toString(foto) +
+                ", titolo='" + titolo + '\'' +
+                ", prezzoScontato=" + prezzoScontato +
+                ", venditore=" + venditore +
+                '}';
+    }
 
     public Categoria getCategoria() {
         return categoria;

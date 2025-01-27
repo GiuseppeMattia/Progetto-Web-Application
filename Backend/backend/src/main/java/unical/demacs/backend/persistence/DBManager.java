@@ -1,9 +1,7 @@
 package unical.demacs.backend.persistence;
 
-import unical.demacs.backend.persistence.DAO.JDBC.AnnuncioDAOJDBC;
-import unical.demacs.backend.persistence.DAO.JDBC.CategoriaDAOJDBC;
-import unical.demacs.backend.persistence.DAO.JDBC.RecensioneDAOJDBC;
-import unical.demacs.backend.persistence.DAO.JDBC.UtenteDAOJDBC;
+import unical.demacs.backend.model.Asta;
+import unical.demacs.backend.persistence.DAO.JDBC.*;
 import unical.demacs.backend.persistence.DAO.interfaces.*;
 
 import java.sql.Connection;
@@ -21,6 +19,14 @@ public class DBManager {
     private RecensioneDAO recensioneDAO = null;
     private UtenteDAO utenteDAO = null;
     private CategoriaDAO categoriaDAO = null;
+    private AstaDAO astaDAO = null;
+
+    public AstaDAO getAstaDAO() {
+        if(astaDAO == null) {
+            astaDAO = new AstaDAOJDBC(connection);
+        }
+        return astaDAO;
+    }
 
     public AnnuncioDAO getAnnuncioDAO() {
         if(annuncioDAO == null) {

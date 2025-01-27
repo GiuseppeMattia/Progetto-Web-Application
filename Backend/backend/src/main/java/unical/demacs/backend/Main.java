@@ -1,14 +1,9 @@
 package unical.demacs.backend;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import unical.demacs.backend.model.*;
 import unical.demacs.backend.persistence.DAO.JDBC.*;
 
-import unical.demacs.backend.persistence.DAO.Proxy.AnnuncioProxy;
-import unical.demacs.backend.persistence.DAO.interfaces.AstaDAO;
-import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
-import unical.demacs.backend.persistence.DAO.interfaces.RecensioneDAO;
-import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
+import unical.demacs.backend.persistence.DAO.interfaces.*;
 import unical.demacs.backend.persistence.DBManager;
 
 import java.util.List;
@@ -16,8 +11,133 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        //TEST Annuncio DAO - findAnnuncioByTitoloAndCategoria
+
+        /*
+        Categoria categoria = new Categoria();
+        categoria.setID(1);
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        List<Annuncio> annunci = annuncioDAO.findAnnuncioByTitoloAndCategoria("Apple iPhone 15", categoria);
+
+        for (Annuncio annuncio : annunci) {
+            System.out.println(annuncio);
+        }
+
+         */
+
+
+        //TEST Annuncio DAO - findAnnuncioByCategoria
+
+        /*
+        Categoria categoria = new Categoria();
+        categoria.setID(2);
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        List<Annuncio> annunci = annuncioDAO.findAnnuncioByCategoria(categoria);
+
+        for (Annuncio annuncio : annunci) {
+            System.out.println(annuncio);
+        }
+         */
+
+        //TEST Annuncio DAO - findAnnuncioByTitolo
+
+        /*
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        List<Annuncio> annunci = annuncioDAO.findAnnuncioByTitolo("Apple iPhone 15");
+
+        for (Annuncio annuncio : annunci) {
+            System.out.println(annuncio);
+        }
+
+         */
+
+        //TEST Annuncio DAO - delete
+
+        /*
+        Annuncio annuncio = new Annuncio();
+        annuncio.setID(1);
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        annuncioDAO.delete(annuncio);
+         */
+
+        //TEST Annuncio DAO - save
+
+        /*
+        Utente utente = new Utente();
+        utente.setUsername("Ciccio");
+        Categoria categoria = new Categoria();
+        categoria.setID(1);
+        byte[] b = {100, 100};
+        Annuncio annuncio = new Annuncio();
+        annuncio.setModello("iPhone 15");
+        annuncio.setMarca("Apple");
+        annuncio.setDescrizione("Apple iPhone 15");
+        annuncio.setFoto(b);
+        annuncio.setTitolo("Apple iPhone 15");
+        annuncio.setVenditore(utente);
+        annuncio.setPrezzo(1000);
+        annuncio.setCategoria(categoria);
+
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        annuncioDAO.save(annuncio);
+         */
+
+        //TEST Annuncio DAO - update
+
+        /*
+        Annuncio annuncio = new Annuncio();
+        annuncio.setID(1);
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        annuncioDAO.update(annuncio, 900);
+         */
+
+
+        //TEST Annuncio DAO - findByCategoria
+
+        /*
+        Categoria categoria = new Categoria();
+        categoria.setID(2);
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        List<Annuncio> annunci = annuncioDAO.findByCategoria(categoria);
+
+        for (Annuncio annuncio : annunci) {
+            System.out.println(annuncio);
+        }
+         */
+
+        //TEST Annuncio DAO - findByUsernameUtente
+
+        /*
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        List<Annuncio> annunci = annuncioDAO.findByUsername("Ciccio");
+        for (Annuncio annuncio : annunci) {
+            System.out.println(annuncio);
+        }
+         */
+
+
+
+        //TEST Annuncio DAO - findById
+
+        /*
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        Annuncio annuncio = annuncioDAO.findById(2);
+        System.out.println(annuncio);
+         */
+
+        //TEST Annuncio DAO - finAll
+
+        /*
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        List<Annuncio> annunci = annuncioDAO.findAll();
+        for (Annuncio annuncio : annunci) {
+            System.out.println(annuncio);
+        }
+         */
+
         //TEST Asta DAO - findByUtenteVenditore
 
+        /*
         Utente utente = new Utente();
         utente.setUsername("Ciccio");
 
@@ -26,6 +146,7 @@ public class Main {
         for (Asta asta : aste) {
             System.out.println(asta);
         }
+         */
 
         //TEST Asta DAO - findByAnnuncio
 
@@ -79,17 +200,17 @@ public class Main {
 
         //TEST Asta DAO - findByUtenteAcquirente
 
-        /*
+
         Utente utente = new Utente();
-        utente.setUsername("Franco");
+        utente.setUsername("Domenico");
 
         AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
-        List<Asta> aste = astaDAO.findByUtente(utente, false);
+        List<Asta> aste = astaDAO.findByUtenteAcquirente(utente, true);
 
         for (Asta asta : aste) {
             System.out.println(asta);
         }
-         */
+
 
 
 
@@ -274,12 +395,6 @@ public class Main {
         UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
         utenteDAO.update(utente,  true);
          */
-
-
-
-
-
-
 
     }
 }
