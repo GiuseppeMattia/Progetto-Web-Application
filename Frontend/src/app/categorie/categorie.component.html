@@ -1,9 +1,6 @@
 <div>
-  <h1>Su DeMaCSZon puoi trovare prodotti di queste categorie:</h1>
-  <li>
-    <ul>Telefoni</ul>
-    <ul>Computer</ul>
-    <ul>Schede</ul>
-    <ul>Display</ul>
-  </li>
+  <h3>Su DeMaCSZon puoi trovare prodotti di queste categorie:</h3>
+  <ul *ngFor="let categoria of categorie">
+    <li>{{categoria.nome}}</li>
+  </ul>
 </div>
