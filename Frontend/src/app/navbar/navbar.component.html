@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand" href="/">
+      <img src="test1logo.png" alt="DeMatSzon Logo">
+    </a>
+
+    <!-- User Menu -->
+    <div class="dropdown">
+      <div class="d-flex align-items-center" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="me-2" *ngIf="isLoggedIn">Benvenuto {{username}}</span>
+        <span class="me-2" *ngIf="!isLoggedIn">Accedi/Registrati</span>
+        <div class="rounded-circle bg-light p-2">
+          <i class="bi" [ngClass]="{'bi-person-circle': !isLoggedIn, 'bi-person-fill': isLoggedIn}"></i>
+        </div>
+      </div>
+
+      <!-- Dropdown Menu -->
+      <ul class="dropdown-menu dropdown-menu-end">
+        <ng-container *ngIf="isLoggedIn; else loginTemplate">
+          <li>
+            <button class="dropdown-item" (click)="goToMyListings()">
+              I miei annunci
+            </button>
+          </li>
+          <li>
+            <button class="dropdown-item" (click)="logout()">
+              Logout
+            </button>
+          </li>
+        </ng-container>
+        <ng-template #loginTemplate>
+          <li>
+            <a class="dropdown-item" [routerLink]="['/login']">Accedi</a>
+          </li>
+          <li>
+            <a class="dropdown-item" [routerLink]="['/register']">Registrati</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>
