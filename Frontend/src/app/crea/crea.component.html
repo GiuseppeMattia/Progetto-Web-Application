@@ -1,1 +1,21 @@
-<p>crea works!</p>
+<h1>Crea un nuovo annuncio</h1>
+<ng-form>
+ <p>Titolo annuncio <input type="text" name="Titolo"></p>
+  <p>Prezzo iniziale <input type="number" name="Prezzo"></p>
+  <p>Marca <input type="text" name="Marca"></p>
+  <p>Modello <input type="text" name="Modello"></p>
+  <p>Carica una foto dell'articolo <input type="file" accept="image/*" name="Foto" id="imageInput" (click)="validateImage()"></p>
+  <textarea name="Descrizione">Scrivi una descrizione</textarea>
+  <h6>Seleziona la categoria</h6>
+  <div *ngFor="let categoria of categorie">
+    <label>
+      <input
+        type="radio"
+        name="categoria"
+        [value]="categoria.id"
+        (change)="selectAnswer(categoria.id)"
+      /> {{categoria.nome}}
+    </label>
+  </div>
+  <button (click)="createAnnuncio()">Crea</button>
+</ng-form>
