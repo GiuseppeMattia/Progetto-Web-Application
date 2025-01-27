@@ -1,15 +1,11 @@
 package unical.demacs.backend;
 
-import unical.demacs.backend.model.Annuncio;
-import unical.demacs.backend.model.Categoria;
-import unical.demacs.backend.model.Recensione;
-import unical.demacs.backend.model.Utente;
-import unical.demacs.backend.persistence.DAO.JDBC.AnnuncioDAOJDBC;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import unical.demacs.backend.model.*;
+import unical.demacs.backend.persistence.DAO.JDBC.*;
 
-import unical.demacs.backend.persistence.DAO.JDBC.CategoriaDAOJDBC;
-import unical.demacs.backend.persistence.DAO.JDBC.RecensioneDAOJDBC;
-import unical.demacs.backend.persistence.DAO.JDBC.UtenteDAOJDBC;
 import unical.demacs.backend.persistence.DAO.Proxy.AnnuncioProxy;
+import unical.demacs.backend.persistence.DAO.interfaces.AstaDAO;
 import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
 import unical.demacs.backend.persistence.DAO.interfaces.RecensioneDAO;
 import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
@@ -20,12 +16,124 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        //TEST Asta DAO - findByUtenteVenditore
+
+        Utente utente = new Utente();
+        utente.setUsername("Ciccio");
+
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        List<Asta> aste = astaDAO.findBYUtenteVenditore(utente);
+        for (Asta asta : aste) {
+            System.out.println(asta);
+        }
+
+        //TEST Asta DAO - findByAnnuncio
+
+        /*
+        Annuncio annuncio = new Annuncio();
+        annuncio.setID(1);
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        Asta asta = astaDAO.findByAnnuncio(annuncio);
+
+        System.out.println(asta);
+         */
+
+
+        //TEST Asta DAO - save
+
+        /*
+        Annuncio annuncio = new Annuncio();
+        annuncio.setID(1);
+        Utente utente = new Utente();
+        utente.setUsername("Franco");
+
+        Asta asta = new Asta();
+        asta.setAcquirente(utente);
+        asta.setTerminated(false);
+        asta.setPrezzo(300);
+        asta.setAnnuncio(annuncio);
+
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        astaDAO.save(asta);
+        */
+
+        //TEST Asta DAO - delete
+
+        /*
+        Asta asta = new Asta();
+        asta.setID(1);
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        astaDAO.delete(asta);
+         */
+
+        //TEST Asta DAO - update
+
+        /*
+        Asta asta = new Asta();
+        asta.setID(1);
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        astaDAO.update(asta, 200);
+         */
+
+
+
+        //TEST Asta DAO - findByUtenteAcquirente
+
+        /*
+        Utente utente = new Utente();
+        utente.setUsername("Franco");
+
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        List<Asta> aste = astaDAO.findByUtente(utente, false);
+
+        for (Asta asta : aste) {
+            System.out.println(asta);
+        }
+         */
+
+
+
+        //TEST Asta DAO - findByCategoria
+
+        /*
+        Categoria categoria = new Categoria();
+        categoria.setNome("PC");
+        categoria.setID(2);
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        List<Asta> aste = astaDAO.findByCategoria(categoria);
+
+        for (Asta asta : aste) {
+            System.out.println(asta);
+        }
+         */
+
+        //TEST Asta DAO - findById
+
+        /*
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        Asta asta = astaDAO.findById(1);
+        System.out.println(asta);
+         */
+
+
+
+        //TEST Asta DAO - findAll
+
+        /*
+        AstaDAO astaDAO = new AstaDAOJDBC(DBManager.getInstance().getConnection());
+        List<Asta> aste = astaDAO.findAll();
+        for (Asta asta : aste) {
+            System.out.println(asta.toString());
+        }
+         */
+
         //TEST Categoria DAO - findByName
 
+        /*
         CategoriaDAO categoriaDAO = new CategoriaDAOJDBC(DBManager.getInstance().getConnection());
         Categoria categoria = categoriaDAO.findByName("PC");
         System.out.println(categoria.toString());
-
+         */
 
 
         //TEST Categoria DAO - findById
