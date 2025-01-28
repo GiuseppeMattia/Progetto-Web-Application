@@ -23,28 +23,28 @@ public class DBManager {
 
     public AstaDAO getAstaDAO() {
         if(astaDAO == null) {
-            astaDAO = new AstaDAOJDBC(connection);
+            astaDAO = new AstaDAOJDBC(getConnection());
         }
         return astaDAO;
     }
 
     public AnnuncioDAO getAnnuncioDAO() {
         if(annuncioDAO == null) {
-            annuncioDAO = new AnnuncioDAOJDBC(connection);
+            annuncioDAO = new AnnuncioDAOJDBC(getConnection());
         }
         return annuncioDAO;
     }
 
     public RecensioneDAO getRecensioneDAO() {
         if(recensioneDAO == null) {
-            recensioneDAO = new RecensioneDAOJDBC(connection);
+            recensioneDAO = new RecensioneDAOJDBC(getConnection());
         }
         return recensioneDAO;
     }
 
     public UtenteDAO getUtenteDAO() {
         if(utenteDAO == null) {
-            utenteDAO = new UtenteDAOJDBC(connection);
+            utenteDAO = new UtenteDAOJDBC(getConnection());
         }
         return utenteDAO;
     }
@@ -52,7 +52,7 @@ public class DBManager {
 
     public CategoriaDAO getCategoriaDAO() {
         if(categoriaDAO == null) {
-            categoriaDAO = new CategoriaDAOJDBC(connection);
+            categoriaDAO = new CategoriaDAOJDBC(getConnection());
         }
         return categoriaDAO;
     }

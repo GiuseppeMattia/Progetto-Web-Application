@@ -3,6 +3,7 @@ package unical.demacs.backend;
 import unical.demacs.backend.model.*;
 import unical.demacs.backend.persistence.DAO.JDBC.*;
 
+import unical.demacs.backend.persistence.DAO.Proxy.UtenteProxy;
 import unical.demacs.backend.persistence.DAO.interfaces.*;
 import unical.demacs.backend.persistence.DBManager;
 
@@ -10,6 +11,13 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+        Utente venditore = new UtenteProxy();
+        venditore.setUsername("Ciccio");
+        List<Asta> aste = venditore.getAsteAttiveDaVenditore();
+        for (Asta asta : aste) {
+            System.out.println(asta);
+        }
 
         //TEST Annuncio DAO - findAnnuncioByTitoloAndCategoria
 
@@ -200,7 +208,7 @@ public class Main {
 
         //TEST Asta DAO - findByUtenteAcquirente
 
-
+        /*
         Utente utente = new Utente();
         utente.setUsername("Domenico");
 
@@ -210,6 +218,7 @@ public class Main {
         for (Asta asta : aste) {
             System.out.println(asta);
         }
+         */
 
 
 

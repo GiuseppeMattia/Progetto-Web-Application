@@ -17,6 +17,9 @@ public class Utente {
     protected List<Annuncio> annunciAttivi;
     //
 
+
+    //I GETTER DELLE LISTE ANDEREBBERO FATTI ASTRATTI? PERCHE TANTO VENGONO UTILIZZATI SOLO NEI PROXY
+
     public String getUsername() {
         return username;
     }

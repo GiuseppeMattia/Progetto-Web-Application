@@ -137,28 +137,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
 
     //TESTATA E FUNZIONA
     @Override
-    public List<Annuncio> findAnnuncioByCategoria(Categoria categoria) {
-        String query = "SELECT * FROM annuncio WHERE id_categoria=?";
-        List<Annuncio> annunci = new ArrayList<>();
-
-        try{
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, categoria.getID());
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-               annunci.add(buildAnnuncioFromResultSet(resultSet));
-            }
-
-            return annunci;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    //TESTATA E FUNZIONA
-    @Override
     public List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, Categoria categoria) {
         String query = "SELECT * FROM annuncio WHERE titolo=? AND id_categoria=?";
         List<Annuncio> annunci = new ArrayList<>();
