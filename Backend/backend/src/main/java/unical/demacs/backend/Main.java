@@ -12,12 +12,6 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        Utente venditore = new UtenteProxy();
-        venditore.setUsername("Ciccio");
-        List<Asta> aste = venditore.getAsteAttiveDaVenditore();
-        for (Asta asta : aste) {
-            System.out.println(asta);
-        }
 
         //TEST Annuncio DAO - findAnnuncioByTitoloAndCategoria
 
@@ -61,9 +55,10 @@ public class Main {
 
         //TEST Annuncio DAO - delete
 
+
         /*
         Annuncio annuncio = new Annuncio();
-        annuncio.setID(1);
+        annuncio.setID(4);
         AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
         annuncioDAO.delete(annuncio);
          */

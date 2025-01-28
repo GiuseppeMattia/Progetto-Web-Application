@@ -68,13 +68,13 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
 
     //TESTATA E FUNZIONANTE
     @Override
-    public List<Annuncio> findByUsernameUtente(String IDUtente) {
+    public List<Annuncio> findByUsernameUtente(String username) {
         String query = "SELECT * FROM annuncio WHERE venditore=?";
         List<Annuncio> annunci = new ArrayList<>();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, IDUtente);
+            statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -91,13 +91,13 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
 
     //TESTATA E FUNZIONA
     @Override
-    public List<Annuncio> findByCategoria(Categoria categoria) {
+    public List<Annuncio> findByCategoria(int idCategoria) {
         String query = "SELECT * FROM annuncio WHERE id_categoria=?";
         List<Annuncio> annunci = new ArrayList<>();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, categoria.getID());
+            statement.setInt(1, idCategoria);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -137,14 +137,14 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
 
     //TESTATA E FUNZIONA
     @Override
-    public List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, Categoria categoria) {
+    public List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, int idCategoria) {
         String query = "SELECT * FROM annuncio WHERE titolo=? AND id_categoria=?";
         List<Annuncio> annunci = new ArrayList<>();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, titolo);
-            statement.setInt(2, categoria.getID());
+            statement.setInt(2, idCategoria);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -204,6 +204,22 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
 
     @Override
     public void delete(Annuncio annuncio) {
+
+        //DEVO ELIMINARE ANCHE L'ASTA (SE ESISTE) E TUTTE LE RECENSIONI (SE ESISTONO) LEGATE A QUESTO ANNUNCIO
+
+        Asta astaDaEliminare = DBManager.getInstance().getAstaDAO().findByAnnuncio(annuncio.getID());
+        if(astaDaEliminare != null) {
+            DBManager.getInstance().getAstaDAO().delete(astaDaEliminare);
+        }
+
+        List<Recensione> recensioniDaELiminare = DBManager.getInstance().getRecensioneDAO().findByAnnuncio(annuncio.getID());
+        if(recensioniDaELiminare != null) {
+            for(Recensione r : recensioniDaELiminare) {
+                DBManager.getInstance().getRecensioneDAO().delete(r);
+            }
+        }
+
+        //A QUESTO PUNTO, L'ANNUNCIO NON E' COLLEGATO A NULLA, QUINDI LO POSSO ELIMINARE
 
         String query = "DELETE FROM annuncio WHERE id=?";
 

@@ -16,12 +16,12 @@ public class UtenteProxy extends Utente {
     }
 
     public List<Asta> getAsteAttiveDaAcquirente(){
-        asteAttiveDaAcquirente = DBManager.getInstance().getAstaDAO().findByUtenteAcquirente(this, false);
+        asteAttiveDaAcquirente = DBManager.getInstance().getAstaDAO().findByUtenteAcquirente(username, false);
         return asteAttiveDaAcquirente;
     }
 
     public List<Asta> getAsteAttiveDaVenditore(){
-        asteAttiveDaVenditore = DBManager.getInstance().getAstaDAO().findBYUtenteVenditore(this);
+        asteAttiveDaVenditore = DBManager.getInstance().getAstaDAO().findBYUtenteVenditore(username);
         return asteAttiveDaVenditore;
     }
 

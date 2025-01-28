@@ -10,10 +10,10 @@ import java.util.List;
 public interface IAstaService {
     List<Asta> findAll();                                                 //TROVA TUTTE LE ASTE ATTIVE
     Asta findById(int id);                                               //TROVA UNA SPECIFICA ASTA
-    Asta findByAnnuncio(Annuncio annuncio);
-    List<Asta> findByCategoria(Categoria categoria);                     //TROVA TUTTE LE ASTE DI UNA CATEGORIA SPECIFICA
-    List<Asta> findByUtenteAcquirente(Utente utente, boolean terminata);
-    List<Asta> findBYUtenteVenditore(Utente venditore);
+    Asta findByAnnuncio(int idAnnuncio);
+    List<Asta> findByCategoria(int idCategoria);                     //TROVA TUTTE LE ASTE DI UNA CATEGORIA SPECIFICA
+    List<Asta> findByUtenteAcquirente(String username, boolean terminata);
+    List<Asta> findBYUtenteVenditore(String username);
     void save(Asta asta);
     void update(Asta asta, float prezzo);
     void delete(Asta asta);

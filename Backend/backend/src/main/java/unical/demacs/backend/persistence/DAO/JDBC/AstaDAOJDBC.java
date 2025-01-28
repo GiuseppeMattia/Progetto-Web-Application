@@ -68,12 +68,12 @@ public class AstaDAOJDBC implements AstaDAO {
 
     //TESTATA E FUNZIONA
     @Override
-    public Asta findByAnnuncio(Annuncio annuncio) {
+    public Asta findByAnnuncio(int idAnnuncio) {
         String query = "SELECT * FROM asta WHERE id_annuncio = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, annuncio.getID());
+            statement.setInt(1, idAnnuncio);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
@@ -90,14 +90,14 @@ public class AstaDAOJDBC implements AstaDAO {
 
     //TESTATA E FUNZIONA
     @Override
-    public List<Asta> findByCategoria(Categoria categoria) {
+    public List<Asta> findByCategoria(int idCategoria) {
 
         String query = "SELECT * FROM asta, annuncio WHERE asta.id_annuncio = annuncio.id AND annuncio.id_categoria = ?";
         List<Asta> aste = new ArrayList<>();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, categoria.getID());
+            statement.setInt(1, idCategoria);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -115,14 +115,14 @@ public class AstaDAOJDBC implements AstaDAO {
 
     //TESTATA E FUNZIONA
     @Override
-    public List<Asta> findByUtenteAcquirente(Utente utente, boolean terminata) {
+    public List<Asta> findByUtenteAcquirente(String username, boolean terminata) {
 
         String query = "SELECT * FROM Asta WHERE acquirente = ? AND terminata = ?";
         List<Asta> aste = new ArrayList<>();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, utente.getUsername());
+            statement.setString(1, username);
             statement.setBoolean(2, terminata);
             ResultSet resultSet = statement.executeQuery();
 
@@ -140,13 +140,13 @@ public class AstaDAOJDBC implements AstaDAO {
 
     //TESTATA E FUNZIONA
     @Override
-    public List<Asta> findBYUtenteVenditore(Utente venditore) {
+    public List<Asta> findBYUtenteVenditore(String username) {
         String query = "SELECT * FROM asta, annuncio WHERE asta.id_annuncio = annuncio.id AND annuncio.venditore = ?";
         List<Asta> aste = new ArrayList<>();
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, venditore.getUsername());
+            statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

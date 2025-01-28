@@ -31,8 +31,8 @@ public class AnnuncioService implements IAnnuncioService {
     }
 
     @Override
-    public List<Annuncio> findByCategoria(Categoria categoria) {
-        return annuncioDAO.findByCategoria(categoria);
+    public List<Annuncio> findByCategoria(int idCategoria) {
+        return annuncioDAO.findByCategoria(idCategoria);
     }
 
     @Override
@@ -41,8 +41,8 @@ public class AnnuncioService implements IAnnuncioService {
     }
 
     @Override
-    public List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, Categoria categoria) {
-        return annuncioDAO.findAnnuncioByTitoloAndCategoria(titolo, categoria);
+    public List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, int idCategoria) {
+        return annuncioDAO.findAnnuncioByTitoloAndCategoria(titolo, idCategoria);
     }
 
     @Override

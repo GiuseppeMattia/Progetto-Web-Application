@@ -1,7 +1,11 @@
 package unical.demacs.backend.persistence.DAO.JDBC;
 
+import unical.demacs.backend.model.Annuncio;
+import unical.demacs.backend.model.Recensione;
 import unical.demacs.backend.model.Utente;
 import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
+import unical.demacs.backend.persistence.DBManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -126,6 +130,18 @@ public class UtenteDAOJDBC implements UtenteDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+        //DEVO ELIMINARE TUTTI I SUOI ANNUNCI
+
+        //NON ELIMINO LE SUE ASTE E LE SUE RECENSIONI PERCHE, QUANDO EFFETTUO LA DELETE NEGLI ANNUNCI
+        //ELIMINO ANCHE LE ASTE E LE RECENSIONI. QUINDI MI BASTA ELIMINARE SOLAMENTE GLI ANNUNCI IN QUESTO CASO
+
+        //TROVO GLI ANNUNCI DA ELIMINARE
+        List<Annuncio> annunciDaEliminare = DBManager.getInstance().getAnnuncioDAO().findByUsernameUtente(utente.getUsername());
+
+        for(Annuncio annuncio : annunciDaEliminare){
+            DBManager.getInstance().getAnnuncioDAO().delete(annuncio);
         }
 
     }
