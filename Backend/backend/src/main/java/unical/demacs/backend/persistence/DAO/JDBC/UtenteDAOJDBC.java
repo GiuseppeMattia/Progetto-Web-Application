@@ -3,6 +3,7 @@ package unical.demacs.backend.persistence.DAO.JDBC;
 import unical.demacs.backend.model.Annuncio;
 import unical.demacs.backend.model.Recensione;
 import unical.demacs.backend.model.Utente;
+import unical.demacs.backend.persistence.DAO.Proxy.UtenteProxy;
 import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
 import unical.demacs.backend.persistence.DBManager;
 
@@ -31,7 +32,7 @@ public class UtenteDAOJDBC implements UtenteDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Utente utente = new Utente();
+                Utente utente = new UtenteProxy();
                 utente.setAmministratore(resultSet.getBoolean("amministratore"));
                 utente.setEmail(resultSet.getString("email"));
                 utente.setPassword(resultSet.getString("password"));
@@ -58,7 +59,7 @@ public class UtenteDAOJDBC implements UtenteDAO {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                Utente utente = new Utente();
+                Utente utente = new UtenteProxy();
                 utente.setPassword(resultSet.getString("password"));
                 utente.setUsername(resultSet.getString("username"));
                 utente.setEmail(resultSet.getString("email"));

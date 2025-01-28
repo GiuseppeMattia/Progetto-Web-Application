@@ -1,6 +1,7 @@
 package unical.demacs.backend.persistence.DAO.JDBC;
 
 import unical.demacs.backend.model.*;
+import unical.demacs.backend.persistence.DAO.Proxy.AnnuncioProxy;
 import unical.demacs.backend.persistence.DAO.interfaces.AnnuncioDAO;
 import unical.demacs.backend.persistence.DBManager;
 
@@ -234,7 +235,7 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
     }
 
     private Annuncio buildAnnuncioFromResultSet(ResultSet resultSet) throws SQLException {
-        Annuncio annuncio = new Annuncio();
+        Annuncio annuncio = new AnnuncioProxy();
         Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("venditore"));
         annuncio.setVenditore(utente);
         annuncio.setID(resultSet.getInt("id"));
