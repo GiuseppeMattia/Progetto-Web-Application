@@ -70,6 +70,7 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
     //TESTATA E FUNZIONANTE
     @Override
     public List<Annuncio> findByUsernameUtente(String username) {
+
         String query = "SELECT * FROM annuncio WHERE venditore=?";
         List<Annuncio> annunci = new ArrayList<>();
 
@@ -116,6 +117,7 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
     //TESTATA E FUNZIONA
     @Override
     public List<Annuncio> findAnnuncioByTitolo(String titolo) {
+
         String query = "SELECT * FROM annuncio WHERE titolo=?";
         List<Annuncio> annunci = new ArrayList<>();
 

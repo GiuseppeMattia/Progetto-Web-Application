@@ -72,6 +72,9 @@ public class Annuncio {
         return ID;
     }
 
+
+    //QUESTA FUNZIONA VA TOLTA??
+    //L'ID E' AUTOINCREMENT SULLA BASE DI DATI, QUINDI IN TEORIA ANDREBBE TOLTO
     public void setID(int ID) {
         this.ID = ID;
     }
