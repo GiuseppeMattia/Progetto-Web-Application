@@ -1,3 +1,3 @@
 Pier->Login, Registrazione, AuthService, Navbar, Footer, CSS, Annuncio, ListaAnnunciAdmin,
   ListaAste,ListaAnnunci, Recensioni
-Io ->Categorie, Creazione Annuncio/Aste, Lista Utenti e Ban, Api Mail,Ricerca e Ordinamento, Profilo
+Io ->Categorie, Creazione Annuncio/Aste, Lista Utenti e Ban, Api Captcha,Ricerca e Ordinamento, Profilo
