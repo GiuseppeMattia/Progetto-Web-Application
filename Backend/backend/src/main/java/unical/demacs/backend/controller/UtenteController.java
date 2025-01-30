@@ -8,6 +8,8 @@ import unical.demacs.backend.persistence.DAO.JDBC.UtenteDAOJDBC;
 import unical.demacs.backend.persistence.DBManager;
 import unical.demacs.backend.services.impl.UtenteService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/utente")
 public class UtenteController {
@@ -65,5 +67,15 @@ public class UtenteController {
         }
     }
 
+    @GetMapping("/trovaTuttiUtenti")
+    public ResponseEntity<List<Utente>> trovaTuttiUtenti() {
+        List<Utente> utenti = utenteService.findAll();
+
+        if(utenti.isEmpty()) {
+            return ResponseEntity.status(401).body(null);
+        }
+
+        return ResponseEntity.ok(utenti);
+    }
 
 }
