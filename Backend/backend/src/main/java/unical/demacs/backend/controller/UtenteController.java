@@ -29,10 +29,15 @@ public class UtenteController {
     @GetMapping("/verificaUsername")
     public ResponseEntity<Boolean> verificaUsername(@RequestParam String username) {
 
-
-        //RITORNA OK SE E' STATO TROVATO UN UTENTE CON QUELLO USERNAME
-        Utente utente = utenteService.findByUsername(username);
-        return ResponseEntity.ok(utente != null);
+        try{
+            //SE NON CATTURO L'ECCEZIONE, QUESTO USERNAME APPARTIENE AD UN UTENTE
+            utenteService.findByUsername(username);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            //SE LA CATTURO, SIGNIFICA CHE NON ESISTE UN UTENTE CON UNO USERNAME
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(400).body(false);
+        }
 
     }
 
@@ -40,63 +45,66 @@ public class UtenteController {
     //ANCHE QUESTA FUNZIONE (validaUtente), HA SENSO FARLA?
     //IN TEORIA, LATO front-end, POTREI FARE UNA CHIAMATA ALLA FUNZIONE trovaUtenteByUsername
     //E, DOPO AVER RICEVUTO L'UTENTE, VERIFICARE SE LE CREDENZIALI SONO CORRETTE.
-    //COSA E' PIU CORRETTO???
+    //COSA è PIU CORRETTO?
 
-    //DA MODIFICARE
-    //NON PASSARE (NON PASSARE) LA PASSWORD COME PARAMETRO.             MODIFICA MODIFICA
+    //UTILIZZO UNA @RequestBody ANCHE SE MI SERVONO SOLO username E password PER NON PASSARE
+    // LA PASSWORD IN CHIARO NELL'URL
     @GetMapping("/valida")
-    public ResponseEntity<Boolean> validaUtente(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<Boolean> validaUtente(@RequestBody Utente utente) {
 
-        Utente utente = utenteService.findByUsername(username);
-        if(utente == null) {
-            //SE L'UTENTE NON ESISTE PROPRIO, C'E' UN ERRORE
-            return ResponseEntity.status(401).body(false);
-        } else{
-            //SE L'UTENTE ESISTE, E LA PASSWORD E' QUELLA, VA BENE
-            //ALTRIMENTI, C'E' UN ERRORE
-            if(utente.getPassword().equals(password)) {
-                return ResponseEntity.ok(true);
-            } else{
+        try{
+
+            if(utenteService.findByUsername(utente.getUsername()).getPassword() != utente.getPassword()) {
                 return ResponseEntity.status(401).body(false);
             }
+
+            return ResponseEntity.ok(true);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(false);
         }
 
     }
+
 
     @GetMapping("/trovaByUsername")
     public ResponseEntity<Utente> trovaUtenteByUsername(@RequestParam String username) {
 
-        Utente utente = utenteService.findByUsername(username);
-
-        if(utente == null) {
-            return ResponseEntity.status(401).body(null);
+        try{
+            Utente utente = utenteService.findByUsername(username);
+            return ResponseEntity.ok(utente);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
-
-        return ResponseEntity.ok(utente);
     }
 
     @GetMapping("/trovaTutti")
     public ResponseEntity<List<Utente>> trovaTuttiUtenti() {
-        List<Utente> utenti = utenteService.findAll();
 
-        if(utenti.isEmpty()) {
-            return ResponseEntity.status(204).body(null);
+        try{
+            List<Utente> utenti = utenteService.findAll();
+            return ResponseEntity.ok(utenti);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
 
-        return ResponseEntity.ok(utenti);
     }
 
     @PostMapping("/crea")
     public ResponseEntity<Boolean> creaUtente(@RequestBody Utente utente) {
-        Utente daTrovare = utenteService.findByUsername(utente.getUsername());
 
-        if(daTrovare == null) {
-            //SE L'UTENTE CON QUELLO USERNAME NON ESISTE GIA, LO POSSO SALVARE
+        try{
+
             utenteService.save(utente);
             return ResponseEntity.ok(true);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(false);
         }
-        //ALTRIMENTI, DO UN ERRORE
-        return ResponseEntity.status(401).body(false);
 
     }
 
@@ -104,33 +112,27 @@ public class UtenteController {
     //PRENDO UN UTENTE NEL BODY, E PER SEMPLICITA, PRENDO UN PARAMETRO NELL'URL CHE RAPPRESENTA IL Boolean amministratore
     @PostMapping("/aggiorna")
     public ResponseEntity<Boolean> aggiornaUtente(@RequestBody Utente utente, @RequestParam Boolean amministratore) {
-        Utente daTrovare = utenteService.findByUsername(utente.getUsername());
 
-        if(daTrovare == null) {
-            //SE NON TROVO L'UTENTE DA AGGIORNARE, DO UN 404 NOT FOUND
+        try{
+            utenteService.update(utente, amministratore);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(404).body(false);
         }
-
-        if(daTrovare.getAmministratore() == amministratore) {
-            //IL CODICE DI ERRORE 409 INDICA CHE LA RICHIESTA E' IN CONFLITTO
-            return ResponseEntity.status(409).body(false);
-        }
-
-        utenteService.update(utente, amministratore);
-        return ResponseEntity.ok(true);
     }
 
 
     @PostMapping("/elimina")
     public ResponseEntity<Boolean> eliminaUtente(@RequestBody Utente utente) {
-        Utente daTrovare = utenteService.findByUsername(utente.getUsername());
-        if(daTrovare == null) {
-            //NON POSSO ELIMINARE UN UTENTE CHE NON ESISTE
+
+        try{
+            utenteService.delete(utente);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(404).body(false);
         }
-
-        utenteService.delete(utente);
-        return ResponseEntity.ok(true);
     }
 
 }

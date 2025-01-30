@@ -6,6 +6,7 @@ import unical.demacs.backend.persistence.DBManager;
 import unical.demacs.backend.services.interfaces.IUtenteService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class UtenteService implements IUtenteService {
 
@@ -16,28 +17,42 @@ public class UtenteService implements IUtenteService {
     }
 
     @Override
-    public List<Utente> findAll() {
-        return utenteDAO.findAll();
+    public List<Utente> findAll(){
+
+        List<Utente> utenti =  utenteDAO.findAll();
+
+        if (utenti.isEmpty()) {
+            throw new NoSuchElementException("Lista vuota");
+        }
+
+        return utenti;
+
     }
 
     @Override
-    public Utente findByUsername(String username) {
+    public Utente findByUsername(String username){
+
+        checkUtenteSeEsiste(username);
         return utenteDAO.findByUsername(username);
     }
 
     @Override
-    public void save(Utente utente) {
+    public void save(Utente utente){
 
-        Utente toFind = DBManager.getInstance().getUtenteDAO().findByUsername(utente.getUsername());
-        if (toFind != null) {
-            System.out.println(utente.getUsername() + " esiste gia");
+        Utente daTrovare = DBManager.getInstance().getUtenteDAO().findByUsername(utente.getUsername());
+
+        if (daTrovare != null) {
             throw new IllegalArgumentException("L'utente " + utente.getUsername() + " esiste gia.");
         }
+
         utenteDAO.save(utente);
     }
 
     @Override
-    public void update(Utente utente, boolean amministratore) {
+    public void update(Utente utente, boolean amministratore){
+
+        checkUtenteSeEsiste(utente.getUsername());
+
         if(utente.getAmministratore()){
             throw new IllegalArgumentException("L'utente " + utente.getUsername() + " è gia amministratore");
         }
@@ -47,8 +62,19 @@ public class UtenteService implements IUtenteService {
 
     @Override
     public void delete(Utente utente) {
+
+        checkUtenteSeEsiste(utente.getUsername());
+
         // NON FACCIO NESSUN CONTROLLO RIGUARDO AL FATTO CHE UN UTENTE ABBIA O MENO ANNUNCI IN
         // VENDITA QUANDO VIENE ELIMINATO. CONTROLLO TUTTO NELLE CHIAMATE AL DB
         utenteDAO.delete(utente);
+    }
+
+    private void checkUtenteSeEsiste(String username){
+
+        Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(username);
+        if (utente == null) {
+            throw new IllegalArgumentException("L'utente " + username + " non esiste.");
+        }
     }
 }
