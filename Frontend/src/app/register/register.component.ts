@@ -1,17 +1,21 @@
 import { Component } from "@angular/core"
 import { FormBuilder,  FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
 import {Router, RouterLink, RouterOutlet, Routes} from "@angular/router"
+import { HttpClientModule } from "@angular/common/http"
+
 import  { UtenteService } from "../services/utente.service"
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
+    HttpClientModule,
     FormsModule,
     RouterLink,
     RouterOutlet,
     ReactiveFormsModule
   ],
+  providers:[UtenteService],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 

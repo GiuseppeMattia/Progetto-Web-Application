@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
+
 import { type Observable, throwError } from "rxjs"
 import { catchError } from "rxjs/operators"
 import type { Utente } from "../models/utente"
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +12,7 @@ import type { Utente } from "../models/utente"
 export class UtenteService {
   private apiUrl = "http://localhost:8080"
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   validaUtente(utente: Utente): Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}/valida`, utente)
