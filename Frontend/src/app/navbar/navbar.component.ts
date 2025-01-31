@@ -39,4 +39,7 @@ export class NavbarComponent implements OnInit {
   goAdminDashboard(){
     this.router.navigate(['/adminBoard'])
   }
+  goProfile(){
+    this.router.navigate(['/profile'])
+  }
 }
