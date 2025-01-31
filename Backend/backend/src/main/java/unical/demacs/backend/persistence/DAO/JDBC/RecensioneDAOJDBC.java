@@ -1,9 +1,8 @@
 package unical.demacs.backend.persistence.DAO.JDBC;
 
-import unical.demacs.backend.model.Annuncio;
 import unical.demacs.backend.model.Recensione;
 import unical.demacs.backend.model.Utente;
-import unical.demacs.backend.persistence.DAO.RecensioneDAO;
+import unical.demacs.backend.persistence.DAO.interfaces.RecensioneDAO;
 import unical.demacs.backend.persistence.DBManager;
 
 import java.sql.Connection;
@@ -39,6 +38,14 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
                 recensione.setID(resultSet.getInt("id"));
                 recensione.setTesto(resultSet.getString("testo"));
                 recensione.setAutore(utente);
+                //IN QUESTO CASO, L'OGGETTO RECENSIONE RIMANE SENZA L'ANNUNCIO
+                //HA SENSO FARE UNA QUERY IN CUI TROVO L'ANNUNCIO, ALL'INTERNO DI UNA QUERY A CUI VIENE PASSATO L'ID ANNUNCIO?
+
+                // DA RISOLVERE
+
+                //
+
+                //
                 recensioni.add(recensione);
             }
 
@@ -68,6 +75,7 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
                 recensione.setAutore(autore);
                 recensione.setID(resultSet.getInt("id"));
                 recensione.setTesto(resultSet.getString("testo"));
+                //ANCHE QUI, COME SOPRA, LA RECENSIONE RIMANE SENZA ANNUNCIO. VA INSERITO?
                 recensioni.add(recensione);
             }
 
@@ -78,19 +86,53 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
         }
     }
 
+    //TESTATA E FUNZIONA
     @Override
-    public void save(Recensione recensione, int idAnnuncio) {
+    public void save(Recensione recensione) {
 
         String query = "INSERT INTO recensione (id_annuncio, testo, autore) VALUES (?, ?, ?)";
 
-
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, recensione.getID());
+            statement.setInt(1, recensione.getAnnuncio().getID());
             statement.setString(2, recensione.getTesto());
             statement.setString(3, recensione.getAutore().getUsername());
             statement.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    //TESTATA E FUNZIONA
+    @Override
+    public void update(Recensione recensione, String testo) {
+
+        String query = "UPDATE recensione SET testo = ? WHERE id = ?";
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, testo);
+            statement.setInt(2, recensione.getID());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    //TESTATA E FUNZIONA
+    @Override
+    public void delete(Recensione recensione) {
+        String query = "DELETE FROM recensione WHERE id = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, recensione.getID());
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

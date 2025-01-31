@@ -4,18 +4,21 @@ import java.util.List;
 
 public class Utente {
 
-    private String username;
+    protected String username;
     private boolean tipo;
     private boolean amministratore;
     private String password;
     private String email;
 
     //I SEGUENTI CAMPI SERVONO??
-    private List<Recensione> recensioniEffettuate;
-    private List<Asta> asteAttive;
-    private List<Annuncio> annunciAttivi;
-    private List<Annuncio> annunciEffettuati;
+    protected List<Recensione> recensioniEffettuate;
+    protected List<Asta> asteAttiveDaVenditore;
+    protected List<Asta> asteAttiveDaAcquirente;
+    protected List<Annuncio> annunciAttivi;
     //
+
+
+    //I GETTER DELLE LISTE ANDEREBBERO FATTI ASTRATTI? PERCHE TANTO VENGONO UTILIZZATI SOLO NEI PROXY
 
     public String getUsername() {
         return username;
@@ -29,7 +32,6 @@ public class Utente {
         return tipo;
     }
 
-    
     public void setTipo(boolean tipo) {
         this.tipo = tipo;
     }
@@ -66,12 +68,12 @@ public class Utente {
         this.recensioniEffettuate = recensioniEffettuate;
     }
 
-    public List<Asta> getAsteAttive() {
-        return asteAttive;
+    public List<Asta> getAsteAttiveDaVenditore() {
+        return asteAttiveDaVenditore;
     }
 
-    public void setAsteAttive(List<Asta> asteAttive) {
-        this.asteAttive = asteAttive;
+    public void setAsteAttiveDaVenditore(List<Asta> asteAttiveDaVenditore) {
+        this.asteAttiveDaVenditore = asteAttiveDaVenditore;
     }
 
     public List<Annuncio> getAnnunciAttivi() {
@@ -82,11 +84,14 @@ public class Utente {
         this.annunciAttivi = annunciAttivi;
     }
 
-    public List<Annuncio> getAnnunciEffettuati() {
-        return annunciEffettuati;
-    }
-
-    public void setAnnunciEffettuati(List<Annuncio> annunciEffettuati) {
-        this.annunciEffettuati = annunciEffettuati;
+    @Override
+    public String toString() {
+        return "Utente{" +
+                "username='" + username + '\'' +
+                ", tipo=" + tipo +
+                ", amministratore=" + amministratore +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

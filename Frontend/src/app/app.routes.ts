@@ -1,18 +1,12 @@
-import { Routes } from '@angular/router';
-import {CategorieComponent} from './categorie/categorie.component';
-import {HomepageComponent} from './homepage/homepage.component';
-import {ListaUtentiComponent} from './lista-utenti/lista-utenti.component';
-import {CreaComponent} from './crea/crea.component';
-import {ProfiloComponent} from './profilo/profilo.component';
-import {NotFoundComponent} from './not-found/not-found.component';
+import  { Routes } from "@angular/router"
+import { LoginComponent } from "./login/login.component"
+import { RegisterComponent } from "./register/register.component"
+import { HomeComponent } from "./home/home.component"
 
 export const routes: Routes = [
-  {path:'', pathMatch:'full', redirectTo:'/home'},
-  {path:'categories', component:CategorieComponent},
-  {path:'home', component:HomepageComponent},
-  {path:'users',component:ListaUtentiComponent},
-  {path:'create',component: CreaComponent},
-  {path:'profile',component:ProfiloComponent},
-  {path:'notFound',component:NotFoundComponent},
-  {path:'**', redirectTo:'/notFound'}
-];
+  { path: "register", component: RegisterComponent },
+  { path: "login", component: LoginComponent },
+  { path: "home", component: HomeComponent },
+  { path: "", redirectTo: "/home", pathMatch: "full" },
+]
+

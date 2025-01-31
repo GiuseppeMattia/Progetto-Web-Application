@@ -1,7 +1,8 @@
 package unical.demacs.backend.persistence.DAO.JDBC;
 
 import unical.demacs.backend.model.*;
-import unical.demacs.backend.persistence.DAO.AnnuncioDAO;
+import unical.demacs.backend.persistence.DAO.Proxy.AnnuncioProxy;
+import unical.demacs.backend.persistence.DAO.interfaces.AnnuncioDAO;
 import unical.demacs.backend.persistence.DBManager;
 
 import java.sql.Connection;
@@ -19,174 +20,235 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
         this.connection = connection;
     }
 
+    //TESTATA E FUNZIONANTE
     @Override
     public List<Annuncio> findAll() {
 
-        /*
         String query = "SELECT * FROM annuncio";
 
-        try(PreparedStatement statement = connection.prepareStatement(query)){
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
 
             ResultSet resultSet = statement.executeQuery();
             List<Annuncio> annunci = new ArrayList<>();
 
-            while(resultSet.next()){
-
-                Annuncio annuncio = new Annuncio();
-                annuncio.setID(resultSet.getInt("id"));
-                annuncio.setPrezzo(resultSet.getFloat("prezzo"));
-                annuncio.setDescrizione(resultSet.getString("descrizione"));
-                annuncio.setTitolo(resultSet.getString("titolo"));
-                annuncio.setPrezzoScontato(resultSet.getFloat("prezzoScontato"));
-
-
-
-                //CERCO L'UTENTE
-                String queryUtente = "SELECT * FROM utente WHERE username = ?";
-                String username = resultSet.getString("username");
-
-                try {
-                    PreparedStatement preparedStatement = connection.prepareStatement(queryUtente);
-                    preparedStatement.setString(1, username);
-                    ResultSet resultSetUtente = preparedStatement.executeQuery();
-                    if(resultSetUtente.next()){
-                        Utente utente = new Utente();
-                        utente.setUsername(resultSetUtente.getString("username"));
-                        utente.setPassword(resultSetUtente.getString("password"));
-                        utente.setEmail(resultSetUtente.getString("email"));
-                        utente.setTipo(resultSetUtente.getBoolean("tipo"));
-                        utente.setAmministratore(resultSetUtente.getBoolean("amministratore"));
-
-                        annuncio.setVenditore(utente);      //VENDITORE SETTATO
-                    }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-
-
-                //CERCO L'ARTIOLO
-                String queryArticolo = "SELECT * FROM articolo WHERE id = ?";
-                String idArticolo = resultSet.getString("id_articolo");
-
-                try {
-                    PreparedStatement preparedStatement = connection.prepareStatement(queryArticolo);
-                    preparedStatement.setString(1, idArticolo);
-                    ResultSet resultSetArticolo = preparedStatement.executeQuery();
-                    while(resultSetArticolo.next()){
-                        Articolo articolo = new Articolo();
-                        articolo.setID(resultSetArticolo.getString("id"));
-                        articolo.setColore(resultSetArticolo.getString("colore"));
-                        articolo.setLunghezza(resultSetArticolo.getFloat("lunghezza"));
-                        articolo.setLarghezza(resultSetArticolo.getFloat("larghezza"));
-                        articolo.setProfondita(resultSetArticolo.getFloat("profondita"));
-                        articolo.setMarca(resultSetArticolo.getString("marca"));
-                        articolo.setModello(resultSetArticolo.getString("modello"));
-
-                        //TROVO LA CATEGORIA
-
-                        String queryCategoria = "SELECT * FROM categoria WHERE id = ?";
-                        String idCategoria = resultSet.getString("id_categoria");
-
-                        try {
-                            PreparedStatement preparedStatement1 = connection.prepareStatement(queryCategoria);
-                            preparedStatement1.setString(1, idCategoria);
-                            ResultSet resultSetCategoria = preparedStatement1.executeQuery();
-                            while(resultSetCategoria.next()){
-                                switch (resultSetCategoria.getInt("id")) {
-                                    case 1:
-                                        articolo.setCategoria(Categoria.SMARTPHONE);
-                                        break;
-                                    case 2:
-                                        articolo.setCategoria(Categoria.PC);
-                                        break;
-                                    case 3:
-                                        articolo.setCategoria(Categoria.CONSOLE);
-                                        break;
-                                    case 4:
-                                        articolo.setCategoria(Categoria.ACCESSORI);
-                                        break;
-                                    default:
-                                        articolo.setCategoria(null);        //HA SENSO?
-                                }
-
-                            }
-
-                            annuncio.setArticolo(articolo);     //ARTICOLO SETTATO
-
-                        } catch (Exception e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-
-                //CERCO LA LISTA DI RECENSIONI
-
-                String queryRecensioni = "SELECT * FROM recensione WHERE id_annuncio = ?";
-                String idAnnuncio = resultSet.getString("id_annuncio");
-
-                try {
-                    PreparedStatement preparedStatement = connection.prepareStatement(queryRecensioni);
-                    preparedStatement.setString(1, idAnnuncio);
-                    ResultSet resultSetRecensioni = preparedStatement.executeQuery();
-                    while(resultSetRecensioni.next()){
-                        Recensione recensione = new Recensione();
-                        recensione.setID(resultSetRecensioni.getString("id"));
-                        recensione.set
-                    }
-                }
-
-
-
-
+            while (resultSet.next()) {
+                annunci.add(buildAnnuncioFromResultSet(resultSet));
             }
+
+            return annunci;
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        return null;
+
+    }
+
+    //TESTATA E FUNZIONANTE
+    @Override
+    public Annuncio findById(int id) {
+
+        String query = "SELECT * FROM annuncio WHERE id=?";
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if(resultSet.next()) {
+                return buildAnnuncioFromResultSet(resultSet);
+            }
+
+            return null;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //TESTATA E FUNZIONANTE
+    @Override
+    public List<Annuncio> findByUsernameUtente(String username) {
+
+        String query = "SELECT * FROM annuncio WHERE venditore=?";
+        List<Annuncio> annunci = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                annunci.add(buildAnnuncioFromResultSet(resultSet));
+            }
+
+            return annunci;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    //TESTATA E FUNZIONA
+    @Override
+    public List<Annuncio> findByCategoria(int idCategoria) {
+        String query = "SELECT * FROM annuncio WHERE id_categoria=?";
+        List<Annuncio> annunci = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idCategoria);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                annunci.add(buildAnnuncioFromResultSet(resultSet));
+            }
+
+            return annunci;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-         */
-
-        return null;
-
     }
 
+    //TESTATA E FUNZIONA
     @Override
-    public Annuncio findById(String id) {
-        return null;
+    public List<Annuncio> findAnnuncioByTitolo(String titolo) {
+
+        String query = "SELECT * FROM annuncio WHERE titolo=?";
+        List<Annuncio> annunci = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, titolo);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                annunci.add(buildAnnuncioFromResultSet(resultSet));
+            }
+
+            return annunci;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+
+    //TESTATA E FUNZIONA
     @Override
-    public List<Annuncio> findByUtenteID(String IDUtente) {
-        return List.of();
+    public List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, int idCategoria) {
+        String query = "SELECT * FROM annuncio WHERE titolo=? AND id_categoria=?";
+        List<Annuncio> annunci = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, titolo);
+            statement.setInt(2, idCategoria);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                annunci.add(buildAnnuncioFromResultSet(resultSet));
+            }
+
+            return annunci;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public List<Annuncio> findByCategoria(Categoria categoria) {
-        return List.of();
-    }
 
-    @Override
-    public List<Annuncio> findByArticolo(Articolo articolo) {
-        return List.of();
-    }
-
+    //TESTATA E FUNZIONA
     @Override
     public void save(Annuncio annuncio) {
 
+        String query = "INSERT INTO annuncio(prezzo, descrizione, foto, titolo, venditore, marca, modello, id_categoria) VALUES(?,?,?,?,?,?,?,?)";
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setFloat(1, annuncio.getPrezzo());
+            statement.setString(2, annuncio.getDescrizione());
+            statement.setBytes(3, annuncio.getFoto());
+            statement.setString(4, annuncio.getTitolo());
+            statement.setString(5, annuncio.getVenditore().getUsername());
+            statement.setString(6, annuncio.getMarca());
+            statement.setString(7, annuncio.getModello());
+            statement.setInt(8, annuncio.getCategoria().getID());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
+
+    //TESTATA E FUNZIONA
     @Override
-    public void update(Annuncio annuncio) {
+    public void update(Annuncio annuncio, float prezzoScontato) {
+
+        String query = "UPDATE annuncio SET prezzo_scontato=? WHERE id=?";
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setFloat(1, prezzoScontato);
+            statement.setInt(2, annuncio.getID());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @Override
     public void delete(Annuncio annuncio) {
 
+        //DEVO ELIMINARE ANCHE L'ASTA (SE ESISTE) E TUTTE LE RECENSIONI (SE ESISTONO) LEGATE A QUESTO ANNUNCIO
+
+        Asta astaDaEliminare = DBManager.getInstance().getAstaDAO().findByAnnuncio(annuncio.getID());
+        if(astaDaEliminare != null) {
+            DBManager.getInstance().getAstaDAO().delete(astaDaEliminare);
+        }
+
+        List<Recensione> recensioniDaELiminare = DBManager.getInstance().getRecensioneDAO().findByAnnuncio(annuncio.getID());
+        if(recensioniDaELiminare != null) {
+            for(Recensione r : recensioniDaELiminare) {
+                DBManager.getInstance().getRecensioneDAO().delete(r);
+            }
+        }
+
+        //A QUESTO PUNTO, L'ANNUNCIO NON E' COLLEGATO A NULLA, QUINDI LO POSSO ELIMINARE
+
+        String query = "DELETE FROM annuncio WHERE id=?";
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, annuncio.getID());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Annuncio buildAnnuncioFromResultSet(ResultSet resultSet) throws SQLException {
+        Annuncio annuncio = new AnnuncioProxy();
+        Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("venditore"));
+        annuncio.setVenditore(utente);
+        annuncio.setID(resultSet.getInt("id"));
+        annuncio.setPrezzo(resultSet.getFloat("prezzo"));
+        annuncio.setDescrizione(resultSet.getString("descrizione"));
+        annuncio.setTitolo(resultSet.getString("titolo"));
+        annuncio.setMarca(resultSet.getString("marca"));
+        annuncio.setModello(resultSet.getString("modello"));
+        annuncio.setFoto(resultSet.getBytes("foto"));
+        annuncio.setPrezzoScontato(resultSet.getFloat("prezzo_scontato"));
+        annuncio.setCategoria(DBManager.getInstance().getCategoriaDAO().findById(resultSet.getInt("id_categoria")));
+        return annuncio;
     }
 }

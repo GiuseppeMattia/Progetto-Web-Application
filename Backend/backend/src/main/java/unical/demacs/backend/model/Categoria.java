@@ -1,17 +1,15 @@
 package unical.demacs.backend.model;
 
-public enum Categoria {
+public class Categoria {
 
-    SMARTPHONE(1, "Smartphone"),
-    PC(2, "PC"),
-    CONSOLE(3, "Console"),
-    ACCESSORI(4, "Accessori");
+    private int ID;
+    private String nome;
 
-    private final int ID;
-    private final String nome;
-
-    Categoria(int ID, String nome) {
+    public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
@@ -21,5 +19,13 @@ public enum Categoria {
 
     public String getNome() {
         return nome;
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "ID=" + ID +
+                ", nome='" + nome + '\'' +
+                '}';
     }
 }

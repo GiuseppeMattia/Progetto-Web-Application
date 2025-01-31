@@ -2,7 +2,7 @@ package unical.demacs.backend.model;
 
 public class Asta {
 
-    private String ID;
+    private int ID;
     private Annuncio annuncio;
     private float prezzo;
     private Utente acquirente;
@@ -16,11 +16,11 @@ public class Asta {
         isTerminated = terminated;
     }
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
@@ -49,4 +49,14 @@ public class Asta {
     }
 
 
+    @Override
+    public String toString() {
+        return "Asta{" +
+                "ID='" + ID + '\'' +
+                //", annuncio=" + annuncio.getTitolo() +
+                ", prezzo=" + prezzo +
+                ", acquirente=" + acquirente.getUsername() +
+                ", isTerminated=" + isTerminated +
+                '}';
+    }
 }
