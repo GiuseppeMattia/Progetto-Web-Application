@@ -1,1 +1,10 @@
-<p>annuncio works!</p>
+<div>
+  <h2>{{annuncio.titolo}}</h2>
+  <p>{{annuncio.descrizione}}</p>
+  <p>{{annuncio.foto}}</p>
+  <p>{{annuncio.venditore}} <button (click)="contattaVenditore()">Contatta il venditore</button> </p>
+  <p><button (click)="goRecensioni()">Visualizza le recensioni di questo prodotto</button></p>
+  <button (click)="addRecensione()">Scrivi una recensione per questo prodotto</button>
+</div>
+
+
