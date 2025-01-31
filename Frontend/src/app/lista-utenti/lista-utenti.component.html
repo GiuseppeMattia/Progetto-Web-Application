@@ -1,0 +1,7 @@
+<div>
+  <h1>Pannello di controllo degli utenti</h1>
+  <p *ngFor="let utente of utenti">
+    Nome Utente: {{utente.username}} E-mail: {{utente.email}} <button (click)="setAdmin(utente)">Promuovi ad Admin</button> <button (click)="ban(utente)">Banna</button>
+  </p>
+  <button (click)="back()">Torna al profilo</button>
+</div>
