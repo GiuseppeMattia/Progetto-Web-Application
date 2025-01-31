@@ -32,7 +32,6 @@ public class UtenteService implements IUtenteService {
     @Override
     public Utente findByUsername(String username){
 
-        checkUtenteSeEsiste(username);
         return utenteDAO.findByUsername(username);
     }
 

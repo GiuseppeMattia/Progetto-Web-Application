@@ -9,13 +9,12 @@ import unical.demacs.backend.persistence.DBManager;
 import unical.demacs.backend.services.impl.UtenteService;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/utente")
 public class UtenteController {
 
-    //NOTA BENE
-    //DECIDERE CON CRITERIO QUALI CODICI DI ERRORE RESTITUIRE
 
     private final UtenteService utenteService;
 
@@ -23,38 +22,12 @@ public class UtenteController {
         utenteService = new UtenteService(new UtenteDAOJDBC(DBManager.getInstance().getConnection()));
     }
 
-
-    // HA SENSO FARE UNA FUNZIONE CHE VERIFICA SOLAMENTE SE UNO USERNAME ESISTE GIA?
-    //QUESTO CONTROLLO LO FACCIO QUANDO PROVO A SALVARE UN UTENTE
-    @GetMapping("/verificaUsername")
-    public ResponseEntity<Boolean> verificaUsername(@RequestParam String username) {
-
-        try{
-            //SE NON CATTURO L'ECCEZIONE, QUESTO USERNAME APPARTIENE AD UN UTENTE
-            utenteService.findByUsername(username);
-            return ResponseEntity.ok(true);
-        } catch (Exception e) {
-            //SE LA CATTURO, SIGNIFICA CHE NON ESISTE UN UTENTE CON UNO USERNAME
-            System.out.println(e.getMessage());
-            return ResponseEntity.status(400).body(false);
-        }
-
-    }
-
-
-    //ANCHE QUESTA FUNZIONE (validaUtente), HA SENSO FARLA?
-    //IN TEORIA, LATO front-end, POTREI FARE UNA CHIAMATA ALLA FUNZIONE trovaUtenteByUsername
-    //E, DOPO AVER RICEVUTO L'UTENTE, VERIFICARE SE LE CREDENZIALI SONO CORRETTE.
-    //COSA è PIU CORRETTO?
-
-    //UTILIZZO UNA @RequestBody ANCHE SE MI SERVONO SOLO username E password PER NON PASSARE
-    // LA PASSWORD IN CHIARO NELL'URL
-    @GetMapping("/valida")
+    @PostMapping("/valida")
     public ResponseEntity<Boolean> validaUtente(@RequestBody Utente utente) {
 
         try{
 
-            if(utenteService.findByUsername(utente.getUsername()).getPassword() != utente.getPassword()) {
+            if(!Objects.equals(utenteService.findByUsername(utente.getUsername()).getPassword(), utente.getPassword())) {
                 return ResponseEntity.status(401).body(false);
             }
 
@@ -94,17 +67,15 @@ public class UtenteController {
     }
 
     @PostMapping("/crea")
-    public ResponseEntity<Boolean> creaUtente(@RequestBody Utente utente) {
+    public ResponseEntity<Boolean> creaUtente(@RequestBody Utente utente){
 
-        try{
-
-            utenteService.save(utente);
-            return ResponseEntity.ok(true);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.status(404).body(false);
+        Utente daCercare = utenteService.findByUsername(utente.getUsername());
+        if(daCercare != null) {
+            return ResponseEntity.status(401).body(false);
         }
+
+        utenteService.save(utente);
+        return ResponseEntity.ok(true);
 
     }
 

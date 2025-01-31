@@ -14,23 +14,13 @@ export class UtenteService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  validaUtente(utente: Utente): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiUrl}valida`, utente)
+  creaUtente(utente: Utente): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/crea`, utente)
   }
 
-  verificaUsername(username: string): Observable<boolean> {
-    return this.http
-      .post<boolean>(`${this.apiUrl}/verificaUsername`, {
-        params: { username: username },
-      })
-      .pipe(
-        catchError((error) => {
-          if (error.status === 409) {
-            return throwError("Utente già esistente")
-          }
-          return throwError("Errore durante la verifica dell'username")
-        }),
-      )
+  validaUtente(utente: Utente): Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/valida`, utente)
   }
+
 }
 

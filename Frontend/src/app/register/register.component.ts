@@ -48,18 +48,10 @@ export class RegisterComponent {
 
       }
 
-      this.utenteService.verificaUsername(newUser.username).subscribe(
+      this.utenteService.creaUtente(newUser).subscribe(
         (response) => {
-          this.utenteService.validaUtente(newUser).subscribe(
-            (response) => {
-              console.log("Utente registrato con successo", response)
-              this.router.navigate(["/home"])
-            },
-            (error) => {
-              console.error("Errore durante la registrazione:", error)
-              alert("Si è verificato un errore durante la registrazione")
-            },
-          )
+          console.log("Utente registrato con successo", response)
+          this.router.navigate(["/home"])
         },
         (error) => {
           console.error("Errore durante la registrazione:", error)

@@ -33,7 +33,7 @@ public class AnnuncioController {
         }
     }
 
-    @GetMapping("/trovaByID")
+    @PostMapping("/trovaByID")
     public ResponseEntity<Annuncio> trovaAnnuncioByID(@RequestParam int id) {
 
         try{
