@@ -1,7 +1,7 @@
-import {Component, HostListener} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import { Component } from "@angular/core"
+import {type FormBuilder, type FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
+import {Router, RouterLink, RouterOutlet} from "@angular/router"
+import type { UtenteService } from "../services/utente.service"
 
 @Component({
   selector: 'app-register',
@@ -14,58 +14,58 @@ import {AuthService} from '../services/auth.service';
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
+
 })
 export class RegisterComponent {
-  constructor(private router: Router,
-              private authService: AuthService,) {}
+  registerForm: FormGroup
 
-
-  registerForm = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-  });
-  validateUser() {
-    let username = this.registerForm.get('username')?.value ?? '';
-    let email = this.registerForm.get('email')?.value ?? '';
-    let password = this.registerForm.get('password')?.value ?? '';
-
-    // Se l'username è vuoto, lo dice
-    if (!username.trim()) {
-      alert("Errore: Il campo 'username' è vuoto");
-      return;
-    }
-
-    // Se l'username è vuoto, lo dice
-    if (!email.trim()) {
-      alert("Errore: Il campo 'email' è vuoto");
-      return;
-    }
-
-    // Se la password è vuota, lo dice
-    if (!password.trim()) {
-      alert("Errore: Il campo 'password' è vuoto");
-      return;
-    }
-
-    this.authService.login(username);
-    this.router.navigate(['/']);
-
-  }
-  // Chiede all'utente se è sicuro di uscire dalla pagina dopo i cambiamenti al form
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any) {
-    if (this.isFormDirty()) {
-      $event.returnValue = true;
-    }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private utenteService: UtenteService,
+  ) {
+    this.registerForm = this.fb.group({
+      username: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required, Validators.minLength(6)]],
+      tipo: [false, Validators.required], // false = acquirente come default
+    })
   }
 
-  // Vede che i campi del form siano stati modificati
-  isFormDirty(): boolean {
-    return this.registerForm.dirty;
-  }
+  registerUser() {
+    if (this.registerForm.valid) {
+      const newUser = {
+        username: this.registerForm.get("username")?.value,
+        email: this.registerForm.get("email")?.value,
+        password: this.registerForm.get("password")?.value,
+        tipo: this.registerForm.get("tipo")?.value,
+        amministratore: false
 
-  ngOnInit(): void {
-  }
+      }
 
+      this.utenteService.verificaUsername(newUser.username).subscribe(
+        (response) => {
+          this.utenteService.validaUtente(newUser).subscribe(
+            (response) => {
+              console.log("Utente registrato con successo", response)
+              this.router.navigate(["/home"])
+            },
+            (error) => {
+              console.error("Errore durante la registrazione:", error)
+              alert("Si è verificato un errore durante la registrazione")
+            },
+          )
+        },
+        (error) => {
+          console.error("Errore durante la registrazione:", error)
+          alert("Si è verificato un errore durante la registrazione")
+        },
+      )
+
+
+    } else {
+      alert("Per favore, compila tutti i campi richiesti correttamente.")
+    }
+  }
 }
+

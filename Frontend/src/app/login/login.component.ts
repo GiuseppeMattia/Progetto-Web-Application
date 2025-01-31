@@ -1,84 +1,60 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router, RouterLink, RouterOutlet} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import { Component } from "@angular/core"
+import { type FormBuilder, type FormGroup, Validators, ReactiveFormsModule } from "@angular/forms"
+import type { Router } from "@angular/router"
+import { CommonModule } from "@angular/common"
+import type { UtenteService } from "../services/utente.service"
+import type { Utente } from "../models/utente"
 
 @Component({
-  selector: 'app-login',
+  selector: "app-login",
+  templateUrl: "./login.component.html",
   standalone: true,
-  imports: [
-    RouterOutlet,
-    RouterLink,
-    ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  imports: [ReactiveFormsModule, CommonModule],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  loginForm: FormGroup
 
-  constructor(private router: Router,
-              private authService: AuthService,) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private utenteService: UtenteService,
+  ) {
+    this.loginForm = this.fb.group({
+      username: ["", Validators.required],
+      password: ["", Validators.required],
+      tipo: [false, Validators.required], // false = acquirente come default
 
-  loginForm = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-  });
+    })
+  }
 
   validateUser() {
-    let username = this.loginForm.get('username')?.value ?? '';
-    let password = this.loginForm.get('password')?.value ?? '';
+    if (this.loginForm.valid) {
+      const utente: Utente = {
+        username: this.loginForm.get("username")?.value,
+        password: this.loginForm.get("password")?.value,
+        tipo: this.loginForm.get("tipo")?.value,
+        email: this.loginForm.get("email")?.value,
+        amministratore: this.loginForm.get("admin")?.value,
+      }
 
-    // Se l'username è vuoto, lo dice
-    if (!username.trim()) {
-      alert("Errore: Il campo 'username' è vuoto");
-      return;
+      this.utenteService.validaUtente(utente).subscribe(
+        (isValid) => {
+          if (isValid) {
+            console.log("Login riuscito")
+            this.router.navigate(["/home"])
+          } else {
+            console.log("Login fallito")
+            alert("Username o password non validi")
+          }
+        },
+        (error) => {
+          console.error("Errore durante la validazione:", error)
+          alert("Si è verificato un errore durante il login")
+        },
+      )
+    } else {
+      alert("Per favore, compila tutti i campi richiesti.")
     }
-
-    // Se la password è vuota, lo dice
-    if (!password.trim()) {
-      alert("Errore: Il campo 'password' è vuoto");
-      return;
-    }
-
-    this.authService.login(username);
-    this.router.navigate(['/']);
-
-    // Invia i vari dati al backend
-    // this.api.sendUser(username, password).subscribe({
-    //   next: () => {
-    //     this.auth.setLogged(true);
-    //     this.cookieService.set("username", username);
-    //     this.router.navigate(["/home"]);
-    //     //console.log('Login effettuato con successo');
-    //   },
-    //   error: (error) => {
-    //     if (error.status === 401) { // La password è sbagliata
-    //       alert("Errore: Password errata");
-    //     } else if (error.status === 404) { // L'utente non esiste
-    //       alert("Errore: Utente non trovato");
-    //     } else if (error.status === 0) {
-    //       alert('Il servizio non è al momento raggiungibile. Riprova più tardi');
-    //     } else {
-    //       alert("C'è stato un errore nel login")
-    //       console.error('Errore sconosciuto: ', error.status);
-    //     }
-    //   }
-    // });
-
-  }
-
-  // Chiede all'utente se è sicuro di uscire dalla pagina dopo i cambiamenti al form
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any) {
-    if (this.isFormDirty()) {
-      $event.returnValue = true;
-    }
-  }
-
-  // Vede che i campi del form siano stati modificati
-  isFormDirty(): boolean {
-    return this.loginForm.dirty;
-  }
-
-  ngOnInit(): void {
   }
 }
+
