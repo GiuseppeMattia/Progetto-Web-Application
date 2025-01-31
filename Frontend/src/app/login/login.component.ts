@@ -4,6 +4,7 @@ import { Router, RouterOutlet } from "@angular/router"; // Rimosso "type"
 import { CommonModule } from "@angular/common";
 import { UtenteService } from "../services/utente.service"; // Rimosso "type"
 import { Utente } from "../models/utente"; // Rimane "type" perché è solo un'interfaccia
+import {provideHttpClient, HttpClient, HttpClientModule} from "@angular/common/http";
 
 
 
@@ -11,8 +12,9 @@ import { Utente } from "../models/utente"; // Rimane "type" perché è solo un'i
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"],
+  providers:[UtenteService],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterOutlet],
+  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, HttpClientModule],
 })
 export class LoginComponent {
   loginForm: FormGroup

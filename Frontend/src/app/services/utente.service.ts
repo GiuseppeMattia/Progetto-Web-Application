@@ -10,17 +10,17 @@ import {Router} from '@angular/router';
   providedIn: "root",
 })
 export class UtenteService {
-  private apiUrl = "http://localhost:8080"
+  private apiUrl = "http://localhost:8080/api/utente"
 
   constructor(private http: HttpClient, private router: Router) {}
 
   validaUtente(utente: Utente): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiUrl}/valida`, utente)
+    return this.http.post<boolean>(`${this.apiUrl}valida`, utente)
   }
 
   verificaUsername(username: string): Observable<boolean> {
     return this.http
-      .get<boolean>(`${this.apiUrl}/verificaUsername`, {
+      .post<boolean>(`${this.apiUrl}/verificaUsername`, {
         params: { username: username },
       })
       .pipe(
