@@ -116,7 +116,7 @@ public class AnnuncioController {
 
     }
 
-    @PostMapping("/elimina")
+    @DeleteMapping("/elimina")
     public ResponseEntity<Boolean> eliminaAnnuncio(@RequestBody Annuncio annuncio) {
 
         try{

@@ -123,7 +123,7 @@ public class UtenteController {
     }
 
 
-    @PostMapping("/elimina")
+    @DeleteMapping("/elimina")
     public ResponseEntity<Boolean> eliminaUtente(@RequestBody Utente utente) {
 
         try{

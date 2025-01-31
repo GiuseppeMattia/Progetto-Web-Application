@@ -9,6 +9,7 @@ import unical.demacs.backend.persistence.DBManager;
 import unical.demacs.backend.services.interfaces.IAstaService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class AstaService implements IAstaService {
 
@@ -20,28 +21,66 @@ public class AstaService implements IAstaService {
 
     @Override
     public List<Asta> findAll() {
-        return astaDAO.findAll();
+
+        List<Asta> aste = astaDAO.findAll();
+        if (aste == null) {
+            throw new NoSuchElementException("Non ci sono state attive al momento");
+        }
+        return aste;
     }
 
     @Override
     public Asta findById(int id) {
-        return astaDAO.findById(id);
+
+        Asta asta = astaDAO.findById(id);
+        if (asta == null) {
+            throw new IllegalArgumentException("Non esiste un asta con id " + id);
+        }
+
+        return asta;
     }
 
     @Override
     public Asta findByAnnuncio(int idAnnuncio) {
 
-        return astaDAO.findByAnnuncio(idAnnuncio);
+        Asta asta = astaDAO.findByAnnuncio(idAnnuncio);
+
+        if (asta == null) {
+            throw new IllegalArgumentException("Non esiste un asta dell'annuncio che ha come id " + idAnnuncio);
+        }
+
+        return asta;
     }
 
     @Override
     public List<Asta> findByCategoria(int idCategoria) {
-        return astaDAO.findByCategoria(idCategoria);
+
+        Categoria categoria = DBManager.getInstance().getCategoriaDAO().findById(idCategoria);
+        if (categoria == null) {
+            throw new IllegalArgumentException("Non esiste una categoria con id " + idCategoria);
+        }
+
+        List<Asta> aste = astaDAO.findByCategoria(idCategoria);
+        if (aste == null) {
+            throw new NoSuchElementException("Non esiste aste appartenenti alla categoria " + categoria.getNome());
+        }
+
+        return aste;
     }
 
     @Override
     public List<Asta> findByUtenteAcquirente(String username, boolean terminata) {
-        return astaDAO.findByUtenteAcquirente(username, terminata);
+        Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(username);
+        if (utente == null) {
+            throw new IllegalArgumentException("Non esiste un utente con username " + username);
+        }
+
+        List<Asta> aste = astaDAO.findByUtenteAcquirente(username, terminata);
+        if (aste == null) {
+            throw new NoSuchElementException("Questo utente non sta partecipando a nessuna asta ");
+        }
+
+        return aste;
     }
 
     @Override
