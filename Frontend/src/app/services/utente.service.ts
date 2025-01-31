@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core"
-import type { HttpClient } from "@angular/common/http"
-import type { Observable } from "rxjs"
+import { HttpClient } from "@angular/common/http"
+import { type Observable, throwError } from "rxjs"
+import { catchError } from "rxjs/operators"
 import type { Utente } from "../models/utente"
 
 @Injectable({
@@ -14,15 +15,20 @@ export class UtenteService {
   validaUtente(utente: Utente): Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}/valida`, utente)
   }
-  // @ts-ignore
-  verificaUsername(string: string): Observable<boolean> {
-    fetch(`${this.apiUrl}/verificaUsername=${encodeURIComponent(string)}`)
-      .then(response=>{
-        if(!response.ok){
-          return response.json();
-        }
-        throw new Error("Utente già esistente");
+
+  verificaUsername(username: string): Observable<boolean> {
+    return this.http
+      .get<boolean>(`${this.apiUrl}/verificaUsername`, {
+        params: { username: username },
       })
-  };
+      .pipe(
+        catchError((error) => {
+          if (error.status === 409) {
+            return throwError("Utente già esistente")
+          }
+          return throwError("Errore durante la verifica dell'username")
+        }),
+      )
+  }
 }
 

@@ -1,15 +1,18 @@
-import { Component } from "@angular/core"
-import { type FormBuilder, type FormGroup, Validators, ReactiveFormsModule } from "@angular/forms"
-import type { Router } from "@angular/router"
-import { CommonModule } from "@angular/common"
-import type { UtenteService } from "../services/utente.service"
-import type { Utente } from "../models/utente"
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms"; // Rimosso "type"
+import { Router, RouterOutlet } from "@angular/router"; // Rimosso "type"
+import { CommonModule } from "@angular/common";
+import { UtenteService } from "../services/utente.service"; // Rimosso "type"
+import { Utente } from "../models/utente"; // Rimane "type" perché è solo un'interfaccia
+
+
 
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterOutlet],
 })
 export class LoginComponent {
   loginForm: FormGroup
@@ -22,8 +25,6 @@ export class LoginComponent {
     this.loginForm = this.fb.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
-      tipo: [false, Validators.required], // false = acquirente come default
-
     })
   }
 
@@ -32,9 +33,9 @@ export class LoginComponent {
       const utente: Utente = {
         username: this.loginForm.get("username")?.value,
         password: this.loginForm.get("password")?.value,
-        tipo: this.loginForm.get("tipo")?.value,
-        email: this.loginForm.get("email")?.value,
-        amministratore: this.loginForm.get("admin")?.value,
+        tipo:false,
+        amministratore:false,
+        email:''
       }
 
       this.utenteService.validaUtente(utente).subscribe(
