@@ -28,6 +28,11 @@
               Logout
             </button>
           </li>
+          <li *ngIf="isAdmin">
+            <button class="dropdown-item" (click)="goAdminDashboard()">
+              Pannello Admin
+            </button>
+          </li>
           <li>
             <a class="dropdown-item" [routerLink]="['/categories']">Categorie</a>
           </li>

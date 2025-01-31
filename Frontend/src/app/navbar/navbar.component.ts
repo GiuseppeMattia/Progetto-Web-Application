@@ -13,6 +13,7 @@ import {CommonModule} from '@angular/common';
 export class NavbarComponent implements OnInit {
   isLoggedIn = false;
   username = '';
+  isAdmin=true;
 
   constructor(
     private authService: AuthService,
@@ -34,5 +35,8 @@ export class NavbarComponent implements OnInit {
 
   goToMyListings() {
     this.router.navigate(['/annunci']);
+  }
+  goAdminDashboard(){
+    this.router.navigate(['/adminBoard'])
   }
 }
