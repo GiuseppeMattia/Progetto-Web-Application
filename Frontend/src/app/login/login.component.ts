@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms"; // Rimosso "type"
-import { Router, RouterOutlet } from "@angular/router"; // Rimosso "type"
+import {Router, RouterLink, RouterOutlet} from "@angular/router"; // Rimosso "type"
 import { CommonModule } from "@angular/common";
 import { UtenteService } from "../services/utente.service"; // Rimosso "type"
 import { Utente } from "../models/utente"; // Rimane "type" perché è solo un'interfaccia
@@ -14,7 +14,7 @@ import {provideHttpClient, HttpClient, HttpClientModule} from "@angular/common/h
   styleUrls: ["./login.component.css"],
   providers:[UtenteService],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, HttpClientModule, RouterLink],
 })
 export class LoginComponent {
   loginForm: FormGroup
