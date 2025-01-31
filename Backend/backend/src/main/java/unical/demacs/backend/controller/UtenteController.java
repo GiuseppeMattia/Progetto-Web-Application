@@ -69,13 +69,13 @@ public class UtenteController {
     @PostMapping("/crea")
     public ResponseEntity<Boolean> creaUtente(@RequestBody Utente utente){
 
-        Utente daCercare = utenteService.findByUsername(utente.getUsername());
-        if(daCercare != null) {
-            return ResponseEntity.status(401).body(false);
+        try{
+            utenteService.save(utente);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(false);
         }
-
-        utenteService.save(utente);
-        return ResponseEntity.ok(true);
 
     }
 
