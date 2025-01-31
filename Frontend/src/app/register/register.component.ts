@@ -1,7 +1,7 @@
 import { Component } from "@angular/core"
-import {type FormBuilder, type FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
-import {Router, RouterLink, RouterOutlet} from "@angular/router"
-import type { UtenteService } from "../services/utente.service"
+import { FormBuilder,  FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
+import {Router, RouterLink, RouterOutlet, Routes} from "@angular/router"
+import  { UtenteService } from "../services/utente.service"
 
 @Component({
   selector: 'app-register',
@@ -16,6 +16,7 @@ import type { UtenteService } from "../services/utente.service"
   styleUrl: './register.component.css'
 
 })
+
 export class RegisterComponent {
   registerForm: FormGroup
 
@@ -28,7 +29,7 @@ export class RegisterComponent {
       username: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
-      tipo: [false, Validators.required], // false = acquirente come default
+      tipo: [false, Validators.required],
     })
   }
 
