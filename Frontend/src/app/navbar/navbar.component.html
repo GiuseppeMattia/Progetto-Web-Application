@@ -17,7 +17,7 @@
 
       <!-- Dropdown Menu -->
       <ul class="dropdown-menu dropdown-menu-end">
-        <ng-container *ngIf="!isLoggedIn; else loginTemplate">
+        <ng-container *ngIf="isLoggedIn; else loginTemplate">
           <li>
             <button class="dropdown-item" (click)="goToMyListings()">
               I miei annunci
