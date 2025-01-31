@@ -39,7 +39,7 @@ public class UtenteService implements IUtenteService {
     @Override
     public void save(Utente utente){
 
-        Utente daTrovare = DBManager.getInstance().getUtenteDAO().findByUsername(utente.getUsername());
+        Utente daTrovare = utenteDAO.findByUsername(utente.getUsername());
 
         if (daTrovare != null) {
             throw new IllegalArgumentException("L'utente " + utente.getUsername() + " esiste gia.");
@@ -72,7 +72,7 @@ public class UtenteService implements IUtenteService {
 
     private void checkUtenteSeEsiste(String username){
 
-        Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(username);
+        Utente utente = utenteDAO.findByUsername(username);
         if (utente == null) {
             throw new IllegalArgumentException("L'utente " + username + " non esiste.");
         }

@@ -24,74 +24,74 @@ public class AnnuncioController {
     @GetMapping("/trovaTutti")
     public ResponseEntity<List<Annuncio>> trovaTuttiAnnunci() {
 
-        List<Annuncio> annunci = annuncioService.findAll();
-
-        if(annunci.isEmpty()) {
-            return ResponseEntity.status(404).build();
+        try{
+            List<Annuncio> annunci = annuncioService.findAll();
+            return ResponseEntity.ok(annunci);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
-
-        return ResponseEntity.ok(annunci);
     }
 
     @GetMapping("/trovaByID")
-    public ResponseEntity<Annuncio> trovaAnnuncioByID(@RequestBody int id) {
+    public ResponseEntity<Annuncio> trovaAnnuncioByID(@RequestParam int id) {
 
-        Annuncio annuncio = annuncioService.findById(id);
-
-        if(annuncio == null) {
-            return ResponseEntity.status(404).build();
+        try{
+            Annuncio annuncio = annuncioService.findById(id);
+            return ResponseEntity.ok(annuncio);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
-
-        return ResponseEntity.ok(annuncio);
     }
 
     @GetMapping("/trovaByUtente")
-    public ResponseEntity<List<Annuncio>> trovaAnnunciByUtente(@RequestBody String username) {
+    public ResponseEntity<List<Annuncio>> trovaAnnunciByUtente(@RequestParam String username) {
 
-        //DEVO VERIFICARE SE MI VIENE PASSATO UN UTENTE CHE NON ESISTE?
-
-        List<Annuncio> annunci = annuncioService.findByUsernameUtente(username);
-
-        if(annunci.isEmpty()) {
-            return ResponseEntity.status(404).build();
+        try{
+            List<Annuncio> annunci = annuncioService.findByUsernameUtente(username);
+            return ResponseEntity.ok(annunci);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
-
-        return ResponseEntity.ok(annunci);
     }
 
     @GetMapping("/trovaByCategoria")
-    public ResponseEntity<List<Annuncio>> trovaAnnunciByCategoria(@RequestBody int IDCategoria) {
+    public ResponseEntity<List<Annuncio>> trovaAnnunciByCategoria(@RequestParam int IDCategoria) {
 
-        List<Annuncio> annunci = annuncioService.findByCategoria(IDCategoria);
-
-        if(annunci.isEmpty()) {
-            return ResponseEntity.status(404).build();
+        try{
+            List<Annuncio> annunci = annuncioService.findByCategoria(IDCategoria);
+            return ResponseEntity.ok(annunci);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
-        return ResponseEntity.ok(annunci);
     }
 
     @GetMapping("/trovaByTitolo")
-    public ResponseEntity<List<Annuncio>> trovaAnnunciTitolo(@RequestBody String titolo) {
+    public ResponseEntity<List<Annuncio>> trovaAnnunciTitolo(@RequestParam String titolo) {
 
-        List<Annuncio> annunci = annuncioService.findAnnuncioByTitolo(titolo);
-
-        if(annunci.isEmpty()) {
-            return ResponseEntity.status(404).build();
+        try{
+            List<Annuncio> annunci = annuncioService.findAnnuncioByTitolo(titolo);
+            return ResponseEntity.ok(annunci);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
-
-        return ResponseEntity.ok(annunci);
     }
 
     @GetMapping("/trovaByTitoloAndCategoria")
     public ResponseEntity<List<Annuncio>> trovaAnnunciByTitoloAndCategoria(@RequestParam String titolo, @RequestParam int IDCategoria) {
 
-        List<Annuncio> annunci = annuncioService.findAnnuncioByTitoloAndCategoria(titolo, IDCategoria);
-
-        if(annunci.isEmpty()) {
-            return ResponseEntity.status(404).build();
+        try{
+            List<Annuncio> annuncio = annuncioService.findAnnuncioByTitoloAndCategoria(titolo, IDCategoria);
+            return ResponseEntity.ok(annuncio);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
 
-        return ResponseEntity.ok(annunci);
     }
 
     @PostMapping("/crea")
@@ -102,34 +102,30 @@ public class AnnuncioController {
 
     }
 
-
     //NEL BODY, HA SENSO PASSARE TUTTO L'ANNUNCIO SE IO POI VADO AD UTILIZZARE SOLAMENTE L'ID??
     @PostMapping("/aggiornaPrezzo")
     public ResponseEntity<Boolean> aggiornaPrezzo(@RequestBody Annuncio annuncio, @RequestParam float prezzo) {
 
-        Annuncio daCercare = annuncioService.findById(annuncio.getID());
-        if(daCercare == null) {
-            return ResponseEntity.status(404).build();
-        }
+      try{
+          annuncioService.update(annuncio, prezzo);
+          return ResponseEntity.ok(true);
+      } catch (Exception e) {
+          System.out.println(e.getMessage());
+          return ResponseEntity.status(404).body(null);
+      }
 
-        annuncioService.update(annuncio, prezzo);
-        return ResponseEntity.ok(true);
     }
 
     @PostMapping("/elimina")
     public ResponseEntity<Boolean> eliminaAnnuncio(@RequestBody Annuncio annuncio) {
-        Annuncio daCercare = annuncioService.findById(annuncio.getID());
-        if(daCercare == null) {
-            return ResponseEntity.status(404).build();
+
+        try{
+            annuncioService.delete(annuncio);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
         }
-        annuncioService.delete(annuncio);
-        return ResponseEntity.ok(true);
     }
-
-
-
-
-
-
 
 }
