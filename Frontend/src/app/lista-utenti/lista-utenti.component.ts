@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserModel} from '../modelli/userModel';
 import {NgForOf} from '@angular/common';
 import {Router} from '@angular/router';
+import {buildApplication} from '@angular-devkit/build-angular';
+import {UtenteService} from '../services/utente.service';
 
 @Component({
   selector: 'app-lista-utenti',
@@ -12,16 +14,17 @@ import {Router} from '@angular/router';
   templateUrl: './lista-utenti.component.html',
   styleUrl: './lista-utenti.component.css'
 })
-export class ListaUtentiComponent {
+export class ListaUtentiComponent implements OnInit{
   //array di utenti da popolare con chiamata al backend
-  utenti: UserModel[]=[
-    new UserModel("Nico","prova",true,"ciao@prova.it",false),
-    new UserModel("Giuseppe","prova",false,"giuseppe@prova.it",false),
-    new UserModel("Watcher","prova",false,"guardo@prova.it",true),
-    new UserModel("Joel","prova",true,"joelOriginal@prova.it",true)
-  ]
-  constructor(private router: Router) {
+  utenti: UserModel[]=[]
+  constructor(private router: Router, private api: UtenteService) {
   }
+
+  ngOnInit(): void {
+       this.api.trovaUtenti().subscribe(data=>{
+         this.utenti=data;
+       })
+    }
   ban(utente: UserModel){
     //chiamata al back per bannare l'utente
     console.log("Utente bannato!")
