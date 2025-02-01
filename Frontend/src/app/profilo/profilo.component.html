@@ -1,5 +1,5 @@
-<h1>Benvenuto nel tuo profilo, {{utente.username}}</h1>
-<div *ngIf="utente.tipo; else schermataAcquirente">
+<h1>Benvenuto nel tuo profilo, {{utente?.username}}</h1>
+<div *ngIf="utente?.tipo; else schermataAcquirente">
   <ul>
     <li><a routerLink="/create">Crea un nuovo annuncio</a></li>
     <li>Gestisci i tuoi annunci</li>
@@ -12,4 +12,8 @@
     <li>Visualizza le aste in corso</li>
   </ul>
 </ng-template>
+<div *ngIf="utente?.amministratore">
+  <h4>Pannello amministratore</h4>
+  <a routerLink="/adminBoard">Gestisci gli utenti</a>
+</div>
 <router-outlet></router-outlet>

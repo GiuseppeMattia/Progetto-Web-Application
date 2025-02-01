@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {UserModel} from '../modelli/userModel';
 import {NgForOf} from '@angular/common';
 import {Router} from '@angular/router';
-import {buildApplication} from '@angular-devkit/build-angular';
 import {UtenteService} from '../services/utente.service';
 
 @Component({

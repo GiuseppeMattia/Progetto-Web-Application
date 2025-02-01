@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserModel} from '../modelli/userModel';
 import {NgIf} from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';
+import {UtenteService} from '../services/utente.service';
+import {BehaviorSubject, type Observable} from 'rxjs';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-profilo',
@@ -14,8 +17,10 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   templateUrl: './profilo.component.html',
   styleUrl: './profilo.component.css'
 })
-export class ProfiloComponent {
-  utente=new UserModel("Mario Doccia","prova",false,"docciamario@prova.it",true)
-  //il comportamento reale prenderà dalla sessione le informazioni necessarie, ovvero il tipo d'utente
-  //in modo da diversificare il profilo
+export class ProfiloComponent{
+  public utente :UserModel |null
+  constructor(private service:AuthService) {
+    this.utente=this.service.currentUserValue
+  }
+
 }
