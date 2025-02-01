@@ -1,10 +1,35 @@
-<div>
-  <h2>{{annuncio.titolo}}</h2>
-  <p>{{annuncio.descrizione}}</p>
-  <p>{{annuncio.foto}}</p>
-  <p>{{annuncio.venditore}} <button (click)="contattaVenditore()">Contatta il venditore</button> </p>
-  <p><button (click)="goRecensioni()">Visualizza le recensioni di questo prodotto</button></p>
-  <button (click)="addRecensione()">Scrivi una recensione per questo prodotto</button>
-</div>
+<div class="container mt-5">
+  <ng-container *ngIf="hasAnnuncio(); else errorTemplate">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="image-container">
+          <!--<img [src]="annuncio!.foto" [alt]="annuncio!.titolo" class="img-fluid rounded">-->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h1 class="mb-3">{{ annuncio!.titolo }}</h1>
+        <p class="text-muted">Venduto da: {{ annuncio!.venditore }}</p>
+        <h2 class="text-primary mb-3">€ {{ annuncio!.prezzo?.toFixed(2) }}</h2>
+        <p class="mb-4">{{ annuncio!.descrizione }}</p>
+        <button class="btn btn-primary btn-lg">Aggiungi al carrello</button>
+        <button class="btn btn-outline-secondary btn-lg ml-2">Contatta il venditore</button>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-12">
+        <h3>Dettagli del prodotto</h3>
+        <ul class="list-group">
+          <li class="list-group-item">ID Annuncio: {{ annuncio!.id }}</li>
+          <!-- Aggiungi altri dettagli qui se necessario -->
+        </ul>
+      </div>
+    </div>
+  </ng-container>
 
+  <ng-template #errorTemplate>
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage || 'Nessun annuncio trovato.' }}
+    </div>
+  </ng-template>
+</div>
 

@@ -1,23 +1,53 @@
-import { Component } from '@angular/core';
-import {Annuncio} from '../modelli/annuncio.model';
+import { Component, type OnInit } from "@angular/core"
+import {ActivatedRoute, RouterLink} from "@angular/router"
+import {CommonModule, NgIf} from "@angular/common"
+import  { Annuncio } from "../modelli/annuncio.model"
+import  { AnnuncioService } from "../services/annuncio.service"
+import {HttpClientModule} from '@angular/common/http';
+
 
 @Component({
-  selector: 'app-annuncio',
+  selector: "app-annuncio",
+  templateUrl: "./annuncio.component.html",
+  styleUrls: ["./annuncio.component.css"],
   standalone: true,
-  imports: [],
-  templateUrl: './annuncio.component.html',
-  styleUrl: './annuncio.component.css'
+  imports: [CommonModule, NgIf, HttpClientModule, RouterLink],
+  providers: [AnnuncioService]
 })
-export class AnnuncioComponent {
-  annuncio: Annuncio=new Annuncio(0,"Prova","Questo è un annuncio di prova",null,"Mario")
-  recensioni=[]
-  contattaVenditore(){
-    console.log("Venditore contattato");
+export class AnnuncioComponent implements OnInit {
+  annuncio: Annuncio | null = null
+  errorMessage = ""
+
+  constructor(
+    private route: ActivatedRoute,
+    private annuncioService: AnnuncioService,
+  ) {}
+
+  ngOnInit() {
+    const id  = this.route.snapshot.paramMap.get("id")
+    console.log(id)
+    if (id) {
+      console.log("ID ricevuto",id)
+      this.loadAnnuncio((Number(id)))
+
+    }
   }
-  goRecensioni(){
-    console.log("Verrai reindirizzato alla lista delle recensioni")
+
+  loadAnnuncio(id: number) {
+    this.annuncioService.getAnnuncio(id).subscribe(
+      (annuncio) => {
+        console.log("Annuncio ricevuto:", annuncio);  // Log per esaminare la risposta
+        this.annuncio = annuncio;  // Assicurati di assegnare correttamente l'annuncio
+      },
+      (error) => {
+        console.error("Errore nel caricamento dell'annuncio:", error);
+        this.errorMessage = "Impossibile caricare l'annuncio. Si prega di riprovare più tardi.";
+      }
+    );
   }
-  addRecensione(){
-    console.log("Aggiungi una recensione")
+
+
+  hasAnnuncio(): boolean {
+    return !!this.annuncio
   }
 }

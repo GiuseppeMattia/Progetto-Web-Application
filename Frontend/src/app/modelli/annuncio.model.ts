@@ -1,8 +1,17 @@
+import {Categoria} from './categoria';
+import {UserModel} from './userModel';
+
 export class Annuncio {
   constructor(public id:number,
-              public titolo: string,
+              public categoia:Categoria,
+              public marca:string,
+              public modello:string,
+              public prezzo:number,
               public descrizione: string,
-              public foto: any, //string?
-              public venditore: string) {
+              public titolo: string,
+              public prezzo_scontato:number,
+              public venditore: UserModel,
+              //public foto: any, //string?
+              ) {
   }
 }

@@ -16,6 +16,6 @@ export const routes: Routes = [
   { path: "categories", component: CategorieComponent},
   { path: "adminBoard", component: ListaUtentiComponent},
   { path: "profile", component: ProfiloComponent},
-  { path: "annuncio", component: AnnuncioComponent}
+  { path: "annuncio/:id", component: AnnuncioComponent}
 ]
 
