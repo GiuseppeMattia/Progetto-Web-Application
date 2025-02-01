@@ -3,10 +3,7 @@ package unical.demacs.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import unical.demacs.backend.model.Asta;
 import unical.demacs.backend.persistence.DAO.JDBC.AstaDAOJDBC;
 import unical.demacs.backend.persistence.DBManager;
@@ -73,7 +70,7 @@ public class AstaController {
 
 
     //SE terminata == true, TROVA TUTTE LE ASTE A CUI HO PARTECIPATO E CHE MI SONO PORTATO A CASA (lo storico)
-    //SE terminata == false, TROVA TUTTE LE ASTE A CUI IO STO PARTECIOPANDO
+    //SE terminata == false, TROVA TUTTE LE ASTE A CUI IO SONO IL PROBABILE FUTURO ACQUIRENTE
 
     @GetMapping("/trovaByUtenteAcquirente")
     public ResponseEntity<List<Asta>> trovaByUtenteAcquirente(@RequestParam String username, @RequestParam boolean terminata){
@@ -86,5 +83,47 @@ public class AstaController {
             return ResponseEntity.status(404).body(null);
         }
     }
+
+    @GetMapping("/trovaByUtenteVenditore")
+    public ResponseEntity<List<Asta>> trovaByUtenteVenditore(@RequestParam String username){
+        try{
+            List<Asta> aste = astaService.findBYUtenteVenditore(username);
+            return ResponseEntity.ok().body(aste);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
+        }
+    }
+
+    @PostMapping("/crea")
+    public ResponseEntity<Boolean> crea(@RequestBody Asta asta) {
+        try{
+            astaService.save(asta);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(false);
+        }
+    }
+
+    @PostMapping("/aggiorna")
+    public ResponseEntity<Boolean> aggiorna(@RequestBody Asta asta) {
+
+        try{
+            astaService.save(asta);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(false);
+        }
+    }
+
+    @DeleteMapping("/elimina")
+    public ResponseEntity<Boolean> elimina(@RequestBody Asta asta) {
+        astaService.delete(asta);
+        return ResponseEntity.ok(true);
+    }
+
+
 
 }

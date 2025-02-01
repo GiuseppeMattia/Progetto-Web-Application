@@ -12,6 +12,14 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
+        List<Utente> utenti = utenteDAO.findAll();
+
+        System.out.println(utenti.get(2).getAsteAttiveDaVenditore());
+        System.out.println(utenti.get(2).getAsteAttiveDaAcquirente());
+        System.out.println(utenti.get(2).getRecensioniEffettuate());
+        System.out.println(utenti.get(2).getAnnunciAttivi());
+
 
         //TEST Annuncio DAO - findAnnuncioByTitoloAndCategoria
 
@@ -377,14 +385,8 @@ public class Main {
 
         //TEST Utente DAO - findAll
 
-        /*
-        UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
-        List<Utente> utenti = utenteDAO.findAll();
 
-        for(Utente utente : utenti) {
-            System.out.println(utente);
-        }
-         */
+
 
         //TEST Utente DAO - update
 

@@ -18,35 +18,42 @@ public class RecensioneService implements IRecensioneService {
     }
 
     @Override
-    public List<Recensione> findByAnnuncio(int idAnnuncio) {
-        // HA SENSO CONTROLLARE SE L'ANNUNCIO ESISTE?
+    public List<Recensione> findByAnnuncio(int idAnnuncio){
+
+        Annuncio annuncio = DBManager.getInstance().getAnnuncioDAO().findById(idAnnuncio);
+        if(annuncio == null){
+            throw new IllegalArgumentException("Non esiste un annuncio con id " + idAnnuncio);
+        }
+
         return recensioneDAO.findByAnnuncio(idAnnuncio);
     }
 
     @Override
     public List<Recensione> findByUtente(String username) {
-        // HA SENSO CONTROLLARE SE L'UTENTE ESISTE
+
+        Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(username);
+        if(utente == null){
+            throw new IllegalArgumentException("Non esiste un utente con username " + username);
+        }
+
+        //METTERE IL CONTROLLO DELLA LISTA VUOTA
         return recensioneDAO.findByUtente(username);
     }
 
     @Override
     public void save(Recensione recensione){
 
-
-        //HA SENSO FARE QUESTO?
-        /*
         Annuncio annuncio = DBManager.getInstance().getAnnuncioDAO().findById(recensione.getAnnuncio().getID());
         if(annuncio == null){
             System.out.println("Non puoi lasciare una recensione per un annuncio che non esiste");
             throw new IllegalArgumentException("Annuncio non trovato");
         }
-         */
 
         recensioneDAO.save(recensione);
     }
 
     @Override
-    public void update(Recensione recensione, String testo) {
+    public void update(Recensione recensione, String testo){
         recensioneDAO.update(recensione, testo);
     }
 

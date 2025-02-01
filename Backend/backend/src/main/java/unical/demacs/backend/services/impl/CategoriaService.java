@@ -5,6 +5,7 @@ import unical.demacs.backend.persistence.DAO.interfaces.CategoriaDAO;
 import unical.demacs.backend.services.interfaces.ICategoriaService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class CategoriaService implements ICategoriaService {
 
@@ -15,17 +16,28 @@ public class CategoriaService implements ICategoriaService {
     }
 
     @Override
-    public List<Categoria> findAll() {
+    public List<Categoria> findAll(){
         return categoriaDAO.findAll();
     }
 
     @Override
     public Categoria findById(int id){
-        return categoriaDAO.findById(id);
+
+        Categoria categoria = categoriaDAO.findById(id);
+        if(categoria == null){
+            throw new IllegalArgumentException("Non esiste una categoria con id " + id);
+        }
+        return  categoria;
     }
 
     @Override
-    public Categoria findByName(String nome) {
-        return categoriaDAO.findByName(nome);
+    public Categoria findByName(String nome){
+
+        Categoria categoria = categoriaDAO.findByName(nome);
+        if(categoria == null){
+            throw new IllegalArgumentException("Non esiste una categoria con nome " + nome);
+        }
+
+        return categoria;
     }
 }

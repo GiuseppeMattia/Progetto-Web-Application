@@ -17,6 +17,10 @@ public class Utente {
     protected List<Annuncio> annunciAttivi;
     //
 
+    public List<Asta> getAsteAttiveDaAcquirente() {
+        return asteAttiveDaAcquirente;
+    }
+
 
     //I GETTER DELLE LISTE ANDEREBBERO FATTI ASTRATTI? PERCHE TANTO VENGONO UTILIZZATI SOLO NEI PROXY
 
@@ -92,6 +96,10 @@ public class Utente {
                 ", amministratore=" + amministratore +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", recensioniEffettuate=" + recensioniEffettuate +
+                ", asteAttiveDaVenditore=" + asteAttiveDaVenditore +
+                ", annunciAttivi=" + annunciAttivi +
+                ", asteAttiveDaAcquirente=" + asteAttiveDaAcquirente +
                 '}';
     }
 }

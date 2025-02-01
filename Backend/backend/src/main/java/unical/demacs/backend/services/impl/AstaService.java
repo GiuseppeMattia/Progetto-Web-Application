@@ -84,23 +84,38 @@ public class AstaService implements IAstaService {
     }
 
     @Override
-    public List<Asta> findBYUtenteVenditore(String username) {
+    public List<Asta> findBYUtenteVenditore(String username){
+
+        Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(username);
+        if (utente == null) {
+            throw new IllegalArgumentException("Non esiste un utente con username " + username);
+        }
+
         return astaDAO.findBYUtenteVenditore(username);
     }
 
     @Override
     public void save(Asta asta) {
-        Annuncio annuncio = DBManager.getInstance().getAnnuncioDAO().findById(asta.getAnnuncio().getID());
-        if(annuncio != null) {
+
+        Asta daCercare = astaDAO.findByAnnuncio(asta.getAnnuncio().getID());
+
+        if(daCercare != null) {
             System.out.println("Non puoi salvare un'asta che si riferisce ad un annuncio che ha gia un asta");
             throw new IllegalArgumentException("Non puoi salvare un'asta che si riferisce ad un annuncio che ha gia un asta");
         }
+
         astaDAO.save(asta);
     }
 
     @Override
-    public void update(Asta asta, float prezzo) {
-        if(asta.getPrezzo() > prezzo) {
+    public void update(Asta asta, float prezzo){
+
+        Asta daCercare = astaDAO.findById(asta.getID());
+        if(daCercare == null) {
+            throw new IllegalArgumentException("L'asta che si vuole modificare con ID" + asta.getID() + " non esiste");
+        }
+
+        if(prezzo < asta.getPrezzo()) {
             throw new IllegalArgumentException("Non puoi proporre un prezzo inferiore");
         }
 
@@ -108,7 +123,7 @@ public class AstaService implements IAstaService {
     }
 
     @Override
-    public void delete(Asta asta) {
+    public void delete(Asta asta){
         astaDAO.delete(asta);
     }
 }

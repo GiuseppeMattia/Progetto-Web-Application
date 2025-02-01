@@ -32,7 +32,8 @@ public class UtenteDAOJDBC implements UtenteDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Utente utente = new UtenteProxy();
+                //Utente utente = new UtenteProxy();
+                Utente utente = new Utente();
                 utente.setAmministratore(resultSet.getBoolean("amministratore"));
                 utente.setEmail(resultSet.getString("email"));
                 utente.setPassword(resultSet.getString("password"));
