@@ -49,7 +49,9 @@ export class UtenteService {
       )
     );
   }
-  promuovi(utente:UserModel){}
+  promuovi(utente:UserModel): Observable<boolean>{
+    return this.http.post<boolean>(`${this.apiUrl}/aggiorna?amministratore=true`,utente)
+  }
   ban(utente:UserModel){
   }
 }

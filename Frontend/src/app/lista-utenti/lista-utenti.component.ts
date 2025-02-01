@@ -36,7 +36,8 @@ export class ListaUtentiComponent implements OnInit{
       return
     }
     //chiamata al back per promuovere un utente ad amministratore
-    this.api.promuovi(utente)
+    this.api.promuovi(utente).subscribe()
+    window.location.reload();
     console.log("Utente promosso")
   }
   back(){
