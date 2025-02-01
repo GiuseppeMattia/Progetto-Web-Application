@@ -1,33 +1,44 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-
-interface AuthState {
-  isLoggedIn: boolean;
-  username: string;
-}
+import { Injectable } from "@angular/core"
+import { BehaviorSubject, type Observable } from "rxjs"
+import { map } from "rxjs/operators"
+import  { UserModel } from "../modelli/userModel"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-  private authStateSubject = new BehaviorSubject<AuthState>({
-    isLoggedIn: false,
-    username: ''
-  });
+  private currentUserSubject: BehaviorSubject<UserModel | null>
+  public currentUser: Observable<UserModel | null>
+  public authState$: Observable<boolean>
+  public isAdmin$: Observable<boolean>
 
-  authState$ = this.authStateSubject.asObservable();
 
-  login(username: string) {
-    this.authStateSubject.next({
-      isLoggedIn: true,
-      username
-    });
+  constructor() {
+    this.currentUserSubject = new BehaviorSubject<UserModel | null>(
+      JSON.parse(localStorage.getItem("currentUser") || "null"),
+    )
+    this.currentUser = this.currentUserSubject.asObservable()
+    this.authState$ = this.currentUser.pipe(map((user) => !!user))
+    this.isAdmin$ = this.currentUser.pipe(map((user) => !!user?.amministratore))
+  }
+
+  public get currentUserValue(): UserModel | null {
+    return this.currentUserSubject.value
+  }
+
+  login(user: UserModel) {
+    localStorage.setItem("currentUser", JSON.stringify(user))
+    this.currentUserSubject.next(user)
   }
 
   logout() {
-    this.authStateSubject.next({
-      isLoggedIn: false,
-      username: ''
-    });
+    localStorage.removeItem("currentUser")
+    this.currentUserSubject.next(null)
   }
+
+  isLoggedIn(): boolean {
+    return !!this.currentUserValue
+  }
+
 }
+

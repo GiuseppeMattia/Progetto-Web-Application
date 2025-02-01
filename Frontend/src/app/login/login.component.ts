@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { UtenteService } from "../services/utente.service"; // Rimosso "type"
 import { UserModel } from "../modelli/userModel"; // Rimane "type" perché è solo un'interfaccia
 import {provideHttpClient, HttpClient, HttpClientModule} from "@angular/common/http";
+import {AuthService} from '../services/auth.service';
 
 
 
@@ -23,6 +24,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private utenteService: UtenteService,
+    private authService: AuthService,
   ) {
     this.loginForm = this.fb.group({
       username: ["", Validators.required],
@@ -44,6 +46,9 @@ export class LoginComponent {
         (isValid) => {
           if (isValid) {
             console.log("Login riuscito")
+            if(utente.amministratore){
+              console.log("Utente amministratore")
+            }
             this.router.navigate(["/home"])
           } else {
             console.log("Login fallito")

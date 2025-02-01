@@ -1,45 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import {CommonModule} from '@angular/common';
+import { Component, type OnInit, type OnDestroy } from "@angular/core"
+import {  Router, RouterLink } from "@angular/router"
+import { AuthService } from "../services/auth.service"
+import { CommonModule } from "@angular/common"
+import  { Subscription } from "rxjs"
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.css"],
   standalone: true,
-  imports: [CommonModule, RouterLink]
+  imports: [CommonModule, RouterLink],
 })
-export class NavbarComponent implements OnInit {
-  isLoggedIn = false;
-  username = '';
-  isAdmin=true;
+export class NavbarComponent implements OnInit, OnDestroy {
+  isLoggedIn = false
+  isAdmin = false
+  username = ""
+  private authSubscription: Subscription | undefined
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
-    this.authService.authState$.subscribe(state => {
-      this.isLoggedIn = state.isLoggedIn;
-      this.username = state.username;
-    });
+    this.authSubscription = this.authService.currentUser.subscribe((user) => {
+      this.isLoggedIn = !!user
+      this.isAdmin = user?.amministratore || false
+      this.username = user?.username || ""
+      console.log("Is Admin:", this.isAdmin)
+    })
   }
 
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe()
+    }
+  }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/']);
+    this.authService.logout()
+    this.router.navigate(["/home"])
   }
 
   goToMyListings() {
-    this.router.navigate(['/annunci']);
+    this.router.navigate(["/annunci"])
   }
-  goAdminDashboard(){
-    this.router.navigate(['/adminBoard'])
+
+  goAdminDashboard() {
+    this.router.navigate(["/adminBoard"])
   }
-  goProfile(){
-    this.router.navigate(['/profile'])
+
+  goProfile() {
+    this.router.navigate(["/profile"])
   }
 }
+

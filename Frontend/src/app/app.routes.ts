@@ -7,6 +7,7 @@ import {ListaUtentiComponent} from './lista-utenti/lista-utenti.component';
 import {ProfiloComponent} from './profilo/profilo.component';
 import {AnnuncioComponent} from './annuncio/annuncio.component';
 
+
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
