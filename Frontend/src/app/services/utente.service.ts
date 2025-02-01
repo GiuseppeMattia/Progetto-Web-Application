@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import  { HttpClient } from "@angular/common/http"
 import { type Observable, throwError } from "rxjs"
-import { catchError, tap } from "rxjs/operators"
+import {catchError, map, tap} from "rxjs/operators"
 import  { UserModel } from "../modelli/userModel"
 import  { AuthService } from "./auth.service"
 
@@ -35,6 +35,19 @@ export class UtenteService {
         this.authService.login(utente)
       }),
     )
+  }
+  trovaUtenti():Observable<any>{
+    return this.http.get(`${this.apiUrl}/trovaTutti`).pipe(
+      map((data:any) =>
+        data.map((item:UserModel) => new UserModel(
+          item.username,
+          item.password,
+          item.tipo,
+          item.email,
+          item.amministratore
+        ))
+      )
+    );
   }
 }
 
