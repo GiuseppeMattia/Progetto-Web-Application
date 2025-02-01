@@ -49,5 +49,8 @@ export class UtenteService {
       )
     );
   }
+  promuovi(utente:UserModel){}
+  ban(utente:UserModel){
+  }
 }
 
