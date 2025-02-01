@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angula
 import {Router, RouterLink, RouterOutlet} from "@angular/router"; // Rimosso "type"
 import { CommonModule } from "@angular/common";
 import { UtenteService } from "../services/utente.service"; // Rimosso "type"
-import { Utente } from "../models/utente"; // Rimane "type" perché è solo un'interfaccia
+import { UserModel } from "../modelli/userModel"; // Rimane "type" perché è solo un'interfaccia
 import {provideHttpClient, HttpClient, HttpClientModule} from "@angular/common/http";
 
 
@@ -32,7 +32,7 @@ export class LoginComponent {
 
   validateUser() {
     if (this.loginForm.valid) {
-      const utente: Utente = {
+      const utente: UserModel = {
         username: this.loginForm.get("username")?.value,
         password: this.loginForm.get("password")?.value,
         tipo:false,

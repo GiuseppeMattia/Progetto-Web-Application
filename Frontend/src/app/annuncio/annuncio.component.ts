@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Annuncio} from '../models/annuncio.model';
+import {Annuncio} from '../modelli/annuncio.model';
 
 @Component({
   selector: 'app-annuncio',

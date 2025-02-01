@@ -15,7 +15,7 @@ import {RouterLink, RouterOutlet} from '@angular/router';
   styleUrl: './profilo.component.css'
 })
 export class ProfiloComponent {
-  utente=new UserModel("Mario Doccia",false,"docciamario@prova.it",true)
+  utente=new UserModel("Mario Doccia","prova",false,"docciamario@prova.it",true)
   //il comportamento reale prenderà dalla sessione le informazioni necessarie, ovvero il tipo d'utente
   //in modo da diversificare il profilo
 }

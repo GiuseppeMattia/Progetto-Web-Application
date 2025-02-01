@@ -1,5 +1,5 @@
 <h1>Benvenuto nel tuo profilo, {{utente.username}}</h1>
-<div *ngIf="utente.type; else schermataAcquirente">
+<div *ngIf="utente.tipo; else schermataAcquirente">
   <ul>
     <li><a routerLink="/create">Crea un nuovo annuncio</a></li>
     <li>Gestisci i tuoi annunci</li>

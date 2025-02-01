@@ -15,10 +15,10 @@ import {Router} from '@angular/router';
 export class ListaUtentiComponent {
   //array di utenti da popolare con chiamata al backend
   utenti: UserModel[]=[
-    new UserModel("Nico",true,"ciao@prova.it",false),
-    new UserModel("Giuseppe",false,"giuseppe@prova.it",false),
-    new UserModel("Watcher",false,"guardo@prova.it",true),
-    new UserModel("Joel",true,"joelOriginal@prova.it",true)
+    new UserModel("Nico","prova",true,"ciao@prova.it",false),
+    new UserModel("Giuseppe","prova",false,"giuseppe@prova.it",false),
+    new UserModel("Watcher","prova",false,"guardo@prova.it",true),
+    new UserModel("Joel","prova",true,"joelOriginal@prova.it",true)
   ]
   constructor(private router: Router) {
   }
@@ -27,7 +27,7 @@ export class ListaUtentiComponent {
     console.log("Utente bannato!")
   }
   setAdmin(utente: UserModel){
-    if (utente.admin){
+    if (utente.amministratore){
       alert("L'utente selezionato è già amministratore")
       return
     }
