@@ -1,0 +1,13 @@
+.container {
+  text-align: center;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center; /* Centra i pulsanti orizzontalmente */
+  gap: 1rem; /* Aggiunge uno spazio tra i pulsanti */
+}
+
+.btn {
+  width: auto; /* I pulsanti manterranno la larghezza in base al contenuto */
+}

@@ -40,6 +40,6 @@ export class ListaUtentiComponent implements OnInit{
     console.log("Utente promosso")
   }
   back(){
-    this.router.navigate(["/profile"])
+    this.router.navigate(["/adminBoard"])
   }
 }
