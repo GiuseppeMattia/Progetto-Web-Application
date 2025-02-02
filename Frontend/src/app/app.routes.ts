@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
   { path: "home", component: HomeComponent },
-  { path: "", redirectTo: "/home", pathMatch: "full" },
+  { path: "", redirectTo: "/home", pathMatch: "full"},
   { path: "categories", component: CategorieComponent},
   { path: "adminBoard", component: PannelloAdminComponent},
   { path: "profile", component: ProfiloComponent},

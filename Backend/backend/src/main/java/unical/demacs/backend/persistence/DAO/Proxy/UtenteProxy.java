@@ -10,10 +10,10 @@ import java.util.List;
 
 public class UtenteProxy extends Utente {
 
-    public List<Recensione> getRecensioni() {
-        recensioniEffettuate = DBManager.getInstance().getRecensioneDAO().findByUtente(username);
-        return recensioniEffettuate;
-    }
+//    public List<Recensione> getRecensioni() {
+//        recensioniEffettuate = DBManager.getInstance().getRecensioneDAO().findByUtente(username);
+//        return recensioniEffettuate;
+//    }
 
     public List<Asta> getAsteAttiveDaAcquirente(){
         asteAttiveDaAcquirente = DBManager.getInstance().getAstaDAO().findByUtenteAcquirente(username, false);

@@ -14,15 +14,14 @@ public class Utente {
     private String email;
 
     //I SEGUENTI CAMPI SERVONO??
-    @JsonIgnore
-    protected List<Recensione> recensioniEffettuate;
+
+    // protected List<Recensione> recensioniEffettuate;
     @JsonIgnore
     protected List<Asta> asteAttiveDaVenditore;
     @JsonIgnore
     protected List<Asta> asteAttiveDaAcquirente;
     @JsonIgnore
     protected List<Annuncio> annunciAttivi;
-    //
 
     public List<Asta> getAsteAttiveDaAcquirente() {
         return asteAttiveDaAcquirente;
@@ -71,13 +70,13 @@ public class Utente {
         this.email = email;
     }
 
-    public List<Recensione> getRecensioniEffettuate() {
-        return recensioniEffettuate;
-    }
+//    public List<Recensione> getRecensioniEffettuate() {
+//        return recensioniEffettuate;
+//    }
 
-    public void setRecensioniEffettuate(List<Recensione> recensioniEffettuate) {
-        this.recensioniEffettuate = recensioniEffettuate;
-    }
+//    public void setRecensioniEffettuate(List<Recensione> recensioniEffettuate) {
+//        this.recensioniEffettuate = recensioniEffettuate;
+//    }
 
     public List<Asta> getAsteAttiveDaVenditore() {
         return asteAttiveDaVenditore;
@@ -103,7 +102,7 @@ public class Utente {
                 ", amministratore=" + amministratore +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", recensioniEffettuate=" + recensioniEffettuate +
+                // ", recensioniEffettuate=" + recensioniEffettuate +
                 ", asteAttiveDaVenditore=" + asteAttiveDaVenditore +
                 ", annunciAttivi=" + annunciAttivi +
                 ", asteAttiveDaAcquirente=" + asteAttiveDaAcquirente +

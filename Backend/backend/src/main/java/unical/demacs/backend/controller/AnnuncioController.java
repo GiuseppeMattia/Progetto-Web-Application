@@ -4,7 +4,9 @@ package unical.demacs.backend.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unical.demacs.backend.model.Annuncio;
+import unical.demacs.backend.model.Recensione;
 import unical.demacs.backend.persistence.DAO.JDBC.AnnuncioDAOJDBC;
+import unical.demacs.backend.persistence.DAO.Proxy.AnnuncioProxy;
 import unical.demacs.backend.persistence.DBManager;
 import unical.demacs.backend.services.impl.AnnuncioService;
 
@@ -68,6 +70,7 @@ public class AnnuncioController {
             return ResponseEntity.status(404).body(null);
         }
     }
+
 
     @GetMapping("/trovaByTitolo")
     public ResponseEntity<List<Annuncio>> trovaAnnunciTitolo(@RequestParam String titolo) {

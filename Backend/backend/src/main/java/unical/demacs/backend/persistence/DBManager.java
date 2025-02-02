@@ -71,7 +71,7 @@ public class DBManager {
         if(this.connection == null){
             try{
                 //NOTA: CAMBIARE LA PASSWORD
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/DeMaCSzon", "postgres", "bruno");
+                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/DeMaCSzon", "postgres", "rullo");
             }
             catch (SQLException e){
                 throw new RuntimeException(e);

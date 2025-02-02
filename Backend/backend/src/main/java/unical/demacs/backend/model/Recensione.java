@@ -7,7 +7,7 @@ public class Recensione {
 
     private int ID;
     private String testo;
-    @JsonIgnore
+
     private Utente autore;
     @JsonIgnore
     private Annuncio annuncio;

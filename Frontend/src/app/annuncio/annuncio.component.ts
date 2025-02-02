@@ -15,7 +15,7 @@ import {HttpClientModule} from '@angular/common/http';
   providers: [AnnuncioService]
 })
 export class AnnuncioComponent implements OnInit {
-  annuncio: Annuncio | null = null
+  annuncio: Annuncio | null = null;
   errorMessage = ""
 
   constructor(
@@ -26,11 +26,10 @@ export class AnnuncioComponent implements OnInit {
 
   ngOnInit() {
     const id  = this.route.snapshot.paramMap.get("id")
-    console.log(id)
     if (id) {
       console.log("ID ricevuto",id)
-      this.loadAnnuncio((Number(id)))
-
+      this.loadAnnuncio(Number(id))
+      console.log(this.annuncio?.titolo)
 
     }
   }
@@ -38,9 +37,10 @@ export class AnnuncioComponent implements OnInit {
   loadAnnuncio(id: number) {
     this.annuncioService.getAnnuncio(id).subscribe(
       (annuncio) => {
-        console.log("Annuncio ricevuto:", annuncio);  // Log per esaminare la risposta
+        // console.log("Annuncio ricevuto:", annuncio);  // Log per esaminare la risposta
+        // console.log(annuncio);
         this.annuncio = annuncio;  // Assicurati di assegnare correttamente l'annuncio
-        console.log(this.annuncio?.foto); // Controlla se è un percorso valido
+        console.log(annuncio); // Controlla il JSON completo
 
       },
       (error) => {

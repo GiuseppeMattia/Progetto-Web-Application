@@ -73,7 +73,7 @@
         <div *ngFor="let recensione of annuncio!.recensioni" class="card mb-3">
           <div class="card-body">
             <h5 class="card-title">
-              {{ recensione.utente?.username || 'Utente anonimo' }}
+              {{ recensione.autore?.username}}
             </h5>
             <p class="card-text">{{ recensione.testo }}</p>
           </div>
