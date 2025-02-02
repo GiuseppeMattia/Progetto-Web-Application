@@ -27,6 +27,7 @@ export class AuthService {
   }
 
   login(user: UserModel) {
+
     localStorage.setItem("currentUser", JSON.stringify(user))
     this.currentUserSubject.next(user)
   }

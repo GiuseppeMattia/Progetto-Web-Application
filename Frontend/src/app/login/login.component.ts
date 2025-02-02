@@ -54,15 +54,19 @@ export class LoginComponent {
             console.log("Login fallito")
             alert("Username o password non validi")
           }
+          this.utenteService.aggiornaUtente(utente);
         },
         (error) => {
           console.error("Errore durante la validazione:", error)
           alert("Si è verificato un errore durante il login")
         },
+
       )
     } else {
       alert("Per favore, compila tutti i campi richiesti.")
     }
+
   }
+
 }
 

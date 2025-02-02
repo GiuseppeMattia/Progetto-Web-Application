@@ -16,13 +16,27 @@ export class UtenteService {
     private authService: AuthService,
   ) {}
 
+  aggiornaUtente(utente: UserModel): Observable<UserModel> {
+    return this.http.get<UserModel>(`${this.apiUrl}/trovaByUsername?username=${utente.username}`);
+  }
 
   validaUtente(utente: UserModel): Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}/valida`, utente).pipe(
       tap((isValid) => {
         if (isValid) {
-          this.authService.login(utente)
-          console.log(utente);
+          // Prima otteniamo i dati aggiornati dell'utente
+          this.aggiornaUtente(utente).subscribe(
+            (utenteAggiornato) => {
+              // Poi facciamo il login con i dati aggiornati
+              this.authService.login(utenteAggiornato)
+              console.log('Utente aggiornato:', utenteAggiornato);
+            },
+            (error) => {
+              console.error('Errore durante l\'aggiornamento dell\'utente:', error);
+              // In caso di errore, procediamo comunque con il login usando i dati originali
+              this.authService.login(utente)
+            }
+          );
         }
       }),
     )
