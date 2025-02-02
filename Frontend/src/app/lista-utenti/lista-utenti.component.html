@@ -1,7 +1,24 @@
 <div>
-  <h1>Pannello di controllo degli utenti</h1>
-  <p *ngFor="let utente of utenti">
-    Nome Utente: {{utente.username}} E-mail: {{utente.email}} <button (click)="setAdmin(utente)">Promuovi ad Admin</button> <button (click)="ban(utente)">Banna</button>
-  </p>
-  <button (click)="back()">Torna al profilo</button>
+
+  <div class="container mt-3" style="margin-top: 20px;">
+    <div style="margin-top: 3%; margin-bottom: 3%">
+      <h1>Pannello di controllo degli utenti</h1>
+    </div>
+
+
+    <div *ngFor="let utente of utenti" class="row align-items-center border-bottom py-2">
+      <div class="col-md-3 fw-bold">Nome Utente: {{utente.username}}</div>
+      <div class="col-md-4">E-mail: {{utente.email}}</div>
+      <div class="col-md-2">
+        <button class="btn btn-outline-primary w-100" (click)="setAdmin(utente)">Promuovi</button>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-outline-warning w-100" (click)="ban(utente)">Banna</button>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-primary" (click)="back()">Torna al profilo</button>
+  </div>
+
 </div>

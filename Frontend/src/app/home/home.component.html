@@ -1,7 +1,30 @@
-<div class="container mt-5">
-  <h1>Benvenuto nella HomePage</h1>
-  <p>Questa è la tua schermata principale, ovvero quella in cui compariranno gli annunci.</p>
-  <p>Da in alto a sinistra puoi fare il login o registrarti se non l'hai ancora fatto</p>
-  <p>Per ora puoi provare il login con dati casuali</p>
+<div class="container mt-4">
+  <h1 class="mb-4">Annunci in evidenza</h1>
 
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div *ngFor="let annuncio of annunci" class="col">
+      <div class="card h-100">
+        <img [src]="annuncio.foto" class="card-img-top" [alt]="annuncio.titolo">
+        <div class="card-body">
+          <h5 class="card-title">{{ annuncio.titolo }}</h5>
+          <p class="card-text">{{ annuncio.descrizione | slice:0:100 }}...</p>
+          <p class="card-text">
+            <strong>Prezzo:
+              <span *ngIf="annuncio.prezzo_scontato; else prezzoNormale" class="text-danger">
+                €{{ annuncio.prezzo_scontato.toFixed(2) }}
+              </span>
+              <ng-template #prezzoNormale>
+                €{{ annuncio.prezzo.toFixed(2) }}
+              </ng-template>
+            </strong>
+          </p>
+          <a [routerLink]="['/annuncio', annuncio.id]" class="btn btn-primary">Vedi dettagli</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

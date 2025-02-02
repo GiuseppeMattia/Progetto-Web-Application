@@ -1,0 +1,26 @@
+.main-image-container {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.main-image-container img {
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.pricing h2 {
+  font-size: 2rem;
+}
+
+.btn-warning {
+  background-color: #ffd814;
+  border-color: #fcd200;
+}
+
+.btn-warning:hover {
+  background-color: #f7ca00;
+  border-color: #f0b800;
+}

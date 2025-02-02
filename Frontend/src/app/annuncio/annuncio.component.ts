@@ -1,5 +1,5 @@
 import { Component, type OnInit } from "@angular/core"
-import {ActivatedRoute, RouterLink} from "@angular/router"
+import {ActivatedRoute, Router, RouterLink} from "@angular/router"
 import {CommonModule, NgIf} from "@angular/common"
 import  { Annuncio } from "../modelli/annuncio.model"
 import  { AnnuncioService } from "../services/annuncio.service"
@@ -20,6 +20,7 @@ export class AnnuncioComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private annuncioService: AnnuncioService,
   ) {}
 
@@ -30,6 +31,7 @@ export class AnnuncioComponent implements OnInit {
       console.log("ID ricevuto",id)
       this.loadAnnuncio((Number(id)))
 
+
     }
   }
 
@@ -38,6 +40,8 @@ export class AnnuncioComponent implements OnInit {
       (annuncio) => {
         console.log("Annuncio ricevuto:", annuncio);  // Log per esaminare la risposta
         this.annuncio = annuncio;  // Assicurati di assegnare correttamente l'annuncio
+        console.log(this.annuncio?.foto); // Controlla se è un percorso valido
+
       },
       (error) => {
         console.error("Errore nel caricamento dell'annuncio:", error);
@@ -49,5 +53,9 @@ export class AnnuncioComponent implements OnInit {
 
   hasAnnuncio(): boolean {
     return !!this.annuncio
+  }
+
+  redirectToHome(){
+    this.router.navigate(['/home']);
   }
 }

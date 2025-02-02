@@ -1,35 +1,94 @@
-<div class="container mt-5">
-  <ng-container *ngIf="hasAnnuncio(); else errorTemplate">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="image-container">
-          <!--<img [src]="annuncio!.foto" [alt]="annuncio!.titolo" class="img-fluid rounded">-->
-        </div>
+<div class="container mt-5"  >
+  <div class="row">
+    <!-- Left column for images -->
+    <div class="col-md-5">
+      <div class="main-image-container mb-3">
+        <img src="/pc.jpg" [alt]="annuncio!.titolo" class="img-fluid rounded">
       </div>
-      <div class="col-md-6">
-        <h1 class="mb-3">{{ annuncio!.titolo }}</h1>
-        <p class="text-muted">Venduto da: {{ annuncio!.venditore }}</p>
-        <h2 class="text-primary mb-3">€ {{ annuncio!.prezzo?.toFixed(2) }}</h2>
-        <p class="mb-4">{{ annuncio!.descrizione }}</p>
-        <button class="btn btn-primary btn-lg">Aggiungi al carrello</button>
-        <button class="btn btn-outline-secondary btn-lg ml-2">Contatta il venditore</button>
-      </div>
+      <!-- You can add more thumbnail images here if available -->
     </div>
-    <div class="row mt-5">
-      <div class="col-12">
-        <h3>Dettagli del prodotto</h3>
-        <ul class="list-group">
-          <li class="list-group-item">ID Annuncio: {{ annuncio!.id }}</li>
-          <!-- Aggiungi altri dettagli qui se necessario -->
-        </ul>
-      </div>
-    </div>
-  </ng-container>
 
-  <ng-template #errorTemplate>
-    <div class="alert alert-danger" role="alert">
-      {{ errorMessage || 'Nessun annuncio trovato.' }}
+    <!-- Right column for product details -->
+    <div class="col-md-7">
+      <h1 class="mb-2">{{ annuncio!.titolo }}</h1>
+      <p class="text-muted mb-2">Marca: {{ annuncio!.marca }} | Modello: {{ annuncio!.modello }}</p>
+      <p class="text-muted mb-3">Venduto da: <a href="#" class="text-primary">{{ annuncio!.venditore.username }}</a></p>
+
+      <div class="pricing mb-3">
+        <ng-container *ngIf="annuncio!.prezzo_scontato; else prezzoOriginale">
+          <h2 class="text-danger mb-0">€ {{ annuncio!.prezzo_scontato.toFixed(2) }}</h2>
+          <p class="text-muted">
+            <small>Prezzo originale: <del>€ {{ annuncio!.prezzo.toFixed(2) }}</del></small>
+          </p>
+        </ng-container>
+        <ng-template #prezzoOriginale>
+          <h2 class="mb-0">€ {{ annuncio!.prezzo.toFixed(2) }}</h2>
+        </ng-template>
+      </div>
+
+      <div class="mb-4">
+        <h5>Descrizione:</h5>
+        <p>{{ annuncio!.descrizione }}</p>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button class="btn btn-warning btn-lg">Aggiungi al carrello</button>
+        <button class="btn btn-outline-secondary btn-lg">Contatta il venditore</button>
+      </div>
     </div>
-  </ng-template>
-</div>
+
+  </div>
+
+  <!-- Product details -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <h3>Dettagli del prodotto</h3>
+      <table class="table table-striped">
+        <tbody>
+        <tr>
+          <th>ID Annuncio</th>
+          <td>{{ annuncio!.id }}</td>
+        </tr>
+        <tr>
+          <th>Categoria</th>
+          <td>{{ annuncio!.categoria.name }}</td>
+        </tr>
+        <tr>
+          <th>Marca</th>
+          <td>{{ annuncio!.marca }}</td>
+        </tr>
+        <tr>
+          <th>Modello</th>
+          <td>{{ annuncio!.modello }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h3>Recensioni</h3>
+      <ng-container *ngIf="annuncio!.recensioni && annuncio!.recensioni.length > 0; else noReviews">
+        <div *ngFor="let recensione of annuncio!.recensioni" class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ recensione.utente?.username || 'Utente anonimo' }}
+            </h5>
+            <p class="card-text">{{ recensione.testo }}</p>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noReviews>
+        <p>Nessuna recensione disponibile per questo annuncio.</p>
+      </ng-template>
+    </div>
+    <ng-template #errorTemplate>
+      <div class="alert alert-danger" role="alert">
+        {{ errorMessage || 'Nessun annuncio trovato.' }}
+      </div>
+    </ng-template>
+
+  </div>
+
 

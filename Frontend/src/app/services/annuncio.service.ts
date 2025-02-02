@@ -17,6 +17,10 @@ export class AnnuncioService {
     return this.http.post<Annuncio>(`${this.apiUrl}/trovaByID`, null, { params });
   }
 
+  getAnnunci(): Observable<Annuncio[]> {
+    return this.http.get<Annuncio[]>(`${this.apiUrl}/trovaTutti`);
+  }
+
 
 
 }
