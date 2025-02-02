@@ -7,8 +7,8 @@ CSS,
 Annuncio, --
 ListaAnnunciAdmin, --
   ListaAste, --
-  ListaAnnunci,
-  Recensioni
+  ListaAnnunci, --
+  Recensioni --
 
 
 Io ->Categorie, Creazione Annuncio/Aste, Lista Utenti e Ban, Api Captcha,Ricerca e Ordinamento, Profilo

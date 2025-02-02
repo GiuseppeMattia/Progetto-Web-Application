@@ -1,0 +1,40 @@
+.container {
+  margin-top: 20px;
+}
+
+.header {
+  margin-top: 3%;
+  margin-bottom: 3%;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.fw-bold {
+  font-weight: bold;
+}
+
+.btn-outline-danger {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+}
+
+.btn-outline-danger:hover {
+  background-color: #cc0000;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}

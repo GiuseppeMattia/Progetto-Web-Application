@@ -14,16 +14,14 @@ export class PannelloAdminComponent {
   }
 
   gestisciAnnunci() {
-    console.log("Gestione annunci...");
-    // Qui puoi navigare a un'altra pagina o eseguire altre azioni
+    this.router.navigate(["/listaAnnunci"])
   }
 
   gestisciAste() {
-    console.log("Gestione aste...");
+    this.router.navigate(["/listaAste"]);
   }
 
   gestisciUtenti() {
     this.router.navigate(['/listaUtenti']);
-    console.log("Gestione utenti...");
   }
 }

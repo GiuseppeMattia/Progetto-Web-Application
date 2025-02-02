@@ -7,6 +7,8 @@ import {ListaUtentiComponent} from './lista-utenti/lista-utenti.component';
 import {ProfiloComponent} from './profilo/profilo.component';
 import {AnnuncioComponent} from './annuncio/annuncio.component';
 import {PannelloAdminComponent} from './pannello-admin/pannello-admin.component';
+import {ListaAnnunciComponent} from './lista-annunci/lista-annunci.component';
+import {ListaAsteComponent} from './lista-aste/lista-aste.component';
 
 
 export const routes: Routes = [
@@ -19,5 +21,7 @@ export const routes: Routes = [
   { path: "profile", component: ProfiloComponent},
   { path: "annuncio/:id", component: AnnuncioComponent},
   { path: "listaUtenti", component: ListaUtentiComponent},
+  { path: "listaAnnunci", component: ListaAnnunciComponent},
+  { path: "listaAste", component: ListaAsteComponent},
 ]
 

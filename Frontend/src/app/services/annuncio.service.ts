@@ -21,6 +21,12 @@ export class AnnuncioService {
     return this.http.get<Annuncio[]>(`${this.apiUrl}/trovaTutti`);
   }
 
+  eliminaAnnuncio(annuncio: Annuncio): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/elimina`, { body: annuncio });
+  }
+
+
+
 
 
 }
