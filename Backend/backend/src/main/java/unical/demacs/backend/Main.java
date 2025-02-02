@@ -3,22 +3,35 @@ package unical.demacs.backend;
 import unical.demacs.backend.model.*;
 import unical.demacs.backend.persistence.DAO.JDBC.*;
 
+import unical.demacs.backend.persistence.DAO.Proxy.AnnuncioProxy;
 import unical.demacs.backend.persistence.DAO.Proxy.UtenteProxy;
 import unical.demacs.backend.persistence.DAO.interfaces.*;
 import unical.demacs.backend.persistence.DBManager;
 
+import javax.sound.midi.SoundbankResource;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
-        List<Utente> utenti = utenteDAO.findAll();
+//        UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
+//        List<Utente> utenti = utenteDAO.findAll();
+//
+//        System.out.println(utenti.get(2).getAsteAttiveDaVenditore());
+//        System.out.println(utenti.get(2).getAsteAttiveDaAcquirente());
+//        System.out.println(utenti.get(2).getRecensioniEffettuate());
+//        System.out.println(utenti.get(2).getAnnunciAttivi());
 
-        System.out.println(utenti.get(2).getAsteAttiveDaVenditore());
-        System.out.println(utenti.get(2).getAsteAttiveDaAcquirente());
-        System.out.println(utenti.get(2).getRecensioniEffettuate());
-        System.out.println(utenti.get(2).getAnnunciAttivi());
+
+//        UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
+//        Utente utente = utenteDAO.findByUsername("admin");
+//        System.out.println(utente);
+
+        AnnuncioDAO annuncioDAO = new AnnuncioDAOJDBC(DBManager.getInstance().getConnection());
+        Annuncio annuncio = annuncioDAO.findById(2);
+        System.out.println(annuncio.getRecensioni());
+
+
 
 
         //TEST Annuncio DAO - findAnnuncioByTitoloAndCategoria

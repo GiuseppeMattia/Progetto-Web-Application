@@ -236,7 +236,8 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
         }
     }
 
-    private Annuncio buildAnnuncioFromResultSet(ResultSet resultSet) throws SQLException {
+    private Annuncio buildAnnuncioFromResultSet(ResultSet resultSet) throws SQLException{
+
         Annuncio annuncio = new AnnuncioProxy();
         Utente utente = DBManager.getInstance().getUtenteDAO().findByUsername(resultSet.getString("venditore"));
         annuncio.setVenditore(utente);

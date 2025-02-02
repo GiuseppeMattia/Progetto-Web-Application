@@ -1,14 +1,15 @@
 package unical.demacs.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Recensione {
 
     private int ID;
     private String testo;
-    @JsonBackReference
+    @JsonIgnore
     private Utente autore;
-    @JsonBackReference
+    @JsonIgnore
     private Annuncio annuncio;
 
     public int getID() {

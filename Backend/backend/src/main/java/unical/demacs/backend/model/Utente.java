@@ -1,5 +1,6 @@
 package unical.demacs.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
@@ -13,13 +14,13 @@ public class Utente {
     private String email;
 
     //I SEGUENTI CAMPI SERVONO??
-    @JsonManagedReference
+    @JsonIgnore
     protected List<Recensione> recensioniEffettuate;
-    @JsonManagedReference
+    @JsonIgnore
     protected List<Asta> asteAttiveDaVenditore;
-    @JsonManagedReference
+    @JsonIgnore
     protected List<Asta> asteAttiveDaAcquirente;
-    @JsonManagedReference
+    @JsonIgnore
     protected List<Annuncio> annunciAttivi;
     //
 

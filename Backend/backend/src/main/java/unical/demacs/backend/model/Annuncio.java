@@ -43,6 +43,7 @@ public class Annuncio {
                 ", titolo='" + titolo + '\'' +
                 ", prezzoScontato=" + prezzoScontato +
                 ", venditore=" + venditore +
+                ", recensioni=" + recensioni +
                 '}';
     }
 
