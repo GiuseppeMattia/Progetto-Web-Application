@@ -34,7 +34,7 @@ public class AnnuncioController {
     }
 
     @PostMapping("/trovaByID")
-    public ResponseEntity<Annuncio> trovaAnnuncioByID(@RequestParam int id) {
+    public ResponseEntity<Annuncio> trovaAnnuncioByID(@RequestParam("id")int id) {
 
         try{
             Annuncio annuncio = annuncioService.findById(id);

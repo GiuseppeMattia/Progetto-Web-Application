@@ -1,5 +1,7 @@
 package unical.demacs.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Arrays;
 import java.util.List;
 
