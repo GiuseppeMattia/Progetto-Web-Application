@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrazione</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="d-flex justify-content-center align-items-center">
-<form class="register-form text-center" [formGroup]="registerForm" (ngSubmit)="registerUser()" style="width: 100%; max-width: 400px;">
+<form class="register-form text-center" [formGroup]="registerForm" (ngSubmit)="onSubmit($event)" style="width: 100%; max-width: 400px;">
   <div class="form-group mb-3">
     <label for="username" class="form-label">Username</label>
     <input type="text" class="form-control" id="username" formControlName="username" placeholder="Inserisci il tuo username" required>
@@ -18,6 +19,19 @@
   <div class="form-group mb-3">
     <label for="password" class="form-label">Password</label>
     <input type="password" class="form-control" id="password" formControlName="password" placeholder="Inserisci la tua password" required>
+  </div>
+  <div class="form-group mb-3">
+    <label for="telefono" class="form-label">Numero di telefono</label>
+    <div class="input-group">
+      <select class="form-select" id="prefisso" formControlName="prefisso" required>
+        <option value="+39">🇮🇹 +39 (Italia)</option>
+        <option value="+33">🇫🇷 +33 (Francia)</option>
+        <option value="+44">🇬🇧 +44 (Regno Unito)</option>
+        <option value="+49">🇩🇪 +49 (Germania)</option>
+        <option value="+1">🇺🇸 +1 (USA)</option>
+      </select>
+      <input type="tel" class="form-control" id="telefono" formControlName="telefono" placeholder="Inserisci il tuo numero" required>
+    </div>
   </div>
 
   <!-- Nuovo campo per la selezione del tipo utente -->
@@ -31,8 +45,12 @@
       <label class="btn btn-outline-primary" for="acquirente">Acquirente</label>
     </div>
   </div>
+  <button type="submit" #captchaButton class="btn btn-outline-primary w-100 mb-3 g-recaptcha"
+          data-sitekey="6Lc4oMoqAAAAAATd9CRuR7QMR_NdOtzagn2TwLa2"
+          data-callback="onSubmitCaptcha"
+          data-action="submit">Registrati</button>
+<!--  <button type="submit" class="btn btn-outline-primary w-100 mb-3">Registrati</button>-->
 
-  <button type="submit" class="btn btn-outline-primary w-100 mb-3">Registrati</button>
   <div class="form-footer">
     <router-outlet></router-outlet>
     Hai già un profilo? <a routerLink="/login">Accedi</a>
