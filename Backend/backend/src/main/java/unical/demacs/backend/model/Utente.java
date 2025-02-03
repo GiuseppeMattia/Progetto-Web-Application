@@ -1,17 +1,34 @@
 package unical.demacs.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.List;
 
 public class Utente {
 
     protected String username;
-    private boolean tipo;
+    private boolean venditore;
     private boolean amministratore;
     private String password;
     private String email;
+    private String telefono;
+    private boolean bannato;
+
+    public boolean isBannato() {
+        return bannato;
+    }
+
+    public void setBannato(boolean bannato) {
+        this.bannato = bannato;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
     //I SEGUENTI CAMPI SERVONO??
 
@@ -38,12 +55,12 @@ public class Utente {
         this.username = username;
     }
 
-    public boolean getTipo() {
-        return tipo;
+    public boolean getVenditore() {
+        return venditore;
     }
 
-    public void setTipo(boolean tipo) {
-        this.tipo = tipo;
+    public void setVenditore(boolean venditore) {
+        this.venditore = venditore;
     }
 
     public boolean getAmministratore() {
@@ -98,7 +115,7 @@ public class Utente {
     public String toString() {
         return "Utente{" +
                 "username='" + username + '\'' +
-                ", tipo=" + tipo +
+                ", venditore=" + venditore +
                 ", amministratore=" + amministratore +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
@@ -106,6 +123,8 @@ public class Utente {
                 ", asteAttiveDaVenditore=" + asteAttiveDaVenditore +
                 ", annunciAttivi=" + annunciAttivi +
                 ", asteAttiveDaAcquirente=" + asteAttiveDaAcquirente +
+                ", bannato=" + bannato +
+                ", telefono='" + telefono + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,6 @@
 package unical.demacs.backend.persistence.DAO.JDBC;
 
 import unical.demacs.backend.model.Annuncio;
-import unical.demacs.backend.model.Recensione;
 import unical.demacs.backend.model.Utente;
 import unical.demacs.backend.persistence.DAO.Proxy.UtenteProxy;
 import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
@@ -38,7 +37,9 @@ public class UtenteDAOJDBC implements UtenteDAO {
                 utente.setEmail(resultSet.getString("email"));
                 utente.setPassword(resultSet.getString("password"));
                 utente.setUsername(resultSet.getString("username"));
-                utente.setTipo(resultSet.getBoolean("tipo"));
+                utente.setVenditore(resultSet.getBoolean("venditore"));
+                utente.setTelefono(resultSet.getString("telefono"));
+                utente.setBannato(resultSet.getBoolean("bannato"));
                 utenti.add(utente);
             }
 
@@ -65,7 +66,9 @@ public class UtenteDAOJDBC implements UtenteDAO {
                 utente.setUsername(resultSet.getString("username"));
                 utente.setEmail(resultSet.getString("email"));
                 utente.setAmministratore(resultSet.getBoolean("amministratore"));
-                utente.setTipo(resultSet.getBoolean("tipo"));
+                utente.setVenditore(resultSet.getBoolean("venditore"));
+                utente.setTelefono(resultSet.getString("telefono"));
+                utente.setBannato(resultSet.getBoolean("bannato"));
                 return utente;
             }
 
@@ -80,15 +83,17 @@ public class UtenteDAOJDBC implements UtenteDAO {
     @Override
     public void save(Utente utente) {
 
-        String query = "INSERT INTO utente (tipo, username, password, email, amministratore) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO utente (venditore, username, password, email, amministratore, bannato, telefono) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setBoolean(1, utente.getTipo());
+            statement.setBoolean(1, utente.getVenditore());
             statement.setString(2, utente.getUsername());
             statement.setString(3, utente.getPassword());
             statement.setString(4, utente.getEmail());
             statement.setBoolean(5, utente.getAmministratore());
+            statement.setBoolean(6, utente.isBannato());
+            statement.setString(7, utente.getTelefono());
             statement.executeUpdate();
 
         } catch (SQLException e) {

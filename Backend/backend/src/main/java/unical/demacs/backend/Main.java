@@ -13,8 +13,17 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Annuncio proxy = new Annuncio();
-        proxy.setID(1);
-        System.out.println(proxy.getTitolo());
+
+        UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
+        Utente utente = new Utente();
+        utente.setUsername("provaNuovoDb");
+        utente.setPassword("provaNuovoDb");
+        utente.setEmail("provaNuovoDb@gmail.com");
+        utente.setBannato(true);
+        utente.setTelefono("123456789");
+        utente.setVenditore(true);
+        utente.setAmministratore(true);
+        utenteDAO.save(utente);
+
     }
 }
