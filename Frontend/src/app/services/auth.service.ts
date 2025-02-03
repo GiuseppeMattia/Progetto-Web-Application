@@ -21,7 +21,7 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable()
     this.authState$ = this.currentUser.pipe(map((user) => !!user))
     this.isAdmin$ = this.currentUser.pipe(map((user) => !!user?.amministratore))
-    this.isSeller$ = this.currentUser.pipe(map((user) => !!user?.tipo))
+    this.isSeller$ = this.currentUser.pipe(map((user) => !!user?.venditore))
   }
 
   public get currentUserValue(): UserModel | null {

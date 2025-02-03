@@ -39,8 +39,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout()
-    this.router.navigate(["/home"])
-    window.location.reload(); //forzi il reload in modo tale da evitare problemi per l'API
+    this.router.navigate(["/home"]).then(()=>{
+      window.location.reload(); //forzi il reload in modo tale da evitare problemi per l'API
+    })
   }
   goLogin(){
     this.router.navigate(["/login"])

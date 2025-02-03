@@ -57,9 +57,11 @@ export class UtenteService {
         data.map((item:UserModel) => new UserModel(
           item.username,
           item.password,
-          item.tipo,
+          item.venditore,
           item.email,
-          item.amministratore
+          item.amministratore,
+          item.bannato,
+          item.telefono
         ))
       )
     );

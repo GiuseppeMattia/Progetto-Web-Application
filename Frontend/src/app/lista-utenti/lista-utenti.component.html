@@ -9,8 +9,8 @@
 
     <!-- Colonna per il badge tipo utente -->
     <div class="col-md-2">
-      <span class="badge" [ngClass]="{'bg-success': utente.tipo, 'bg-primary': !utente.tipo}">
-        {{ utente.tipo ? 'Venditore' : 'Acquirente' }}
+      <span class="badge" [ngClass]="{'bg-success': utente.venditore, 'bg-primary': !utente.venditore}">
+        {{ utente.venditore ? 'Venditore' : 'Acquirente' }}
       </span>
     </div>
 

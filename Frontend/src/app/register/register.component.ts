@@ -36,7 +36,9 @@ export class RegisterComponent{
       email: ["", [Validators.required, Validators.email]],
       password: ["", [Validators.required, Validators.minLength(6)]],
       tipo: [false, Validators.required],
-      amministratore:false
+      amministratore:false,
+      telefono: '',
+      bannato:false
     })
   }
 

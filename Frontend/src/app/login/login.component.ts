@@ -90,9 +90,11 @@ export class LoginComponent implements OnInit{
       const utente: UserModel = {
         username: this.loginForm.get("username")?.value,
         password: this.loginForm.get("password")?.value,
-        tipo:false,
+        venditore:false,
         amministratore:false,
-        email:''
+        email:'',
+        bannato:false,
+        telefono:''
       }
 
       this.utenteService.validaUtente(utente).subscribe(
