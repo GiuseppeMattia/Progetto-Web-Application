@@ -29,10 +29,10 @@ export class UtenteService {
             (utenteAggiornato) => {
               // Poi facciamo il login con i dati aggiornati
               this.authService.login(utenteAggiornato)
-              console.log('Utente aggiornato:', utenteAggiornato);
+              // console.log('Utente aggiornato:', utenteAggiornato);
             },
             (error) => {
-              console.error('Errore durante l\'aggiornamento dell\'utente:', error);
+              // console.error('Errore durante l\'aggiornamento dell\'utente:', error);
               // In caso di errore, procediamo comunque con il login usando i dati originali
               this.authService.login(utente)
             }
@@ -78,7 +78,7 @@ export class UtenteService {
   }
   //chiamata al backend per verificare il captcha
   mandaCaptcha(token: String){
-  return this.http.post<{ success: boolean }>('http://localhost:8080/api/captcha/verify-recaptcha', { token })
+    return this.http.post<{ success: boolean }>('http://localhost:8080/api/captcha/verify-recaptcha', { token })
   }
 }
 

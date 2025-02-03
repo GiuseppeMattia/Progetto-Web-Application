@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit{
       (window as any).onSubmitCaptcha = (token: string) => this.onSubmitCaptcha(token);
 
       script.onload = () => {
-        console.log("reCAPTCHA caricato con successo.");
+        // console.log("reCAPTCHA caricato con successo.");
         this.inizializzaReCaptcha();
       };
   }
@@ -48,14 +48,14 @@ export class LoginComponent implements OnInit{
     if ((window as any).grecaptcha) {
       try {
         (window as any).grecaptcha.ready(() => {
-          console.log("reCAPTCHA pronto per l'uso.");
+          // console.log("reCAPTCHA pronto per l'uso.");
           (window as any).grecaptcha.reset();
         });
       } catch (error) {
         console.error("Errore nell'inizializzare reCAPTCHA:", error);
       }
     } else {
-      console.error("grecaptcha non è disponibile.");
+      // console.error("grecaptcha non è disponibile.");
     }
   }
 
@@ -70,17 +70,17 @@ export class LoginComponent implements OnInit{
   }
 
   onSubmitCaptcha(token: string) {
-    console.log("Token reCAPTCHA ricevuto:", token);
+    // console.log("Token reCAPTCHA ricevuto:", token);
     this.utenteService.mandaCaptcha(token).subscribe(response => {
       if (response.success) {
-        console.log("reCAPTCHA verificato con successo");
+        //console.log("reCAPTCHA verificato con successo");
         this.validateUser(); // Se il reCAPTCHA è valido, procedi con il login
       } else {
-        console.error("Verifica reCAPTCHA fallita");
+        // console.error("Verifica reCAPTCHA fallita");
         alert("Verifica reCAPTCHA non riuscita");
       }
     }, error => {
-      console.error("Errore nella verifica reCAPTCHA:", error);
+      // console.error("Errore nella verifica reCAPTCHA:", error);
       alert("Errore nel contattare il server");
     });
   }
@@ -103,40 +103,43 @@ export class LoginComponent implements OnInit{
             this.utenteService.aggiornaUtente(utente).subscribe(
               (utenteAggiornato) => {
                 if (utenteAggiornato.bannato) {
-                  console.log("UTENTE BANNATO");
+                  // console.log("UTENTE BANNATO");
                   //alert("Sei stato bannato. Accesso negato.");
                   this.authService.logout();  // Disconnette l'utente bannato
                   this.router.navigate(['/banned']);
                 } else {
-                  console.log("Login riuscito, utente non bannato");
+                  // console.log("Login riuscito, utente non bannato");
                   this.authService.login(utenteAggiornato);
                   this.router.navigate(["/home"]);
                 }
               },
               (error) => {
-                console.error("Errore durante l'aggiornamento dell'utente:", error);
+                // console.error("Errore durante l'aggiornamento dell'utente:", error);
                 alert("Errore nel recupero delle informazioni utente");
               }
             );
-
           } else {
-            console.log("Login fallito")
+            // console.log("Login fallito")
             alert("Username o password non validi")
           }
-
-
         },
         (error) => {
-          console.error("Errore durante la validazione:", error)
-          window.location.reload() //ricarico per l'API
-          alert("Si è verificato un errore durante il login")
+          if(error.status === 401){
+            alert("Password errata")
+          }
+          else if(error.status === 404){
+            alert("L'utente non esiste")
+          }
+          else{
+            alert("Si è verificato un errore sconosciuto")
+          }
+          // console.error("Errore durante la validazione:", error)
         },
-
       )
     } else {
       alert("Per favore, compila tutti i campi richiesti.")
     }
-
+    this.inizializzaReCaptcha()
   }
 
 }

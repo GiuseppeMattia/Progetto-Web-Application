@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
         this.annunci = annunci;
       },
       (error) => {
-        console.error('Errore nel caricamento degli annunci:', error);
+        // console.error('Errore nel caricamento degli annunci:', error);
         this.errorMessage = 'Impossibile caricare gli annunci. Si prega di riprovare più tardi.';
       }
     );
