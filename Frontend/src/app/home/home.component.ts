@@ -5,20 +5,20 @@ import { Annuncio } from '../modelli/annuncio.model';
 import { AnnuncioService } from '../services/annuncio.service';
 import {AuthService} from '../services/auth.service';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   providers: [AnnuncioService]
 })
 export class HomeComponent implements OnInit {
   annunci: Annuncio[] = [];
   errorMessage = '';
   isSeller: boolean = false;
-
 
   constructor(private annuncioService: AnnuncioService,
               public authService: AuthService,
@@ -58,5 +58,12 @@ export class HomeComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
-
+  sort(event: Event){
+    const ordine = (event.target as HTMLSelectElement).value;
+    if (ordine === 'ascendente') {
+      this.annunci.sort((a, b) => a.prezzo - b.prezzo); // Ordina ascendente
+    } else if (ordine === 'discendente') {
+      this.annunci.sort((a, b) => b.prezzo - a.prezzo); // Ordina discendente
+    }
+  }
 }

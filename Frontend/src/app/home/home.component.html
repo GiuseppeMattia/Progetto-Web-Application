@@ -9,6 +9,15 @@
     {{ errorMessage }}
   </div>
 
+  <div class="form-group">
+    <label for="order" class="form-label">Ordina per prezzo</label>
+    <select class="form-select" id="order" (change)="sort($event)" style="width: 200px">
+      <option value="ascendente">Prezzo Ascendente</option>
+      <option value="discendente">Prezzo Discendente</option>
+    </select>
+  </div>
+
+
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
     <div *ngFor="let annuncio of annunci" class="col">
       <div class="card h-100">
