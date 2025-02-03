@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { Annuncio } from '../modelli/annuncio.model';
 import { AnnuncioService } from '../services/annuncio.service';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,18 @@ import { AnnuncioService } from '../services/annuncio.service';
 export class HomeComponent implements OnInit {
   annunci: Annuncio[] = [];
   errorMessage = '';
+  isSeller: boolean = false;
 
-  constructor(private annuncioService: AnnuncioService) {}
+
+  constructor(private annuncioService: AnnuncioService,
+              public authService: AuthService,
+              public router: Router,) {}
 
   ngOnInit() {
+
+    this.authService.isSeller$.subscribe(isSeller => {
+      this.isSeller=isSeller;
+    });
     this.loadAnnunci();
   }
 
@@ -33,4 +42,6 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
+
 }

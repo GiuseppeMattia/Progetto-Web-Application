@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AstaModel } from '../modelli/asta';  // Modello per Asta
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { AstaService } from '../services/asta.service';  // Servizio per le Aste
 import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-lista-aste',
   standalone: true,
-  imports: [NgForOf],
+  imports: [NgForOf, RouterLink],
   templateUrl: './lista-aste.component.html',
   styleUrls: ['./lista-aste.component.css']
 })
@@ -31,7 +31,4 @@ export class ListaAsteComponent implements OnInit {
     }
   }
 
-  back() {
-    this.router.navigate(['/adminBoard']);
-  }
 }

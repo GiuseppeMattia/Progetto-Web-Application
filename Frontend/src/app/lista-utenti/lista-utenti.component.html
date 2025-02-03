@@ -1,24 +1,29 @@
-<div>
-
-  <div class="container mt-3" style="margin-top: 20px;">
-    <div style="margin-top: 3%; margin-bottom: 3%">
-      <h1>Pannello di controllo degli utenti</h1>
-    </div>
-
-
-    <div *ngFor="let utente of utenti" class="row align-items-center border-bottom py-2">
-      <div class="col-md-3 fw-bold">Nome Utente: {{utente.username}}</div>
-      <div class="col-md-4">E-mail: {{utente.email}}</div>
-      <div class="col-md-2">
-        <button class="btn btn-outline-primary w-100" (click)="setAdmin(utente)">Promuovi</button>
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-outline-warning w-100" (click)="ban(utente)">Banna</button>
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-center mt-3">
-    <button class="btn btn-primary" (click)="back()">Torna indietro</button>
+<div class="container mt-3" style="margin-top: 20px;">
+  <div style="margin-top: 3%; margin-bottom: 3%">
+    <h1>Pannello di controllo degli utenti</h1>
   </div>
 
+  <div *ngFor="let utente of utenti" class="row align-items-center border-bottom py-2">
+    <div class="col-md-3 fw-bold">Nome Utente: {{ utente.username }}</div>
+    <div class="col-md-3">E-mail: {{ utente.email }}</div>
+
+    <!-- Colonna per il badge tipo utente -->
+    <div class="col-md-2">
+      <span class="badge" [ngClass]="{'bg-success': utente.tipo, 'bg-primary': !utente.tipo}">
+        {{ utente.tipo ? 'Venditore' : 'Acquirente' }}
+      </span>
+    </div>
+
+    <!-- Colonne per i pulsanti -->
+    <div class="col-md-2">
+      <button class="btn btn-outline-primary w-100" (click)="setAdmin(utente)">Promuovi</button>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-outline-warning w-100" (click)="ban(utente)">Banna</button>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+  <button class="btn btn-primary" routerLink="/adminBoard">Torna indietro</button>
 </div>

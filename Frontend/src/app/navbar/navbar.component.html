@@ -19,35 +19,36 @@
       <ul class="dropdown-menu dropdown-menu-end">
         <ng-container *ngIf="isLoggedIn; else loginTemplate">
           <li>
-            <button class="dropdown-item" (click)="goToMyListings()">
+            <button class="dropdown-item" routerLink="/annunci">
               I miei annunci
             </button>
           </li>
+
           <li>
-            <button class="dropdown-item" (click)="logout()">
-              Logout
-            </button>
-          </li>
-          <li>
-            <button class="dropdown-item" (click)="goProfile()">
+            <button class="dropdown-item" routerLink="/profile">
               Vai al tuo profilo
             </button>
           </li>
           <li *ngIf="isAdmin">
-            <button class="dropdown-item" (click)="goAdminDashboard()">
+            <button class="dropdown-item" routerLink="/adminBoard">
               Pannello Admin
             </button>
           </li>
           <li>
             <a class="dropdown-item" [routerLink]="['/categories']">Categorie</a>
           </li>
+          <li>
+            <button class="dropdown-item" (click)="logout()">
+              Logout
+            </button>
+          </li>
         </ng-container>
         <ng-template #loginTemplate>
           <li>
-            <a class="dropdown-item" [routerLink]="['/login']">Accedi</a>
+            <a class="dropdown-item" routerLink="/login">Accedi</a>
           </li>
           <li>
-            <a class="dropdown-item" [routerLink]="['/register']">Registrati</a>
+            <a class="dropdown-item" routerLink="/register">Registrati</a>
           </li>
         </ng-template>
       </ul>

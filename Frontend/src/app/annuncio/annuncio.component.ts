@@ -51,11 +51,4 @@ export class AnnuncioComponent implements OnInit {
   }
 
 
-  hasAnnuncio(): boolean {
-    return !!this.annuncio
-  }
-
-  redirectToHome(){
-    this.router.navigate(['/home']);
-  }
 }

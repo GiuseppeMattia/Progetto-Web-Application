@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Annuncio } from '../modelli/annuncio.model';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { AnnuncioService } from '../services/annuncio.service';
 import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-lista-annunci',
   standalone: true,
-  imports: [NgForOf],
+  imports: [NgForOf, RouterLink],
   templateUrl: './lista-annunci.component.html',
   styleUrls: ['./lista-annunci.component.css']
 })
@@ -31,7 +31,4 @@ export class ListaAnnunciComponent implements OnInit {
     }
   }
 
-  back() {
-    this.router.navigate(['/adminBoard']);
-  }
 }

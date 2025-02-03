@@ -27,6 +27,10 @@ export class AnnuncioService {
     return this.http.delete<void>(`${this.apiUrl}/elimina`, { body: annuncio });
   }
 
+  creaAnnuncio(annuncio: Annuncio):Observable<boolean> {
+    return this.http.post<boolean>(`${this.apiUrl}/crea`, annuncio);
+  }
+
 
 
 

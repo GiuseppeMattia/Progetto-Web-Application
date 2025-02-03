@@ -1,5 +1,9 @@
 <div class="container mt-4">
-  <h1 class="mb-4">Annunci in evidenza</h1>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <button class="btn btn-outline-primary" routerLink="/categories">Categorie</button>
+    <h1 class="mb-0 text-center flex-grow-1">Annunci in evidenza</h1>
+    <button *ngIf="isSeller" class="btn btn-success" routerLink="/creaAnnuncio">Vendi un oggetto</button>
+  </div>
 
   <div *ngIf="errorMessage" class="alert alert-danger">
     {{ errorMessage }}

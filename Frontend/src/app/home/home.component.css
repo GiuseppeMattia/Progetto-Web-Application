@@ -16,3 +16,16 @@
   height: 72px;
   overflow: hidden;
 }
+
+.btn-outline-primary{
+
+  border-color: orange;
+
+  background-color: orange ;
+  color: white;
+}
+.btn-outline-primary:hover{
+  border-color: orange;
+  background-color: white ;
+  color: orange;
+}

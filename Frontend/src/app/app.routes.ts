@@ -9,6 +9,7 @@ import {AnnuncioComponent} from './annuncio/annuncio.component';
 import {PannelloAdminComponent} from './pannello-admin/pannello-admin.component';
 import {ListaAnnunciComponent} from './lista-annunci/lista-annunci.component';
 import {ListaAsteComponent} from './lista-aste/lista-aste.component';
+import {CreaComponent} from './crea/crea.component';
 
 
 export const routes: Routes = [
@@ -23,5 +24,6 @@ export const routes: Routes = [
   { path: "listaUtenti", component: ListaUtentiComponent},
   { path: "listaAnnunci", component: ListaAnnunciComponent},
   { path: "listaAste", component: ListaAsteComponent},
+  { path: "creaAnnuncio", component: CreaComponent}
 ]
 

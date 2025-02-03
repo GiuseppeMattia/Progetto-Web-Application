@@ -1,6 +1,9 @@
-<div>
-  <h3>Su DeMaCSZon puoi trovare prodotti di queste categorie:</h3>
-  <ul *ngFor="let categoria of categorie">
-    <li>{{categoria.nome}}</li>
+<div class="categorie-container">
+  <h3 class="categorie-title">Su <span class="highlight">DeMaCSZon</span> puoi trovare prodotti di queste categorie:</h3>
+  <ul class="categorie-list">
+    <li *ngFor="let categoria of categorie" class="categorie-item">
+      {{ categoria.nome }}
+    </li>
   </ul>
+  <button class="btn btn-secondary mt-3" routerLink="/home">Torna indietro</button>
 </div>

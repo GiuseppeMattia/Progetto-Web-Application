@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import {NgForOf} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-categorie',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    RouterLink
   ],
   templateUrl: './categorie.component.html',
   styleUrl: './categorie.component.css'

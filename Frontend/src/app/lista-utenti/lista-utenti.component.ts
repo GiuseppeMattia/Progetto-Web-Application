@@ -1,14 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {UserModel} from '../modelli/userModel';
-import {NgForOf} from '@angular/common';
-import {Router} from '@angular/router';
+import {NgClass, NgForOf} from '@angular/common';
+import {Router, RouterLink} from '@angular/router';
 import {UtenteService} from '../services/utente.service';
 
 @Component({
   selector: 'app-lista-utenti',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    RouterLink,
+    NgClass
   ],
   templateUrl: './lista-utenti.component.html',
   styleUrl: './lista-utenti.component.css'
@@ -39,7 +41,5 @@ export class ListaUtentiComponent implements OnInit{
     window.location.reload();
     console.log("Utente promosso")
   }
-  back(){
-    this.router.navigate(["/adminBoard"])
-  }
+
 }

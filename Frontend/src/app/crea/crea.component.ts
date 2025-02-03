@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-crea',
   standalone: true,
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    RouterLink
   ],
   templateUrl: './crea.component.html',
   styleUrl: './crea.component.css'
@@ -49,7 +50,5 @@ export class CreaComponent {
       }
     });
   }
-  back(){
-    this.router.navigate(["/profile"])
-  }
+
 }

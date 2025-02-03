@@ -42,16 +42,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.router.navigate(["/home"])
   }
 
-  goToMyListings() {
-    this.router.navigate(["/annunci"])
-  }
-
-  goAdminDashboard() {
-    this.router.navigate(["/adminBoard"])
-  }
-
-  goProfile() {
-    this.router.navigate(["/profile"])
-  }
 }
 
