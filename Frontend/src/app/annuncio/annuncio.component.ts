@@ -61,4 +61,10 @@ export class AnnuncioComponent implements OnInit {
     const url = URL.createObjectURL(blob);
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
+
+  contatta() {
+    let numero = this.annuncio?.venditore.telefono;
+    window.open("https://wa.me/" + numero, "_blank");
+  }
+
 }
