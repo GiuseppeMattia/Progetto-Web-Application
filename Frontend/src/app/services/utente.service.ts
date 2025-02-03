@@ -72,6 +72,10 @@ export class UtenteService {
   ban(utente:UserModel){
     return this.http.post<boolean>(`${this.apiUrl}/ban`,utente)
   }
+
+  checkBan(){
+    return this.authService.isBanned$;
+  }
   //chiamata al backend per verificare il captcha
   mandaCaptcha(token: String){
   return this.http.post<{ success: boolean }>('http://localhost:8080/api/captcha/verify-recaptcha', { token })

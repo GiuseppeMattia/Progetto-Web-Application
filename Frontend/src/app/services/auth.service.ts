@@ -12,6 +12,7 @@ export class AuthService {
   public authState$: Observable<boolean>
   public isAdmin$: Observable<boolean>
   public isSeller$: Observable<boolean>
+  public isBanned$: Observable<boolean>
 
 
   constructor() {
@@ -22,6 +23,7 @@ export class AuthService {
     this.authState$ = this.currentUser.pipe(map((user) => !!user))
     this.isAdmin$ = this.currentUser.pipe(map((user) => !!user?.amministratore))
     this.isSeller$ = this.currentUser.pipe(map((user) => !!user?.venditore))
+    this.isBanned$ = this.currentUser.pipe(map((user) => !!user?.bannato))
   }
 
   public get currentUserValue(): UserModel | null {
