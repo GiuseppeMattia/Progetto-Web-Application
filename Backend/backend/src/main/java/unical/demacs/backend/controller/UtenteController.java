@@ -85,7 +85,7 @@ public class UtenteController {
             return ResponseEntity.ok(true);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseEntity.status(404).body(false);
+            return ResponseEntity.status(400).body(false);
         }
 
     }

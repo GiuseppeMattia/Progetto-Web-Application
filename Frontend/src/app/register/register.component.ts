@@ -51,8 +51,13 @@ export class RegisterComponent{
           this.router.navigate(["/home"])
         },
         (error) => {
-          console.error("Errore durante la registrazione:", error)
-          alert("Si è verificato un errore durante la registrazione")
+          if(error.status === 400){
+            alert("Esiste già un utente con questo username")
+          }
+          else{
+            alert("Si è verificato un errore sconosciuto")
+          }
+          // console.error("Errore durante la validazione:", error)
         },
       )
     } else {
