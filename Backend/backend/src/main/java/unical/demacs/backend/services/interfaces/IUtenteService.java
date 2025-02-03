@@ -10,4 +10,5 @@ public interface IUtenteService {
     void save(Utente utente);
     void update(Utente utente, boolean amministratore);
     void delete(Utente utente);
+    void ban(Utente utente);
 }
