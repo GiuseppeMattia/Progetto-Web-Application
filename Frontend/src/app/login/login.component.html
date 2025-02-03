@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="d-flex justify-content-center align-items-center">
-<form class="login-form text-center" [formGroup]="loginForm" (ngSubmit)="validateUser()" style="width: 100%; max-width: 400px;">
+<form class="login-form text-center" [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" style="width: 100%; max-width: 400px;">
 
   <div class="form-group mb-3">
     <label for="username" class="form-label">Username</label>
@@ -16,7 +17,10 @@
     <label for="password" class="form-label">Password</label>
     <input type="password" class="form-control" id="password" formControlName="password" placeholder="Inserisci la tua password">
   </div>
-  <button type="submit" class="btn btn-outline-primary w-100 mb-3">Login</button>
+  <button type="submit" #captchaButton class="btn btn-outline-primary w-100 mb-3 g-recaptcha"
+          data-sitekey="6Lc4oMoqAAAAAATd9CRuR7QMR_NdOtzagn2TwLa2"
+          data-callback="onSubmitCaptcha"
+          data-action="submit">Login</button>
   <div class="form-footer">
 
 

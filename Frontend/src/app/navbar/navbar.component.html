@@ -45,10 +45,10 @@
         </ng-container>
         <ng-template #loginTemplate>
           <li>
-            <a class="dropdown-item" routerLink="/login">Accedi</a>
+            <button class="dropdown-item" (click)="goLogin()">Accedi</button>
           </li>
           <li>
-            <a class="dropdown-item" routerLink="/register">Registrati</a>
+            <button class="dropdown-item" (click)="goRegister()">Registrati</button>
           </li>
         </ng-template>
       </ul>
