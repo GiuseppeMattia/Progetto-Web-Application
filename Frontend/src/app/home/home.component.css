@@ -1,6 +1,18 @@
 .card-img-top {
   height: 200px;
   object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card {
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .card-title {
@@ -17,15 +29,25 @@
   overflow: hidden;
 }
 
-.btn-outline-primary{
-
+.btn-custom-primary {
   border-color: orange;
-
-  background-color: orange ;
+  background-color: orange;
   color: white;
+  transition: 0.3s;
 }
-.btn-outline-primary:hover{
+
+.btn-custom-primary:hover {
   border-color: orange;
-  background-color: white ;
+  background-color: white;
   color: orange;
+}
+
+.form-group {
+  max-width: 300px;
+  text-align: center;
+}
+
+.form-group select {
+  border-radius: 6px;
+  border: 1px solid #ddd;
 }
