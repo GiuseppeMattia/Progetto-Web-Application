@@ -100,16 +100,31 @@ export class LoginComponent implements OnInit{
       this.utenteService.validaUtente(utente).subscribe(
         (isValid) => {
           if (isValid) {
-            console.log("Login riuscito")
-            if(utente.amministratore){
-              console.log("Utente amministratore")
-            }
-            this.router.navigate(["/home"])
+            this.utenteService.aggiornaUtente(utente).subscribe(
+              (utenteAggiornato) => {
+                if (utenteAggiornato.bannato) {
+                  console.log("UTENTE BANNATO");
+                  //alert("Sei stato bannato. Accesso negato.");
+                  this.authService.logout();  // Disconnette l'utente bannato
+                  this.router.navigate(['/banned']);
+                } else {
+                  console.log("Login riuscito, utente non bannato");
+                  this.authService.login(utenteAggiornato);
+                  this.router.navigate(["/home"]);
+                }
+              },
+              (error) => {
+                console.error("Errore durante l'aggiornamento dell'utente:", error);
+                alert("Errore nel recupero delle informazioni utente");
+              }
+            );
+
           } else {
             console.log("Login fallito")
             alert("Username o password non validi")
           }
-          this.utenteService.aggiornaUtente(utente);
+
+
         },
         (error) => {
           console.error("Errore durante la validazione:", error)
