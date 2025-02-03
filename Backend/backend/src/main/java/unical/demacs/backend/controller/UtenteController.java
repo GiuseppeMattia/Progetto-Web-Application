@@ -39,20 +39,18 @@ public class UtenteController {
 
     }
 
-    @GetMapping("/checkBan")
-    public ResponseEntity<Boolean> checkBan(@RequestParam String username){
+
+    @PostMapping("/ban")
+    public ResponseEntity<Boolean> banUtente(@RequestBody Utente utente) {
+
         try{
-            Utente utente = utenteService.findByUsername(username);
-            if(utente.isBannato()){
-                return ResponseEntity.ok().body(true);
-            }
-            return ResponseEntity.ok(false);
+            utenteService.ban(utente);
+            return ResponseEntity.ok(true);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseEntity.status(404).body(false);
+            return ResponseEntity.status(400).body(false);
         }
     }
-
 
     @GetMapping("/trovaByUsername")
     public ResponseEntity<Utente> trovaUtenteByUsername(@RequestParam String username) {

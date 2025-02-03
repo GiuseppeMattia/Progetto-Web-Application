@@ -153,4 +153,20 @@ public class UtenteDAOJDBC implements UtenteDAO {
         }
 
     }
+
+    @Override
+    public void ban(Utente utente) {
+        String query = "UPDATE utente SET bannato = ? WHERE username = ?";
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setBoolean(1, true);
+            preparedStatement.setString(2, utente.getUsername());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

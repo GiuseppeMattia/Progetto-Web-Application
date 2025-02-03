@@ -7,6 +7,7 @@ import unical.demacs.backend.persistence.DAO.Proxy.AnnuncioProxy;
 import unical.demacs.backend.persistence.DAO.Proxy.UtenteProxy;
 import unical.demacs.backend.persistence.DAO.interfaces.*;
 import unical.demacs.backend.persistence.DBManager;
+import unical.demacs.backend.services.impl.UtenteService;
 
 import javax.sound.midi.SoundbankResource;
 import java.util.List;
@@ -16,7 +17,8 @@ public class Main {
 
         UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
         Utente utente = utenteDAO.findByUsername("admin");
-        System.out.println(utente);
+        UtenteService utenteService = new UtenteService(utenteDAO);
+        utenteService.ban(utente);
 
     }
 }

@@ -17,6 +17,16 @@ public class UtenteService implements IUtenteService {
     }
 
     @Override
+    public void ban(Utente utente) {
+
+        if(utente.isBannato()){
+            throw new IllegalArgumentException("L'utente è gia bannato");
+        }
+
+        utenteDAO.ban(utente);
+    }
+
+    @Override
     public List<Utente> findAll(){
 
         List<Utente> utenti =  utenteDAO.findAll();
