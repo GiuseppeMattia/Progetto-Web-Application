@@ -18,8 +18,8 @@
           <p class="card-text">{{ annuncio.descrizione | slice:0:100 }}...</p>
           <p class="card-text">
             <strong>Prezzo:
-              <span *ngIf="annuncio.prezzo_scontato; else prezzoNormale" class="text-danger">
-                €{{ annuncio.prezzo_scontato.toFixed(2) }}
+              <span *ngIf="annuncio.prezzoScontato; else prezzoNormale" class="text-danger">
+                €{{ annuncio.prezzoScontato.toFixed(2) }}
               </span>
               <ng-template #prezzoNormale>
                 €{{ annuncio.prezzo.toFixed(2) }}

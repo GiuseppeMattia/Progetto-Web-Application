@@ -31,7 +31,6 @@ export class AnnuncioComponent implements OnInit {
     if (id) {
       console.log("ID ricevuto",id)
       this.loadAnnuncio(Number(id))
-      //console.log(this.annuncio?.titolo)
     }
   }
 
@@ -41,8 +40,8 @@ export class AnnuncioComponent implements OnInit {
         // console.log("Annuncio ricevuto:", annuncio);  // Log per esaminare la risposta
         // console.log(annuncio);
         this.annuncio = annuncio;  // Assicurati di assegnare correttamente l'annuncio
-        console.log(annuncio); // Controlla il JSON completo
-
+        //console.log(annuncio); // Controlla il JSON completo
+        console.log(this.annuncio?.prezzoScontato)
       },
       (error) => {
         console.error("Errore nel caricamento dell'annuncio:", error);

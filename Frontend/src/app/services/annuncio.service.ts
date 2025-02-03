@@ -60,7 +60,7 @@ export class AnnuncioService {
                 annuncioData.prezzo,
                 annuncioData.descrizione,
                 annuncioData.titolo,
-                annuncioData.prezzo_scontato,
+                annuncioData.prezzoScontato,
                 venditore,
                 annuncioData.foto,
                 [] // inizialmente nessuna recensione nel costruttore Annuncio
@@ -76,7 +76,7 @@ export class AnnuncioService {
             annuncioData.prezzo,
             annuncioData.descrizione,
             annuncioData.titolo,
-            annuncioData.prezzo_scontato,
+            annuncioData.prezzoScontato,
             venditore,
             annuncioData.foto,
             recensioni
