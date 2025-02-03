@@ -250,6 +250,7 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
         annuncio.setFoto(resultSet.getBytes("foto"));
         annuncio.setPrezzoScontato(resultSet.getFloat("prezzo_scontato"));
         annuncio.setCategoria(DBManager.getInstance().getCategoriaDAO().findById(resultSet.getInt("id_categoria")));
+
         return annuncio;
     }
 }

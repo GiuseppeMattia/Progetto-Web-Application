@@ -27,7 +27,7 @@ public class UtenteController {
 
         try{
 
-            if(!Objects.equals(utenteService.findByUsername(utente.getUsername()).getPassword(), utente.getPassword())) {
+            if(!Objects.equals(utenteService.findByUsername(utente.getUsername()).getPassword(), utente.getPassword())){
                 return ResponseEntity.status(401).body(false);
             }
 
@@ -38,6 +38,20 @@ public class UtenteController {
             return ResponseEntity.status(404).body(false);
         }
 
+    }
+
+    @GetMapping("/checkBan")
+    public ResponseEntity<Boolean> checkBan(@RequestParam String username){
+        try{
+            Utente utente = utenteService.findByUsername(username);
+            if(utente.isBannato()){
+                return ResponseEntity.ok().body(true);
+            }
+            return ResponseEntity.ok(false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(false);
+        }
     }
 
 

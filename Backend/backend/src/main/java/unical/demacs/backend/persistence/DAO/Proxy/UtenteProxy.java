@@ -10,11 +10,6 @@ import java.util.List;
 
 public class UtenteProxy extends Utente {
 
-//    public List<Recensione> getRecensioni() {
-//        recensioniEffettuate = DBManager.getInstance().getRecensioneDAO().findByUtente(username);
-//        return recensioniEffettuate;
-//    }
-
     public List<Asta> getAsteAttiveDaAcquirente(){
         asteAttiveDaAcquirente = DBManager.getInstance().getAstaDAO().findByUtenteAcquirente(username, false);
         return asteAttiveDaAcquirente;
@@ -25,7 +20,7 @@ public class UtenteProxy extends Utente {
         return asteAttiveDaVenditore;
     }
 
-    public List<Annuncio> geAnnunciAttivi(){
+    public List<Annuncio> getAnnunciAttivi(){
         annunciAttivi = DBManager.getInstance().getAnnuncioDAO().findByUsernameUtente(username);
         return annunciAttivi;
     }

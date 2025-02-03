@@ -1,6 +1,7 @@
 package unical.demacs.backend.persistence.DAO.JDBC;
 
 import unical.demacs.backend.model.Annuncio;
+import unical.demacs.backend.model.Recensione;
 import unical.demacs.backend.model.Utente;
 import unical.demacs.backend.persistence.DAO.Proxy.UtenteProxy;
 import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
@@ -83,7 +84,7 @@ public class UtenteDAOJDBC implements UtenteDAO {
     @Override
     public void save(Utente utente) {
 
-        String query = "INSERT INTO utente (venditore, username, password, email, amministratore, bannato, telefono) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO utente (venditore, username, password, email, amministratore, bannato, telefono) VALUES (?, ?, ?, ?, ?,?,?)";
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);

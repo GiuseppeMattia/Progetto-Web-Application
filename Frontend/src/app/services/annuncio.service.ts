@@ -9,7 +9,7 @@ import {UserModel} from '../modelli/userModel';
   providedIn: "root",
 })
 export class AnnuncioService {
-  private apiUrl = "http://localhost:8080/api/annuncio" // Assicurati che questo sia l'URL corretto del tuo backend
+  private apiUrl = "http://localhost:8080/api/annuncio"
 
   constructor(private http: HttpClient) {}
 
@@ -30,8 +30,6 @@ export class AnnuncioService {
   creaAnnuncio(annuncio: Annuncio):Observable<boolean> {
     return this.http.post<boolean>(`${this.apiUrl}/crea`, annuncio);
   }
-
-
 
 
 
