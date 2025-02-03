@@ -28,7 +28,7 @@ export class ListaUtentiComponent implements OnInit{
     }
   ban(utente: UserModel){
     //chiamata al back per bannare l'utente
-    this.api.ban(utente)
+    this.api.ban(utente).subscribe()
     console.log("Utente bannato!")
   }
   setAdmin(utente: UserModel){

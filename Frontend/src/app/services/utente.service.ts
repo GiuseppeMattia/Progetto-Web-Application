@@ -70,6 +70,7 @@ export class UtenteService {
     return this.http.post<boolean>(`${this.apiUrl}/aggiorna?amministratore=true`,utente)
   }
   ban(utente:UserModel){
+    return this.http.post<boolean>(`${this.apiUrl}/ban`,utente)
   }
   //chiamata al backend per verificare il captcha
   mandaCaptcha(token: String){
