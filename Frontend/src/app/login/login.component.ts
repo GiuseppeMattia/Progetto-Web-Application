@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit{
     })
   }
   ngOnInit() {
-    if (!(window as any).grecaptcha) {
       const script = document.createElement('script');
       script.src = 'https://www.google.com/recaptcha/api.js';
       script.async = true;
@@ -43,9 +42,6 @@ export class LoginComponent implements OnInit{
         console.log("reCAPTCHA caricato con successo.");
         this.inizializzaReCaptcha();
       };
-    } else {
-      this.inizializzaReCaptcha();
-    }
   }
 
   inizializzaReCaptcha() {
@@ -69,7 +65,7 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.valid) {
       (window as any).grecaptcha.render(); // Attiva il reCAPTCHA invisibile
     } else {
-      console.log("Form non valido!");
+      alert("Per favore, compila tutti i campi richiesti.")
     }
   }
 
@@ -115,6 +111,7 @@ export class LoginComponent implements OnInit{
         },
         (error) => {
           console.error("Errore durante la validazione:", error)
+          window.location.reload() //ricarico per l'API
           alert("Si è verificato un errore durante il login")
         },
 

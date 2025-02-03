@@ -1,4 +1,4 @@
-import { Component } from "@angular/core"
+import {AfterViewChecked, AfterViewInit, Component} from "@angular/core"
 import { FormBuilder,  FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
 import {Router, RouterLink, RouterOutlet, Routes} from "@angular/router"
 import { HttpClientModule } from "@angular/common/http"
@@ -22,7 +22,7 @@ import {AuthService} from '../services/auth.service';
 
 })
 
-export class RegisterComponent {
+export class RegisterComponent{
   registerForm: FormGroup
 
   constructor(
@@ -39,7 +39,6 @@ export class RegisterComponent {
       amministratore:false
     })
   }
-
 
   registerUser() {
     if (this.registerForm.valid) {
