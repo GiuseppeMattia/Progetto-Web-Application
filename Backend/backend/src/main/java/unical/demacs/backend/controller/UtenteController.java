@@ -30,7 +30,6 @@ public class UtenteController {
             if(!Objects.equals(utenteService.findByUsername(utente.getUsername()).getPassword(), utente.getPassword())){
                 return ResponseEntity.status(401).body(false);
             }
-
             return ResponseEntity.ok(true);
 
         } catch (Exception e) {
