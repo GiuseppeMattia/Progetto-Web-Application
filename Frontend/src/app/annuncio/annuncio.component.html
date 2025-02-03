@@ -3,7 +3,12 @@
     <!-- Left column for images -->
     <div class="col-md-5">
       <div class="main-image-container mb-3">
-        <img src="/pc.jpg" [alt]="annuncio!.titolo" class="img-fluid rounded">
+<!--        <img src="/pc.jpg" [alt]="annuncio!.titolo" class="img-fluid rounded">-->
+        <img
+          [src]="getImageUrl(annuncio?.foto)"
+          [alt]="annuncio!.titolo"
+          class="img-fluid rounded"
+        >
       </div>
       <!-- You can add more thumbnail images here if available -->
     </div>

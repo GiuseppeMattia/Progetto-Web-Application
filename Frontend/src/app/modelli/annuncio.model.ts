@@ -12,7 +12,7 @@ export class Annuncio {
               public titolo: string,
               public prezzo_scontato:number,
               public venditore: UserModel,
-              public foto: string,
+              public foto: any,
               public recensioni: Recensione[]//string?
               ) {
   }

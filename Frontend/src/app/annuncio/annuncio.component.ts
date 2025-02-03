@@ -4,6 +4,7 @@ import {CommonModule, NgIf} from "@angular/common"
 import  { Annuncio } from "../modelli/annuncio.model"
 import  { AnnuncioService } from "../services/annuncio.service"
 import {HttpClientModule} from '@angular/common/http';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 
 @Component({
@@ -11,7 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
   templateUrl: "./annuncio.component.html",
   styleUrls: ["./annuncio.component.css"],
   standalone: true,
-  imports: [CommonModule, NgIf, HttpClientModule, RouterLink],
+  imports: [CommonModule, NgIf, HttpClientModule],
   providers: [AnnuncioService]
 })
 export class AnnuncioComponent implements OnInit {
@@ -22,6 +23,7 @@ export class AnnuncioComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private annuncioService: AnnuncioService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -29,8 +31,7 @@ export class AnnuncioComponent implements OnInit {
     if (id) {
       console.log("ID ricevuto",id)
       this.loadAnnuncio(Number(id))
-      console.log(this.annuncio?.titolo)
-
+      //console.log(this.annuncio?.titolo)
     }
   }
 
@@ -50,5 +51,14 @@ export class AnnuncioComponent implements OnInit {
     );
   }
 
-
+  getImageUrl(byte: string): SafeUrl {
+    const byteCharacters = atob(byte);
+    const byteArray = new Uint8Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteArray[i] = byteCharacters.charCodeAt(i);
+    }
+    const blob = new Blob([byteArray], { type: 'image/png' }); // Tipo MIME corretto
+    const url = URL.createObjectURL(blob);
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
 }

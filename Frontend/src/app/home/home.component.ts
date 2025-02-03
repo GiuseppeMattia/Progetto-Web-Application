@@ -4,6 +4,7 @@ import {Router, RouterLink} from '@angular/router';
 import { Annuncio } from '../modelli/annuncio.model';
 import { AnnuncioService } from '../services/annuncio.service';
 import {AuthService} from '../services/auth.service';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private annuncioService: AnnuncioService,
               public authService: AuthService,
-              public router: Router,) {}
+              public router: Router,
+              private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
 
@@ -41,6 +43,19 @@ export class HomeComponent implements OnInit {
         this.errorMessage = 'Impossibile caricare gli annunci. Si prega di riprovare più tardi.';
       }
     );
+  }
+
+  getImageUrl(byte: string): SafeUrl {
+    const byteCharacters = atob(byte);
+    const byteArray = new Uint8Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteArray[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const blob = new Blob([byteArray], { type: 'image/png' }); // Tipo MIME corretto
+    const url = URL.createObjectURL(blob);
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
 
