@@ -7,14 +7,20 @@
     <div class="col-md-3 fw-bold">Nome Utente: {{ utente.username }}</div>
     <div class="col-md-3">E-mail: {{ utente.email }}</div>
 
-    <!-- Colonna per il badge tipo utente -->
-    <div class="col-md-2">
-      <span class="badge" [ngClass]="{'bg-success': utente.venditore, 'bg-primary': !utente.venditore}">
+    <!-- Badge tipo utente -->
+    <div class="col-md-1">
+      <span class="badge" [ngClass]="utente.venditore ? 'bg-success' : 'bg-primary'">
         {{ utente.venditore ? 'Venditore' : 'Acquirente' }}
       </span>
     </div>
 
-    <!-- Colonne per i pulsanti -->
+    <!-- Flag amministratore -->
+    <div class="col-md-1">
+      <span class="badge bg-danger" *ngIf="utente.bannato">Bannato</span>
+      <span class="badge bg-warning text-dark" *ngIf="utente.amministratore">Admin</span>
+    </div>
+
+    <!-- Pulsanti azione -->
     <div class="col-md-2">
       <button class="btn btn-outline-primary w-100" (click)="setAdmin(utente)">Promuovi</button>
     </div>
