@@ -1,16 +1,10 @@
-<div class="container mt-5"  >
+<div class="container mt-5">
   <div class="row">
     <!-- Left column for images -->
     <div class="col-md-5">
       <div class="main-image-container mb-3">
-<!--        <img src="/pc.jpg" [alt]="annuncio!.titolo" class="img-fluid rounded">-->
-        <img
-          [src]="getImageUrl(annuncio?.foto)"
-          [alt]="annuncio!.titolo"
-          class="img-fluid rounded"
-        >
+        <img [src]="getImageUrl(annuncio?.foto)" [alt]="annuncio!.titolo" class="img-fluid rounded">
       </div>
-      <!-- You can add more thumbnail images here if available -->
     </div>
 
     <!-- Right column for product details -->
@@ -41,7 +35,6 @@
         <button class="btn btn-outline-secondary btn-lg" (click)="contatta()">Contatta il venditore</button>
       </div>
     </div>
-
   </div>
 
   <!-- Product details -->
@@ -71,15 +64,30 @@
     </div>
   </div>
 
+  <!-- Review Form Section -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <h3>Scrivi una recensione</h3>
+      <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+        <div class="mb-3">
+          <label for="reviewText" class="form-label">La tua recensione</label>
+          <textarea id="reviewText" formControlName="text" class="form-control" rows="4" placeholder="Scrivi la tua recensione..."></textarea>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">Invia recensione</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Reviews Section -->
   <div class="row mt-5">
     <div class="col-12">
       <h3>Recensioni</h3>
       <ng-container *ngIf="annuncio!.recensioni && annuncio!.recensioni.length > 0; else noReviews">
         <div *ngFor="let recensione of annuncio!.recensioni" class="card mb-3">
           <div class="card-body">
-            <h5 class="card-title">
-              {{ recensione.autore.username}}
-            </h5>
+            <h5 class="card-title">{{ recensione.autore.username }}</h5>
             <p class="card-text">{{ recensione.testo }}</p>
           </div>
         </div>
@@ -88,11 +96,5 @@
         <p>Nessuna recensione disponibile per questo annuncio.</p>
       </ng-template>
     </div>
-    <ng-template #errorTemplate>
-      <div class="alert alert-danger" role="alert">
-        {{ errorMessage || 'Nessun annuncio trovato.' }}
-      </div>
-    </ng-template>
-
   </div>
 </div>

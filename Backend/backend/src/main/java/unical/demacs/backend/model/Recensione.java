@@ -9,7 +9,7 @@ public class Recensione {
     private String testo;
 
     private Utente autore;
-    @JsonIgnore
+
     private Annuncio annuncio;
 
     public int getID() {
