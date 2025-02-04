@@ -14,9 +14,9 @@
     <div class="form-group p-3 border rounded shadow-sm bg-light">
       <label for="order" class="form-label fw-bold">Ordina per prezzo</label>
       <select class="form-select" id="order" (change)="sort($event)">
+        <option value="nessuno">Nessun ordinamento</option>
         <option value="ascendente">Prezzo Ascendente</option>
         <option value="discendente">Prezzo Discendente</option>
-        <option value="nessuno">Nessun ordinamento</option>
       </select>
     </div>
   </div>
