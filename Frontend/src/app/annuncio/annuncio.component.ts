@@ -75,8 +75,14 @@ export class AnnuncioComponent implements OnInit {
   }
 
   contatta() {
-    let numero = this.annuncio?.venditore.telefono;
-    window.open("https://wa.me/" + numero, "_blank");
+    if (this.authService.isLoggedIn()){
+      let numero = this.annuncio?.venditore.telefono;
+      window.open("https://wa.me/" + numero, "_blank");
+    } else {
+      alert("Fai il login per contattare un venditore")
+      this.router.navigate(['/login'])
+    }
+
   }
 
   submitReview(): void {

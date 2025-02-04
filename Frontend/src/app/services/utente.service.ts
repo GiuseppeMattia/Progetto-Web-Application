@@ -73,8 +73,8 @@ export class UtenteService {
     return this.http.post<boolean>(`${this.apiUrl}/ban`,utente)
   }
 
-  checkBan(){
-    return this.authService.isBanned$;
+  checkBan(username: String): Observable<boolean>{
+    return this.http.get<boolean>(`${this.apiUrl}/checkIfBanned?username=${username}`);
   }
   //chiamata al backend per verificare il captcha
   mandaCaptcha(token: String){

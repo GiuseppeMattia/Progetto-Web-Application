@@ -12,6 +12,7 @@ import {ListaAsteComponent} from './lista-aste/lista-aste.component';
 import {CreaComponent} from './crea/crea.component';
 import {BannedComponent} from './banned/banned.component';
 import {CategoriaAnnunciComponent} from './categoriaannunci/categoriaannunci.component';
+import {AuthGuard} from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
