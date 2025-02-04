@@ -56,7 +56,7 @@
         </tr>
         <tr>
           <th>Categoria</th>
-          <td>{{ annuncio!.categoria.name }}</td>
+          <td>{{ annuncio!.categoria.nome }}</td>
         </tr>
         <tr>
           <th>Marca</th>
@@ -78,7 +78,7 @@
         <div *ngFor="let recensione of annuncio!.recensioni" class="card mb-3">
           <div class="card-body">
             <h5 class="card-title">
-              {{ recensione.autore?.username}}
+              {{ recensione.autore.username}}
             </h5>
             <p class="card-text">{{ recensione.testo }}</p>
           </div>

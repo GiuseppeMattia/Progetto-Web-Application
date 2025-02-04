@@ -1,9 +1,31 @@
-<div class="categorie-container">
-  <h3 class="categorie-title">Su <span class="highlight">DeMaCSZon</span> puoi trovare prodotti di queste categorie:</h3>
-  <ul class="categorie-list">
-    <li *ngFor="let categoria of categorie" class="categorie-item">
-      {{ categoria.nome }}
-    </li>
-  </ul>
-  <button class="btn btn-secondary mt-3" routerLink="/home">Torna indietro</button>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-4">Categorie su <span class="text-primary">DeMaCSZon</span></h1>
+      <p class="text-muted mb-4">Numero di categorie: {{ categorie.length }}</p>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" *ngIf="categorie.length > 0; else errorTemplate">
+    <div class="col" *ngFor="let categoria of categorie">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body d-flex flex-column">
+          <h5 class="text-center card-title mb-3">{{ categoria.nome }}</h5>
+          <a [routerLink]="['/categoria', categoria.id]" class="btn btn-primary mt-auto">Esplora prodotti</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #errorTemplate>
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage || 'Nessuna categoria trovata.' }}
+    </div>
+  </ng-template>
+
+  <div class="row mt-5">
+    <div class="col-12 text-center">
+      <button class="btn btn-outline-secondary btn-lg" routerLink="/home">Torna alla home</button>
+    </div>
+  </div>
 </div>

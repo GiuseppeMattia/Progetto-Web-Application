@@ -25,6 +25,12 @@ export class AnnuncioService {
   //   return this.http.get<Annuncio[]>(`${this.apiUrl}/trovaTutti`);
   // }
 
+  trovaAnnunciByCategoria(IDCategoria: number): Observable<Annuncio[]> {
+    return this.http.get<Annuncio[]>(`${this.apiUrl}/trovaByCategoria?IDCategoria=${IDCategoria}`);
+  }
+
+
+
   getAnnunci(): Observable<Annuncio[]> {
     return this.http.get<any[]>(`${this.apiUrl}/trovaTutti`).pipe(
       map((annunciData: any[]) => {

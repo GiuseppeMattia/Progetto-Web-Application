@@ -1,22 +1,36 @@
-import { Component } from '@angular/core';
-import {NgForOf} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { CategoriaService } from '../services/categoria.service';
+import { Categoria } from '../modelli/categoria';
 
 @Component({
   selector: 'app-categorie',
   standalone: true,
-  imports: [
-    NgForOf,
-    RouterLink
-  ],
+  imports: [CommonModule, RouterLink],
   templateUrl: './categorie.component.html',
-  styleUrl: './categorie.component.css'
+  styleUrls: ['./categorie.component.css']
 })
-export class CategorieComponent {
-  //per adesso hard-coded, l'idea è quella di popolarlo in ngOnInit chiamando il back
-  categorie=[
-    {id:0, nome:"Display"},
-    {id:1, nome:"Telefoni"},
-    {id:2, nome:"Schede"},
-    {id:3, nome:"Computer"}]
+export class CategorieComponent implements OnInit {
+  categorie: Categoria[] = [];
+  errorMessage = '';
+
+  constructor(private categoriaService: CategoriaService) {}
+
+  ngOnInit() {
+    this.loadCategorie();
+  }
+
+  loadCategorie() {
+    this.categoriaService.trovaTutte().subscribe(
+      (categorie) => {
+        this.categorie = categorie;
+        console.log('Categorie caricate:', this.categorie); // For debugging
+      },
+      (error) => {
+        console.error('Errore nel caricamento delle categorie:', error);
+        this.errorMessage = 'Impossibile caricare le categorie. Si prega di riprovare più tardi.';
+      }
+    );
+  }
 }
