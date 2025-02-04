@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms"; // Rimosso "type"
-import {Router, RouterLink, RouterOutlet} from "@angular/router"; // Rimosso "type"
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { UtenteService } from "../services/utente.service"; // Rimosso "type"
-import { UserModel } from "../modelli/userModel"; // Rimane "type" perché è solo un'interfaccia
+import { UtenteService } from "../services/utente.service";
+import { UserModel } from "../modelli/userModel";
 import {AuthService} from '../services/auth.service';
 
 

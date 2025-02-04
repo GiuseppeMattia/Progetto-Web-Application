@@ -8,7 +8,6 @@ import {CategoriaService} from '../services/categoria.service';
 import {AuthService} from '../services/auth.service';
 import {UserModel} from '../modelli/userModel';
 import {AnnuncioService} from '../services/annuncio.service';
-import {Recensione} from '../modelli/Recensione';
 
 @Component({
   selector: 'app-crea',
@@ -45,7 +44,6 @@ export class CreaComponent implements OnInit{
     this.user = this.authService.currentUserValue;
   }
 
-  // Trasforma l'immagine in un array di byte
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -89,7 +87,6 @@ export class CreaComponent implements OnInit{
   }
 
   createAnnuncio(){
-    // L'utente deve essere loggato per poter fare l'annuncio
     if (!this.user) {
       return;
     }
@@ -110,7 +107,7 @@ export class CreaComponent implements OnInit{
 
 
     let annuncio = new Annuncio(
-      0,    // da ignorare
+      0,
       this.createForm.get("categoria")?.value,
       this.createForm.get("marca")?.value,
       this.createForm.get("modello")?.value,

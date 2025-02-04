@@ -6,7 +6,7 @@ html, body {
 }
 
 .main-content {
-  flex: 1; /* Occupa lo spazio disponibile */
+  flex: 1;
 }
 
 .footer {

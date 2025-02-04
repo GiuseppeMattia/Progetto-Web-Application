@@ -1,13 +1,11 @@
 <div class="container mt-5">
   <div class="row">
-    <!-- Left column for images -->
     <div class="col-md-5">
       <div class="main-image-container mb-3">
         <img [src]="getImageUrl(annuncio?.foto)" [alt]="annuncio!.titolo" class="img-fluid rounded">
       </div>
     </div>
 
-    <!-- Right column for product details -->
     <div class="col-md-7">
       <h1 class="mb-2">{{ annuncio!.titolo }}</h1>
       <p class="text-muted mb-2">Marca: {{ annuncio!.marca }} | Modello: {{ annuncio!.modello }}</p>
@@ -36,7 +34,6 @@
     </div>
   </div>
 
-  <!-- Product details -->
   <div class="row mt-5">
     <div class="col-12">
       <h3>Dettagli del prodotto</h3>
@@ -81,7 +78,6 @@
     </ng-container>
 
 
-  <!-- Reviews Section -->
   <div class="row mt-5">
     <div class="col-12">
       <h3>Recensioni</h3>

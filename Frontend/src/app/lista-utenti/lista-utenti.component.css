@@ -12,10 +12,10 @@
 }
 
 .bg-danger {
-  background-color: #dc3545; /* Rosso per bannato */
+  background-color: #dc3545;
 }
 
 .bg-warning {
-  background-color: #ffc107; /* Giallo per admin */
+  background-color: #ffc107;
   color: black;
 }

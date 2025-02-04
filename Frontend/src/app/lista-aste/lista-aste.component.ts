@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AstaModel } from '../modelli/asta';  // Modello per Asta
+import { AstaModel } from '../modelli/asta';
 import {Router, RouterLink} from '@angular/router';
-import { AstaService } from '../services/asta.service';  // Servizio per le Aste
+import { AstaService } from '../services/asta.service';
 import { NgForOf } from '@angular/common';
 
 @Component({
