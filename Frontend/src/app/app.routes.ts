@@ -17,19 +17,19 @@ import {AuthGuard} from './guards/auth.guard';
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
-  { path: "home", component: HomeComponent },
+  { path: "home", component: HomeComponent, canActivate:[AuthGuard] },
   { path: "", redirectTo: "/home", pathMatch: "full"},
-  { path: "categories", component: CategorieComponent},
-  { path: "adminBoard", component: PannelloAdminComponent},
-  { path: "profile", component: ProfiloComponent},
-  { path: "annuncio/:id", component: AnnuncioComponent},
-  { path: "listaUtenti", component: ListaUtentiComponent},
-  { path: "listaAnnunci", component: ListaAnnunciComponent},
-  { path: "listaAste", component: ListaAsteComponent},
-  { path: "creaAnnuncio", component: CreaComponent},
+  { path: "categories", component: CategorieComponent, canActivate: [AuthGuard]},
+  { path: "adminBoard", component: PannelloAdminComponent, canActivate: [AuthGuard]},
+  { path: "profile", component: ProfiloComponent, canActivate:[AuthGuard]},
+  { path: "annuncio/:id", component: AnnuncioComponent, canActivate:[AuthGuard]},
+  { path: "listaUtenti", component: ListaUtentiComponent, canActivate:[AuthGuard]},
+  { path: "listaAnnunci", component: ListaAnnunciComponent, canActivate:[AuthGuard]},
+  { path: "listaAste", component: ListaAsteComponent, canActivate:[AuthGuard]},
+  { path: "creaAnnuncio", component: CreaComponent, canActivate:[AuthGuard]},
   { path: "banned", component: BannedComponent },
-  { path: 'categorie', component: CategorieComponent },
-  { path: 'categoria/:id', component: CategoriaAnnunciComponent },
-
+  { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[AuthGuard] },
+//aggiungi guard per listaX che verifica login e se sei admin
+  //guard che controlla login per creaAnnuncio e profile
 ]
 
