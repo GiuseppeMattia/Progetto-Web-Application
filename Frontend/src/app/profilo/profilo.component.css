@@ -55,3 +55,38 @@
   background-color: orange;
   color: white;
 }
+/* Crea Annuncio - Blu Chiaro */
+.btn-primary-custom {
+  background-color: #5b8fd9;
+  border-color: #4678b0;
+  color: white;
+}
+
+.btn-primary-custom:hover {
+  background-color: #4678b0;
+  border-color: #355f8a;
+}
+
+/* Gestisci Annunci - Verde Chiaro */
+.btn-success-custom {
+  background-color: #6dbf7f;
+  border-color: #4b9e5f;
+  color: white;
+}
+
+.btn-success-custom:hover {
+  background-color: #4b9e5f;
+  border-color: #3d7d4a;
+}
+
+/* Gestisci Aste - Rosso Chiaro */
+.btn-danger-custom {
+  background-color: #e5c173;
+  border-color: #d2b34b;
+  color: white;
+}
+
+.btn-danger-custom:hover {
+  background-color: #d2a34b;
+  border-color: #d2a34b;
+}

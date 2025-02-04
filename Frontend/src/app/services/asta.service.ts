@@ -11,19 +11,22 @@ export class AstaService {
 
   constructor(private http: HttpClient) {}
 
-  // Metodo per ottenere un'asta per ID
   getAsta(id: number): Observable<AstaModel> {
     const params = new HttpParams().set('id', id.toString());
     return this.http.post<AstaModel>(`${this.apiUrl}/trovaByID`, null, { params });
   }
 
-  // Metodo per ottenere tutte le aste
   getAste(): Observable<AstaModel[]> {
     return this.http.get<AstaModel[]>(`${this.apiUrl}/trovaTutte`);
   }
 
-  // Metodo per eliminare un'asta
   eliminaAsta(asta: AstaModel): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/elimina`, { body: asta });
   }
+
+  trovaByUtenteVenditore(username: string): Observable<AstaModel[]> {
+    const params = new HttpParams().set('username', username);
+    return this.http.get<AstaModel[]>(`${this.apiUrl}/trovaByUtenteVenditore`, { params });
+  }
+
 }
