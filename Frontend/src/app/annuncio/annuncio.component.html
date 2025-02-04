@@ -28,8 +28,13 @@
         <p>{{ annuncio!.descrizione }}</p>
       </div>
 
+
+
       <div class="d-grid gap-2">
         <button class="btn btn-warning btn-lg" (click)="contatta()">Contatta il venditore</button>
+        <ng-container *ngIf="annuncio!.venditore.username === this.user?.username">
+          <button class="btn btn-secondary">Modifica annuncio</button>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -61,21 +66,21 @@
   </div>
 
   <ng-container *ngIf="!user?.venditore">
-  <div class="row mt-5">
-    <div class="col-12">
-      <h3>Scrivi una recensione</h3>
-      <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
-        <div class="mb-3">
-          <label for="reviewText" class="form-label">La tua recensione</label>
-          <textarea id="reviewText" formControlName="text" class="form-control" rows="4" placeholder="Scrivi la tua recensione..."></textarea>
-        </div>
-        <div class="d-grid gap-2">
-          <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">Invia recensione</button>
-        </div>
-      </form>
+    <div class="row mt-5">
+      <div class="col-12">
+        <h3>Scrivi una recensione</h3>
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+          <div class="mb-3">
+            <label for="reviewText" class="form-label">La tua recensione</label>
+            <textarea id="reviewText" formControlName="text" class="form-control" rows="4" placeholder="Scrivi la tua recensione..."></textarea>
+          </div>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary" [disabled]="reviewForm.invalid">Invia recensione</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-    </ng-container>
+  </ng-container>
 
 
   <div class="row mt-5">
