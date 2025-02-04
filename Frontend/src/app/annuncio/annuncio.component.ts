@@ -24,7 +24,7 @@ export class AnnuncioComponent implements OnInit {
   errorMessage = "";
   reviewForm: FormGroup;  // Aggiunta la dichiarazione del FormGroup per la recensione
 
-  private user: UserModel | null;
+  protected user: UserModel | null;
 
   constructor(
     private route: ActivatedRoute,
