@@ -65,5 +65,16 @@ export class HomeComponent implements OnInit {
     } else if (ordine === 'discendente') {
       this.annunci.sort((a, b) => b.prezzo - a.prezzo); // Ordina discendente
     }
+    else if (ordine === 'nessuno'){
+      this.shuffleArray(this.annunci);
+    }
+  }
+
+  // Mescola l'array
+  shuffleArray(array: any[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
 }
