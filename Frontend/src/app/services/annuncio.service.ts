@@ -101,6 +101,12 @@ export class AnnuncioService {
     return this.http.post<boolean>(`${this.apiUrl}/crea`, annuncio);
   }
 
+  trovaByUtente(username: string): Observable<Annuncio[]> {
+    return this.http.get<Annuncio[]>(`${this.apiUrl}/trovaByUtente?username=${username}`);
+  }
+
+
+
 
 
 }
