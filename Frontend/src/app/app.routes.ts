@@ -14,6 +14,7 @@ import {BannedComponent} from './banned/banned.component';
 import {CategoriaAnnunciComponent} from './categoriaannunci/categoriaannunci.component';
 import {BanGuard} from './guards/ban.guard';
 import {authGuard} from './guards/auth.guard';
+import {AdminGuard} from './guards/admin.guard';
 
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -21,13 +22,13 @@ export const routes: Routes = [
   { path: "home", component: HomeComponent, canActivate:[BanGuard] },
   { path: "", redirectTo: "/home", pathMatch: "full"},
   { path: "categories", component: CategorieComponent, canActivate: [BanGuard]},
-  //in adminBoard non sarà inserito authGuard perché ci sono già dei controlli analoghi
+  //in adminBoard non saranno inserite altre guard perché ci sono già dei controlli analoghi
   { path: "adminBoard", component: PannelloAdminComponent, canActivate: [BanGuard]},
   { path: "profile", component: ProfiloComponent, canActivate:[authGuard,BanGuard]},
   { path: "annuncio/:id", component: AnnuncioComponent, canActivate:[authGuard,BanGuard]},
-  { path: "listaUtenti", component: ListaUtentiComponent, canActivate:[authGuard,BanGuard]},
-  { path: "listaAnnunci", component: ListaAnnunciComponent, canActivate:[authGuard,BanGuard]},
-  { path: "listaAste", component: ListaAsteComponent, canActivate:[authGuard,BanGuard]},
+  { path: "listaUtenti", component: ListaUtentiComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
+  { path: "listaAnnunci", component: ListaAnnunciComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
+  { path: "listaAste", component: ListaAsteComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
   { path: "creaAnnuncio", component: CreaComponent, canActivate:[authGuard,BanGuard]},
   { path: "banned", component: BannedComponent },
   { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[authGuard,BanGuard] },
