@@ -52,6 +52,21 @@ public class UtenteController {
         }
     }
 
+    @GetMapping("/checkIfBanned")
+    public ResponseEntity<Boolean> checkIfBanned(@RequestParam String username) {
+        try{
+            Utente utente = utenteService.findByUsername(username);
+            if(utente.isBannato()){
+                return ResponseEntity.ok(true);
+            }
+            return ResponseEntity.ok(false);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(404).body(null);
+        }
+    }
+
     @GetMapping("/trovaByUsername")
     public ResponseEntity<Utente> trovaUtenteByUsername(@RequestParam String username) {
 

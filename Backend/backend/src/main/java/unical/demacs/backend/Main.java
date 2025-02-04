@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
 
         UtenteDAO utenteDAO = new UtenteDAOJDBC(DBManager.getInstance().getConnection());
-        Utente utente = utenteDAO.findByUsername("admin");
+        Utente utente = utenteDAO.findByUsername("Ciccio");
         UtenteService utenteService = new UtenteService(utenteDAO);
         utenteService.ban(utente);
 
