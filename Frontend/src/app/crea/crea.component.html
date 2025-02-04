@@ -2,44 +2,48 @@
   <div class="card shadow p-4">
     <h2 class="text-center mb-4">Crea un nuovo annuncio</h2>
 
-    <form>
+    <form [formGroup]="createForm">
       <div class="mb-3">
-        <label for="titolo" class="form-label">Titolo annuncio</label>
-        <input type="text" class="form-control" id="titolo" name="Titolo" placeholder="Inserisci il titolo">
+        <label for="titolo" class="form-label">Titolo annuncio<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="titolo" id="titolo" name="Titolo" placeholder="Inserisci il titolo">
       </div>
 
       <div class="mb-3">
-        <label for="prezzo" class="form-label">Prezzo iniziale (€)</label>
-        <input type="number" class="form-control" id="prezzo" name="Prezzo" placeholder="Inserisci il prezzo">
+        <label for="prezzo" class="form-label">Prezzo<span class="text-danger">*</span></label>
+        <input type="number" class="form-control" formControlName="prezzo" id="prezzo" name="Prezzo" placeholder="Inserisci il prezzo">
       </div>
 
       <div class="mb-3">
-        <label for="marca" class="form-label">Marca</label>
-        <input type="text" class="form-control" id="marca" name="Marca" placeholder="Inserisci la marca">
+        <label for="marca" class="form-label">Marca<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="marca" id="marca" name="Marca" placeholder="Inserisci la marca">
       </div>
 
       <div class="mb-3">
-        <label for="modello" class="form-label">Modello</label>
-        <input type="text" class="form-control" id="modello" name="Modello" placeholder="Inserisci il modello">
+        <label for="modello" class="form-label">Modello<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="modello" id="modello" name="Modello" placeholder="Inserisci il modello">
       </div>
 
       <div class="mb-3">
         <label class="form-label">Carica una foto dell'articolo</label>
         <div class="input-group">
-          <input type="file" class="form-control" accept="image/*" name="Foto" id="imageInput" (click)="validateImage()">
+          <input type="file" (change)="onFileSelected($event)" class="form-control" formControlName="immagine" accept="image/*" name="Foto" id="imageInput" (click)="validateImage()">
           <label class="input-group-text" for="imageInput"><i class="bi bi-upload"></i></label>
         </div>
       </div>
 
       <div class="mb-3">
         <label for="descrizione" class="form-label">Descrizione</label>
-        <textarea class="form-control" id="descrizione" name="Descrizione" rows="3" placeholder="Scrivi una descrizione"></textarea>
+        <textarea class="form-control" formControlName="descrizione" id="descrizione" name="Descrizione" rows="3" placeholder="Scrivi una descrizione"></textarea>
       </div>
 
-      <h6 class="mt-3">Seleziona la categoria</h6>
+      <h6 class="mt-3">Seleziona la categoria<span class="text-danger">*</span></h6>
       <div class="mb-3">
         <div *ngFor="let categoria of categorie" class="form-check">
-          <input class="form-check-input" type="radio" name="categoria" [value]="categoria.id" (change)="selectAnswer(categoria.id)">
+          <input class="form-check-input"
+                 type="radio"
+                 name="categoria"
+                 [value]="categoria.id"
+                 (change)="selectCategoria(categoria.id)">
           <label class="form-check-label">{{categoria.nome}}</label>
         </div>
       </div>
@@ -49,5 +53,7 @@
         <button type="button" class="btn btn-primary" (click)="createAnnuncio()">Pubblica annuncio</button>
       </div>
     </form>
+
+    <footer><span class="text-danger">*Campo obbligatorio</span></footer>
   </div>
 </div>

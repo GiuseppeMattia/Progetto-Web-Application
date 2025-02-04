@@ -26,7 +26,7 @@ export class AuthService {
     this.isBanned$ = this.currentUser.pipe(map((user) => !!user?.bannato))
   }
 
-  public get currentUserValue(): UserModel | null {
+  public get currentUserValue(): UserModel | null{
     return this.currentUserSubject.value
   }
 
