@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { AnnuncioService } from '../services/annuncio.service';
 import { Annuncio } from '../modelli/annuncio.model';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-categoria-annunci',
@@ -18,7 +19,8 @@ export class CategoriaAnnunciComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private annuncioService: AnnuncioService
+    private annuncioService: AnnuncioService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -40,8 +42,16 @@ export class CategoriaAnnunciComponent implements OnInit {
     );
   }
 
-  getImageUrl(foto: string): string {
-    // Implementa la logica per ottenere l'URL dell'immagine
-    return foto;
+  getImageUrl(byte: string): SafeUrl {
+    const byteCharacters = atob(byte);
+    const byteArray = new Uint8Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteArray[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const blob = new Blob([byteArray], { type: 'image/png' }); // Tipo MIME corretto
+    const url = URL.createObjectURL(blob);
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }

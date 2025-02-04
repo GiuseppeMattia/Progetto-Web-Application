@@ -13,7 +13,6 @@ import {CreaComponent} from './crea/crea.component';
 import {BannedComponent} from './banned/banned.component';
 import {CategoriaAnnunciComponent} from './categoriaannunci/categoriaannunci.component';
 
-
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },

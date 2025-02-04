@@ -34,7 +34,7 @@
               €{{ annuncio.prezzoScontato.toFixed(2) }}
             </span>
               <ng-template #prezzoNormale>
-                €{{ annuncio.prezzo.toFixed(2) }}
+                <span class="text-dark">€{{ annuncio.prezzo.toFixed(2) }}</span>
               </ng-template>
             </strong>
             <a [routerLink]="['/annuncio', annuncio.id]" class="btn btn-primary btn-sm">Vedi dettagli</a>

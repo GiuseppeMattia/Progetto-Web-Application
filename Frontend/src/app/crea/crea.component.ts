@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
+import {Annuncio} from '../modelli/annuncio.model';
+import {Categoria} from '../modelli/categoria';
 
 @Component({
   selector: 'app-crea',
@@ -30,8 +32,7 @@ export class CreaComponent {
     this.categoriaScelta=categoria;
   }
   createAnnuncio(){
-    //inizializzazione campi da passare al back
-    //chiamata al back
+
     console.log("Annuncio creato con successo")
   }
   validateImage(){
