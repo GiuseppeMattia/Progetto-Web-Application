@@ -68,6 +68,13 @@ export class HomeComponent implements OnInit {
     else if (ordine === 'nessuno'){
       this.shuffleArray(this.annunci);
     }
+    else if(ordine === "menorecenti"){
+      this.annunci.sort((a, b) => a.id - b.id); // Ordina discendente
+    }
+    else if(ordine === "piurecenti"){
+      this.annunci.sort((a, b) => b.id - a.id); // Ordina discendente
+
+    }
   }
 
   // Mescola l'array
