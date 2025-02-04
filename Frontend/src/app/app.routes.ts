@@ -12,24 +12,25 @@ import {ListaAsteComponent} from './lista-aste/lista-aste.component';
 import {CreaComponent} from './crea/crea.component';
 import {BannedComponent} from './banned/banned.component';
 import {CategoriaAnnunciComponent} from './categoriaannunci/categoriaannunci.component';
-import {AuthGuard} from './guards/auth.guard';
+import {BanGuard} from './guards/ban.guard';
+import {authGuard} from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
-  { path: "home", component: HomeComponent, canActivate:[AuthGuard] },
+  { path: "home", component: HomeComponent, canActivate:[BanGuard] },
   { path: "", redirectTo: "/home", pathMatch: "full"},
-  { path: "categories", component: CategorieComponent, canActivate: [AuthGuard]},
-  { path: "adminBoard", component: PannelloAdminComponent, canActivate: [AuthGuard]},
-  { path: "profile", component: ProfiloComponent, canActivate:[AuthGuard]},
-  { path: "annuncio/:id", component: AnnuncioComponent, canActivate:[AuthGuard]},
-  { path: "listaUtenti", component: ListaUtentiComponent, canActivate:[AuthGuard]},
-  { path: "listaAnnunci", component: ListaAnnunciComponent, canActivate:[AuthGuard]},
-  { path: "listaAste", component: ListaAsteComponent, canActivate:[AuthGuard]},
-  { path: "creaAnnuncio", component: CreaComponent, canActivate:[AuthGuard]},
+  { path: "categories", component: CategorieComponent, canActivate: [BanGuard]},
+  //in adminBoard non sarà inserito authGuard perché ci sono già dei controlli analoghi
+  { path: "adminBoard", component: PannelloAdminComponent, canActivate: [BanGuard]},
+  { path: "profile", component: ProfiloComponent, canActivate:[authGuard,BanGuard]},
+  { path: "annuncio/:id", component: AnnuncioComponent, canActivate:[authGuard,BanGuard]},
+  { path: "listaUtenti", component: ListaUtentiComponent, canActivate:[authGuard,BanGuard]},
+  { path: "listaAnnunci", component: ListaAnnunciComponent, canActivate:[authGuard,BanGuard]},
+  { path: "listaAste", component: ListaAsteComponent, canActivate:[authGuard,BanGuard]},
+  { path: "creaAnnuncio", component: CreaComponent, canActivate:[authGuard,BanGuard]},
   { path: "banned", component: BannedComponent },
-  { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[AuthGuard] },
-//aggiungi guard per listaX che verifica login e se sei admin
-  //guard che controlla login per creaAnnuncio e profile
+  { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[authGuard,BanGuard] },
+//aggiungi guard per listaX che verifica se sei admin
 ]
 
