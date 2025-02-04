@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
 import {Annuncio} from '../modelli/annuncio.model';
 import {Categoria} from '../modelli/categoria';
+import {CategoriaService} from '../services/categoria.service';
 
 @Component({
   selector: 'app-crea',
@@ -16,20 +17,29 @@ import {Categoria} from '../modelli/categoria';
   templateUrl: './crea.component.html',
   styleUrl: './crea.component.css'
 })
-export class CreaComponent {
+export class CreaComponent implements OnInit{
   categoriaScelta: number | null =null;
+  categorie:Categoria[]=[]
+  constructor(private router: Router, private categoriaService: CategoriaService) {}
 
-  constructor(private router: Router) {}
-
-  //per adesso hard-coded, l'idea è quella di popolarlo chiamando il back
-  categorie=[
-    {id:0, nome:"Display"},
-    {id:1, nome:"Telefoni"},
-    {id:2, nome:"Schede"},
-    {id:3, nome:"Computer"}]
+  ngOnInit(): void {
+    this.loadCategorie();
+  }
+  loadCategorie(){
+    this.categoriaService.trovaTutte().subscribe(
+      (categorie) => {
+        this.categorie = categorie;
+        console.log('Categorie caricate:', this.categorie); // For debugging
+      },
+      (error) => {
+        console.error('Errore nel caricamento delle categorie:', error);
+      }
+    );
+  }
   selectAnswer( categoria: number
   ){
     this.categoriaScelta=categoria;
+    console.log(this.categoriaScelta)
   }
   createAnnuncio(){
 
