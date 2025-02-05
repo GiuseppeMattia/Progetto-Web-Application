@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <div class="card shadow p-4">
+    <h2 class="text-center mb-4">Modifica annuncio</h2>
+
+    <form [formGroup]="modifyForm">
+      <div class="mb-3">
+        <label for="titolo" class="form-label">Titolo annuncio<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="titolo" id="titolo" name="Titolo" >
+      </div>
+
+      <div class="mb-3">
+        <label for="prezzo" class="form-label">Prezzo<span class="text-danger">*</span></label>
+        <input type="number" class="form-control" formControlName="prezzo" id="prezzo" name="Prezzo">
+      </div>
+
+      <div class="mb-3">
+        <label for="prezzo" class="form-label">Sconta prezzo</label>
+        <input type="number" class="form-control" formControlName="scontaprezzo" id="scontaprezzo" name="scontaPrezzo">
+      </div>
+
+      <div class="mb-3">
+        <label for="marca" class="form-label">Marca<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="marca" id="marca" name="Marca" >
+      </div>
+
+      <div class="mb-3">
+        <label for="modello" class="form-label">Modello<span class="text-danger">*</span></label>
+        <input type="text" class="form-control" formControlName="modello" id="modello" name="Modello" >
+      </div>
+
+
+      <div class="mb-3">
+        <label for="descrizione" class="form-label">Descrizione</label>
+        <textarea class="form-control" formControlName="descrizione" id="descrizione" name="Descrizione" rows="3" placeholder="Scrivi una descrizione"></textarea>
+      </div>
+
+
+
+      <div class="d-flex justify-content-between mt-4">
+        <button routerLink="/home" type="button" class="btn btn-secondary" >Torna alla home</button>
+        <button type="button" class="btn btn-primary" (click)="modificaAnnuncio()">Aggiorna annuncio</button>
+      </div>
+    </form>
+
+    <footer><span class="text-danger">*Campo obbligatorio</span></footer>
+  </div>
+</div>
