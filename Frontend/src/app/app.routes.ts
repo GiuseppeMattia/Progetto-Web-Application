@@ -28,7 +28,7 @@ export const routes: Routes = [
   //in adminBoard non saranno inserite altre guard perché ci sono già dei controlli analoghi
   { path: "adminBoard", component: PannelloAdminComponent, canActivate: [BanGuard]},
   { path: "profile", component: ProfiloComponent, canActivate:[authGuard,BanGuard]},
-  { path: "annuncio/:id", component: AnnuncioComponent, canActivate:[authGuard,BanGuard]},
+  { path: "annuncio/:id", component: AnnuncioComponent, canActivate:[BanGuard]},
   { path: "listaUtenti", component: ListaUtentiComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
   { path: "listaAnnunci", component: ListaAnnunciComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
   { path: "listaAste", component: ListaAsteComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
@@ -37,7 +37,7 @@ export const routes: Routes = [
   { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[authGuard,BanGuard] },
   { path: 'mieiAnnunci', component: AnnunciProfiloComponent, canActivate:[authGuard,BanGuard]},
   { path: 'mieAste', component: AsteProfiloComponent, canActivate:[authGuard,BanGuard]},
-  { path: "modificaanuncio/:id", component: ModificaAnnuncioComponent, canActivate:[authGuard,BanGuard]}
+  { path: "modificaanuncio/:id", component: ModificaAnnuncioComponent, canActivate:[authGuard, BanGuard]}
 //guardie per venditore/acquirente?
 ]
 
