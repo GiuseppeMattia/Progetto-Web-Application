@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isLoggedIn = false
   isAdmin = false
   username = ""
+  isVenditore= false
   private authSubscription: Subscription | undefined
 
   constructor(
@@ -27,6 +28,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.isLoggedIn = !!user
       this.isAdmin = user?.amministratore || false
       this.username = user?.username || ""
+      this.isVenditore = user?.venditore || false
       // console.log("Is Admin:", this.isAdmin)
     })
   }

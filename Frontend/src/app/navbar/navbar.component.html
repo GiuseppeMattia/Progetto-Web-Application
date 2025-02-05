@@ -15,7 +15,7 @@
 
       <ul class="dropdown-menu dropdown-menu-end">
         <ng-container *ngIf="isLoggedIn; else loginTemplate">
-          <li>
+          <li *ngif="isVenditore">
             <button class="dropdown-item" routerLink="/mieiAnnunci">
               I miei annunci
             </button>
