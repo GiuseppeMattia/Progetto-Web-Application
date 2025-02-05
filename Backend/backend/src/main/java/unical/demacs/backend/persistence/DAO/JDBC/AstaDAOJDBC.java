@@ -172,14 +172,13 @@ public class AstaDAOJDBC implements AstaDAO {
         //PER RIMEDIARE, LATO front, ANDREBBE FATTA UNA CHIAMATA A QUESTO DAO SULLA FUNZIONE findByAnnuncio,
         //IN MODO TALE CHE, SE ESISTE GIA UN ASTA APPARTENENTE AD UN ANNUNCIO, NON E' POSSIBILE CREARNE UNA NUOVA
 
-        String query = "INSERT INTO asta(acquirente, prezzo, terminata,  id_annuncio) VALUES(?, ?, ?, ?)";
+        String query = "INSERT INTO asta( prezzo, terminata,  id_annuncio) VALUES(?, ?, ?)";
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, asta.getAcquirente().getUsername());
-            statement.setFloat(2, asta.getPrezzo());
-            statement.setBoolean(3, asta.getTerminated());
-            statement.setInt(4, asta.getAnnuncio().getID());
+            statement.setFloat(1, asta.getPrezzo());
+            statement.setBoolean(2, asta.getTerminated());
+            statement.setInt(3, asta.getAnnuncio().getID());
             statement.executeUpdate();
 
         } catch (SQLException e) {

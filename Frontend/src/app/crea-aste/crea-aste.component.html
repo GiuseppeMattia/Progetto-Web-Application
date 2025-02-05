@@ -1,0 +1,7 @@
+<form [formGroup]="createForm">
+<div class="mb-3">
+  <label for="prezzo" class="form-label">Prezzo<span class="text-danger">*</span></label>
+  <input type="number" class="form-control" formControlName="prezzo" id="prezzo" name="Prezzo" placeholder="Scrivi la base d'asta">
+</div>
+  <button (click)="crea()">Prova</button>
+</form>

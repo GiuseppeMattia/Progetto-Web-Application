@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AstaModel } from '../modelli/asta';
+import { Asta } from '../modelli/asta';
 
 @Injectable({
   providedIn: 'root',
@@ -11,22 +11,27 @@ export class AstaService {
 
   constructor(private http: HttpClient) {}
 
-  getAsta(id: number): Observable<AstaModel> {
+  getAsta(id: number): Observable<Asta> {
     const params = new HttpParams().set('id', id.toString());
-    return this.http.post<AstaModel>(`${this.apiUrl}/trovaByID`, null, { params });
+    return this.http.post<Asta>(`${this.apiUrl}/trovaByID`, null, { params });
   }
 
-  getAste(): Observable<AstaModel[]> {
-    return this.http.get<AstaModel[]>(`${this.apiUrl}/trovaTutte`);
+  getAste(): Observable<Asta[]> {
+    return this.http.get<Asta[]>(`${this.apiUrl}/trovaTutte`);
   }
 
-  eliminaAsta(asta: AstaModel): Observable<void> {
+  eliminaAsta(asta: Asta): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/elimina`, { body: asta });
   }
 
-  trovaByUtenteVenditore(username: string): Observable<AstaModel[]> {
+  trovaByUtenteVenditore(username: string): Observable<Asta[]> {
     const params = new HttpParams().set('username', username);
-    return this.http.get<AstaModel[]>(`${this.apiUrl}/trovaByUtenteVenditore`, { params });
+    return this.http.get<Asta[]>(`${this.apiUrl}/trovaByUtenteVenditore`, { params });
+  }
+  creaAsta(asta: Asta): Observable<boolean>{
+    console.log("Annuncio passato all'asta service:")
+    console.log(asta.annuncio)
+    return this.http.post<boolean>(`${this.apiUrl}/crea`, asta)
   }
 
 }

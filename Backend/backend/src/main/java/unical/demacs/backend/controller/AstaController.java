@@ -97,6 +97,7 @@ public class AstaController {
 
     @PostMapping("/crea")
     public ResponseEntity<Boolean> crea(@RequestBody Asta asta) {
+        System.out.println(asta.getID());
         try{
             astaService.save(asta);
             return ResponseEntity.ok(true);

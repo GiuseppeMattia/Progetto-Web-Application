@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AstaModel } from '../modelli/asta';
+import { Asta } from '../modelli/asta';
 import {Router, RouterLink} from '@angular/router';
 import { AstaService } from '../services/asta.service';
 import { NgForOf } from '@angular/common';
@@ -12,7 +12,7 @@ import { NgForOf } from '@angular/common';
   styleUrls: ['./lista-aste.component.css']
 })
 export class ListaAsteComponent implements OnInit {
-  aste: AstaModel[] = [];
+  aste: Asta[] = [];
 
   constructor(private router: Router, private astaService: AstaService) {}
 
@@ -22,7 +22,7 @@ export class ListaAsteComponent implements OnInit {
     });
   }
 
-  eliminaAsta(asta: AstaModel) {
+  eliminaAsta(asta: Asta) {
     if (confirm(`Sei sicuro di voler eliminare l'asta "${asta.id}"?`)) {
       this.astaService.eliminaAsta(asta).subscribe(() => {
         this.aste = this.aste.filter(a => a.id !== asta.id);

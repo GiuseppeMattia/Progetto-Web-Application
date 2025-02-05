@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { AstaModel } from '../modelli/asta';
+import { Asta } from '../modelli/asta';
 import { AstaService } from '../services/asta.service';
 import { AuthService } from '../services/auth.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -14,7 +14,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   imports: [CommonModule, RouterLink]
 })
 export class AsteProfiloComponent implements OnInit {
-  aste: AstaModel[] = [];
+  aste: Asta[] = [];
   errorMessage = '';
 
   constructor(
