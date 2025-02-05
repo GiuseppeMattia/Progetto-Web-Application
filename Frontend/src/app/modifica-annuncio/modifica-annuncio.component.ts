@@ -31,7 +31,7 @@ export class ModificaAnnuncioComponent implements OnInit{
 
   private array: Uint8Array;
 
-  constructor(private router: Router, private categoriaService: CategoriaService, private fb: FormBuilder, private authService: AuthService, private annuncioService: AnnuncioService, private route: ActivatedRoute, private sanitizer: DomSanitizer) {
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private annuncioService: AnnuncioService, private route: ActivatedRoute) {
     this.modifyForm = this.fb.group({
       titolo: ["", Validators.required],
       prezzo: [null, Validators.required],

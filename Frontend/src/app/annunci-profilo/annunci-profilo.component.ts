@@ -21,8 +21,7 @@ export class AnnunciProfiloComponent implements OnInit {
   constructor(
     private annuncioService: AnnuncioService,
     private authService: AuthService,
-    private sanitizer: DomSanitizer,
-    private router: Router
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {

@@ -18,6 +18,7 @@ import {AdminGuard} from './guards/admin.guard';
 import {AnnunciProfiloComponent} from './annunci-profilo/annunci-profilo.component';
 import {AsteProfiloComponent} from './aste-profilo/aste-profilo.component';
 import {ModificaAnnuncioComponent} from './modifica-annuncio/modifica-annuncio.component';
+import {VenditoreComponent} from './venditore/venditore.component';
 
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -37,7 +38,8 @@ export const routes: Routes = [
   { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[authGuard,BanGuard] },
   { path: 'mieiAnnunci', component: AnnunciProfiloComponent, canActivate:[authGuard,BanGuard]},
   { path: 'mieAste', component: AsteProfiloComponent, canActivate:[authGuard,BanGuard]},
-  { path: "modificaanuncio/:id", component: ModificaAnnuncioComponent, canActivate:[authGuard, BanGuard]}
+  { path: "modificaanuncio/:id", component: ModificaAnnuncioComponent, canActivate:[authGuard, BanGuard]},
+  { path: "venditore/:username", component: VenditoreComponent, canActivate:[BanGuard]}
 //guardie per venditore/acquirente?
 ]
 
