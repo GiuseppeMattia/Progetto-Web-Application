@@ -35,6 +35,7 @@ public class AstaController {
 
     @GetMapping("/trovaById")
     public ResponseEntity<Asta> trovaById(@RequestParam int id) {
+        System.out.println(id);
         try{
             Asta asta = astaService.findById(id);
             return ResponseEntity.ok().body(asta);
@@ -44,9 +45,8 @@ public class AstaController {
         }
     }
 
-    @GetMapping("/trovaByAnnuncio")
-    public ResponseEntity<Asta> trovaByAnnuncio(@RequestParam int idAnnuncio) {
-
+    @PostMapping("/trovaByAnnuncio")
+    public ResponseEntity<Asta> trovaByAnnuncio(@RequestBody int idAnnuncio) {
         try{
             Asta asta = astaService.findByAnnuncio(idAnnuncio);
             return ResponseEntity.ok().body(asta);
@@ -111,10 +111,9 @@ public class AstaController {
     public ResponseEntity<Boolean> aggiorna(@RequestBody Asta asta) {
 
         try{
-            astaService.save(asta);
+            astaService.update(asta);
             return ResponseEntity.ok(true);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return ResponseEntity.status(404).body(false);
         }
     }

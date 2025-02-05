@@ -108,18 +108,14 @@ public class AstaService implements IAstaService {
     }
 
     @Override
-    public void update(Asta asta, float prezzo){
+    public void update(Asta asta){
 
         Asta daCercare = astaDAO.findById(asta.getID());
         if(daCercare == null) {
             throw new IllegalArgumentException("L'asta che si vuole modificare con ID" + asta.getID() + " non esiste");
         }
 
-        if(prezzo < asta.getPrezzo()) {
-            throw new IllegalArgumentException("Non puoi proporre un prezzo inferiore");
-        }
-
-        astaDAO.update(asta, prezzo);
+        astaDAO.update(asta);
     }
 
     @Override

@@ -16,6 +16,10 @@ export class AstaService {
     return this.http.post<Asta>(`${this.apiUrl}/trovaByID`, null, { params });
   }
 
+  getAstaByAnnuncio(id: number){
+    return this.http.post<Asta>(`${this.apiUrl}/trovaByAnnuncio`, id);
+  }
+
   getAste(): Observable<Asta[]> {
     return this.http.get<Asta[]>(`${this.apiUrl}/trovaTutte`);
   }
@@ -28,10 +32,15 @@ export class AstaService {
     const params = new HttpParams().set('username', username);
     return this.http.get<Asta[]>(`${this.apiUrl}/trovaByUtenteVenditore`, { params });
   }
+
   creaAsta(asta: Asta): Observable<boolean>{
-    console.log("Annuncio passato all'asta service:")
-    console.log(asta.annuncio)
+    // console.log("Annuncio passato all'asta service:")
+    // console.log(asta.annuncio)
     return this.http.post<boolean>(`${this.apiUrl}/crea`, asta)
+  }
+
+  aggiornaAsta(asta: Asta){
+    return this.http.post<boolean>(`${this.apiUrl}/aggiorna`, asta)
   }
 
 }

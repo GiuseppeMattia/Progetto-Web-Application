@@ -15,6 +15,6 @@ public interface IAstaService {
     List<Asta> findByUtenteAcquirente(String username, boolean terminata);
     List<Asta> findBYUtenteVenditore(String username);
     void save(Asta asta);
-    void update(Asta asta, float prezzo);
+    void update(Asta asta);
     void delete(Asta asta);
 }

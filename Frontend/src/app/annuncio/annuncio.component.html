@@ -19,14 +19,20 @@
         </a>
       </p>
       <div class="pricing mb-3">
-        <ng-container *ngIf="annuncio!.prezzoScontato; else prezzoOriginale">
-          <h2 class="text-danger mb-0">€ {{ annuncio!.prezzoScontato.toFixed(2) }}</h2>
-          <p class="text-muted">
-            <small>Prezzo originale: <del>€ {{ annuncio!.prezzo.toFixed(2) }}</del></small>
-          </p>
+        <ng-container *ngIf="asta; else nonAsta">
+          <h2 class="text-info mb-0">€ {{ asta.prezzo }}          <small class="text-muted fs-6">Ultima offerta effettuata da: {{this.asta?.acquirente?.username}}</small></h2>
         </ng-container>
-        <ng-template #prezzoOriginale>
-          <h2 class="mb-0">€ {{ annuncio!.prezzo.toFixed(2) }}</h2>
+
+        <ng-template #nonAsta>
+          <ng-container *ngIf="annuncio!.prezzoScontato; else prezzoOriginale">
+            <h2 class="text-danger mb-0">€ {{ annuncio!.prezzoScontato.toFixed(2) }}</h2>
+            <p class="text-muted">
+              <small>Prezzo originale: <del>€ {{ annuncio!.prezzo.toFixed(2) }}</del></small>
+            </p>
+          </ng-container>
+          <ng-template #prezzoOriginale>
+            <h2 class="mb-0">€ {{ annuncio!.prezzo.toFixed(2) }}</h2>
+          </ng-template>
         </ng-template>
       </div>
 
@@ -40,15 +46,34 @@
       <div class="d-grid gap-2">
         <button class="btn btn-warning btn-lg" (click)="contatta()">Contatta il venditore</button>
         <ng-container *ngIf="annuncio!.venditore.username === this.user?.username || user?.amministratore">
-          <ng-container *ngIf="annuncio!.venditore.username === this.user?.username || user?.amministratore">
+          <ng-container *ngIf="(annuncio!.venditore.username === this.user?.username || user?.amministratore) && !this.asta">
             <button class="btn btn-outline-light btn-outline-light border-dark btn-lg text-warning " routerLink="/creaAste" [queryParams]="{ id: annuncio?.id }">Metti all'asta</button>
           </ng-container>
           <button class="btn btn-secondary" routerLink="/modificaannuncio/{{this.annuncio?.id}}">Modifica annuncio</button>
         </ng-container>
-
+        <ng-container *ngIf="this.asta">
+          <p class="fw-bold text-danger">Tempo rimanente: {{ tempoRimanente }}</p>
+        </ng-container>
       </div>
     </div>
   </div>
+
+  <ng-container *ngIf="this.asta && !this.user?.venditore">
+    <div class="row mt-5">
+      <div class="col-12">
+        <h3>Proponi un prezzo</h3>
+        <form [formGroup]="priceForm" (ngSubmit)="submitPrice()">
+          <div class="mb-3">
+            <label for="priceInput" class="form-label">Inserisci il prezzo che proponi</label>
+            <input type="number" id="priceInput" formControlName="price" class="form-control" placeholder="€ Inserisci il prezzo">
+          </div>
+          <div class="mb-3">
+              <button type="submit" class="btn btn-success btn-lg" [disabled]="priceForm.invalid">Invia proposta</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-container>
 
   <div class="row mt-5">
     <div class="col-12">

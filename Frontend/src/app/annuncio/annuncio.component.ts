@@ -1,4 +1,4 @@
-import { Component, type OnInit } from "@angular/core";
+import {Component, OnDestroy, type OnInit} from "@angular/core";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import { CommonModule, NgIf } from "@angular/common";
 import { Annuncio } from "../modelli/annuncio.model";
@@ -10,7 +10,9 @@ import {RecensioneService} from '../services/recensione.service';
 import {Recensione} from '../modelli/Recensione';
 import {AuthService} from '../services/auth.service';
 import {UserModel} from '../modelli/userModel';
-import {Asta} from '../modelli/asta';  // Aggiunto FormBuilder e FormGroup
+import {Asta} from '../modelli/asta';
+import {AstaService} from '../services/asta.service';
+import {interval, Subject, takeUntil} from 'rxjs';  // Aggiunto FormBuilder e FormGroup
 
 @Component({
   selector: "app-annuncio",
@@ -20,13 +22,17 @@ import {Asta} from '../modelli/asta';  // Aggiunto FormBuilder e FormGroup
   imports: [CommonModule, NgIf, HttpClientModule, ReactiveFormsModule, RouterLink],
   providers: [AnnuncioService, RecensioneService, AuthService]
 })
-export class AnnuncioComponent implements OnInit {
+export class AnnuncioComponent implements OnInit, OnDestroy {
   annuncio: Annuncio | null = null;
   errorMessage = "";
   reviewForm: FormGroup;  // Aggiunta la dichiarazione del FormGroup per la recensione
-  private asta: Asta | null;
+  priceForm: FormGroup;
+  protected asta: Asta | null;
+  protected tempoRimanente: String;
 
   protected user: UserModel | null;
+  private unsubscribe$ = new Subject<void>(); // Per pulire il timer quando il componente viene distrutto
+
 
   constructor(
     private route: ActivatedRoute,
@@ -36,15 +42,20 @@ export class AnnuncioComponent implements OnInit {
     private authService: AuthService,
     private sanitizer: DomSanitizer,
     private fb: FormBuilder,  // Aggiunto il FormBuilder per creare il form
-
+    private astaService: AstaService
   ) {
     // Inizializzazione del form di recensione
     this.reviewForm = this.fb.group({
       text: ['', Validators.required]
     });
 
+    this.priceForm = this.fb.group({
+      price: [null, Validators.required]
+    })
+
     this.user = this.authService.currentUserValue
     this.asta = null;
+    this.tempoRimanente = "";
   }
 
   ngOnInit() {
@@ -52,13 +63,30 @@ export class AnnuncioComponent implements OnInit {
     if (id) {
       // console.log("ID ricevuto", id);
       this.loadAnnuncio(Number(id));
-    }
+
+        this.aggiornaTimer(); // Calcola il tempo iniziale
+
+        // Esegui l'aggiornamento ogni secondo
+        interval(1000)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(() => this.aggiornaTimer());
+      }
+
   }
 
   loadAnnuncio(id: number) {
     this.annuncioService.getAnnuncio(id).subscribe(
       (annuncio) => {
         this.annuncio = annuncio;  // Assegna l'annuncio
+        this.astaService.getAstaByAnnuncio(this.annuncio.id).subscribe(
+          (asta) =>{
+            this.asta = asta;
+          },
+          (error) =>{
+            console.error("Errore nel caricamento dell'asta:", error);
+            this.errorMessage = "Impossibile caricare l'asta. Si prega di riprovare più tardi.";
+          }
+        );
       },
       (error) => {
         console.error("Errore nel caricamento dell'annuncio:", error);
@@ -66,6 +94,8 @@ export class AnnuncioComponent implements OnInit {
       }
     );
   }
+
+
 
   getImageUrl(byte: string): SafeUrl {
     const byteCharacters = atob(byte);
@@ -117,5 +147,70 @@ export class AnnuncioComponent implements OnInit {
         }
       );
     }
+  }
+
+  submitPrice(){
+      if(!this.priceForm.get("price")?.value || !this.asta){
+        return;
+      }
+
+      if(!this.user){
+        alert("Accedi prima di poter inserire un prezzo");
+        this.router.navigate(["/login"]);
+        return;
+      }
+
+      if(this.priceForm.get("price")?.value > this.asta?.prezzo){
+          this.asta.prezzo = Number(this.priceForm.get("price")?.value);
+          this.asta.acquirente = this.user;
+          this.astaService.aggiornaAsta(this.asta).subscribe(
+            (response) =>{
+              window.location.reload()
+            },
+            (error ) =>{
+              alert("Impossibile aggiungere il prezzo");
+              return;
+        }
+          );
+
+      }
+      else{
+        alert("Il prezzo inserito non è valido")
+      }
+  }
+
+  aggiornaTimer() {
+    if(!this.asta){
+      return
+    }
+
+    const adesso = new Date().getTime();
+    const scadenza = new Date(this.asta?.scadenza).getTime();
+    const differenza = scadenza - adesso;
+
+    if (differenza <= 0) {
+      this.asta.isTerminated = true;
+      this.astaService.aggiornaAsta(this.asta).subscribe(
+        (response) =>{
+          window.location.reload();
+        }
+      )
+
+      this.unsubscribe$.next(); // Ferma il timer
+      return;
+    }
+
+    // Calcola giorni, ore, minuti e secondi rimanenti
+    const giorni = Math.floor(differenza / (1000 * 60 * 60 * 24));
+    const ore = Math.floor((differenza % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minuti = Math.floor((differenza % (1000 * 60 * 60)) / (1000 * 60));
+    const secondi = Math.floor((differenza % (1000 * 60)) / 1000);
+
+    this.tempoRimanente = `${giorni}g ${ore}h ${minuti}m ${secondi}s`;
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
