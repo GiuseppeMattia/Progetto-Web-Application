@@ -38,7 +38,7 @@ export const routes: Routes = [
   { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[authGuard,BanGuard] },
   { path: 'mieiAnnunci', component: AnnunciProfiloComponent, canActivate:[authGuard,BanGuard]},
   { path: 'mieAste', component: AsteProfiloComponent, canActivate:[authGuard,BanGuard]},
-  { path: "modificaanuncio/:id", component: ModificaAnnuncioComponent, canActivate:[authGuard, BanGuard]},
+  { path: "modificaannuncio/:id", component: ModificaAnnuncioComponent, canActivate:[authGuard, BanGuard]},
   { path: "venditore/:username", component: VenditoreComponent, canActivate:[BanGuard]}
 //guardie per venditore/acquirente?
 ]
