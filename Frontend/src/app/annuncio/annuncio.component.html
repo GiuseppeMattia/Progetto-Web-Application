@@ -20,8 +20,17 @@
       </p>
       <div class="pricing mb-3">
         <ng-container *ngIf="asta; else nonAsta">
-          <h2 class="text-info mb-0">€ {{ asta.prezzo }}          <small class="text-muted fs-6">Ultima offerta effettuata da: {{this.asta?.acquirente?.username}}</small></h2>
+          <h2 class="text-info mb-0">€ {{ asta.prezzo }}
+            <small class="text-muted fs-6" *ngIf="asta.acquirente?.username; else nonAquirente">
+              Ultima offerta effettuata da: {{ asta.acquirente?.username }}
+            </small>
+            <ng-template #nonAquirente>
+              <small class="text-muted fs-6">Ancora nessuno ha fatto una proposta d'acquisto</small>
+            </ng-template>
+          </h2>
         </ng-container>
+
+
 
         <ng-template #nonAsta>
           <ng-container *ngIf="annuncio!.prezzoScontato; else prezzoOriginale">
@@ -55,13 +64,18 @@
           <button class="btn btn-secondary" routerLink="/modificaannuncio/{{this.annuncio?.id}}">Modifica annuncio</button>
         </ng-container>
         <ng-container *ngIf="this.asta">
-          <p class="fw-bold text-danger">Tempo rimanente: {{ tempoRimanente }}</p>
+          <ng-container *ngIf="!asta?.isTerminated; else terminata">
+            <p class="fw-bold text-danger">Tempo rimanente: {{ tempoRimanente }}</p>
+          </ng-container>
+          <ng-template #terminata>
+            <p class="fw-bold text-danger"> Asta terminata </p>
+          </ng-template>
         </ng-container>
       </div>
     </div>
   </div>
 
-  <ng-container *ngIf="this.asta && !this.user?.venditore">
+  <ng-container *ngIf="this.asta && !this.user?.venditore && !this.asta.isTerminated">
     <div class="row mt-5">
       <div class="col-12">
         <h3>Proponi un prezzo</h3>

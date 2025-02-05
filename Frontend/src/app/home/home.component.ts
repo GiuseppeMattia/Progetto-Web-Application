@@ -6,6 +6,8 @@ import { AnnuncioService } from '../services/annuncio.service';
 import {AuthService} from '../services/auth.service';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
+import {AstaService} from '../services/asta.service';
+import {Asta} from '../modelli/asta';
 
 @Component({
   selector: 'app-home',
@@ -19,11 +21,16 @@ export class HomeComponent implements OnInit {
   annunci: Annuncio[] = [];
   errorMessage = '';
   isSeller: boolean = false;
+  protected aste: Asta[];
 
   constructor(private annuncioService: AnnuncioService,
               public authService: AuthService,
               public router: Router,
-              private sanitizer: DomSanitizer) {}
+              private sanitizer: DomSanitizer,
+              private astaService: AstaService) {
+
+    this.aste = []
+  }
 
   ngOnInit() {
 
@@ -37,6 +44,19 @@ export class HomeComponent implements OnInit {
     this.annuncioService.getAnnunci().subscribe(
       (annunci) => {
         this.annunci = annunci;
+        this.annunci.forEach(annuncio => {
+          this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
+            (asta) => {
+              // Aggiungi l'asta corrispondente all'annuncio
+              this.aste.push(asta);
+            },
+            (error) => {
+              if(error.status != 404){
+                console.error('Errore nel caricamento dell\'asta per l\'annuncio', annuncio.id);
+              }
+            }
+          );
+        });
       },
       (error) => {
         // console.error('Errore nel caricamento degli annunci:', error);

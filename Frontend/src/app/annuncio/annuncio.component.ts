@@ -192,7 +192,7 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
       this.asta.isTerminated = true;
       this.astaService.aggiornaAsta(this.asta).subscribe(
         (response) =>{
-          window.location.reload();
+          console.log("Fine")
         }
       )
 
