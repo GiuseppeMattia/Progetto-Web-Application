@@ -22,8 +22,9 @@ export class CreaAsteComponent implements OnInit{
               private route:ActivatedRoute, private annuncioService: AnnuncioService) {
     this.createForm = this.fb.group({
       prezzo: [null, Validators.required],
+      data: [null, Validators.required]
     })
-    this.annuncio=null;
+    this.annuncio = null;
   }
 
   ngOnInit(): void {
@@ -36,18 +37,21 @@ export class CreaAsteComponent implements OnInit{
       )
     });
   }
+
   crea(){
     // Il prezzo è un campo obbligatorio
-    if (!this.createForm.get('prezzo')?.value) {
+    if (!this.createForm.get('prezzo')?.value || !this.createForm.get("data")?.value) {
       alert("Per favore, completa i campi richiesti");
       return;
     }
+
   let asta=new Asta(
     50,
     this.annuncio!,
     this.createForm.get('prezzo')?.value,
     null,
-    false
+    false,
+    this.createForm.get("data")?.value,
   )
     this.astaService.creaAsta(asta).subscribe(
       response => {

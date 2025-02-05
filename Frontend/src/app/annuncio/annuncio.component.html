@@ -40,11 +40,12 @@
       <div class="d-grid gap-2">
         <button class="btn btn-warning btn-lg" (click)="contatta()">Contatta il venditore</button>
         <ng-container *ngIf="annuncio!.venditore.username === this.user?.username || user?.amministratore">
+          <ng-container *ngIf="annuncio!.venditore.username === this.user?.username || user?.amministratore">
+            <button class="btn btn-outline-light btn-outline-light border-dark btn-lg text-warning " routerLink="/creaAste" [queryParams]="{ id: annuncio?.id }">Metti all'asta</button>
+          </ng-container>
           <button class="btn btn-secondary" routerLink="/modificaannuncio/{{this.annuncio?.id}}">Modifica annuncio</button>
         </ng-container>
-        <ng-container *ngIf="annuncio!.venditore.username === this.user?.username || user?.amministratore">
-          <button class="btn btn-secondary" routerLink="/creaAste" [queryParams]="{ id: annuncio?.id }">Metti all'asta</button>
-        </ng-container>
+
       </div>
     </div>
   </div>

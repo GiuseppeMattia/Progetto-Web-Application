@@ -7,7 +7,8 @@ export class Asta {
               public annuncio:Annuncio,
               public prezzo:number,
               public acquirente:UserModel |null,
-              public isTerminated:boolean
+              public isTerminated:boolean,
+              public scadenza: Date
   ) {
   }
 }

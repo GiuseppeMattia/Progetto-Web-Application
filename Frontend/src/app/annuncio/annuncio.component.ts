@@ -9,7 +9,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {RecensioneService} from '../services/recensione.service';
 import {Recensione} from '../modelli/Recensione';
 import {AuthService} from '../services/auth.service';
-import {UserModel} from '../modelli/userModel';  // Aggiunto FormBuilder e FormGroup
+import {UserModel} from '../modelli/userModel';
+import {Asta} from '../modelli/asta';  // Aggiunto FormBuilder e FormGroup
 
 @Component({
   selector: "app-annuncio",
@@ -23,6 +24,7 @@ export class AnnuncioComponent implements OnInit {
   annuncio: Annuncio | null = null;
   errorMessage = "";
   reviewForm: FormGroup;  // Aggiunta la dichiarazione del FormGroup per la recensione
+  private asta: Asta | null;
 
   protected user: UserModel | null;
 
@@ -33,7 +35,8 @@ export class AnnuncioComponent implements OnInit {
     private recensioneService: RecensioneService,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
-    private fb: FormBuilder  // Aggiunto il FormBuilder per creare il form
+    private fb: FormBuilder,  // Aggiunto il FormBuilder per creare il form
+
   ) {
     // Inizializzazione del form di recensione
     this.reviewForm = this.fb.group({
@@ -41,6 +44,7 @@ export class AnnuncioComponent implements OnInit {
     });
 
     this.user = this.authService.currentUserValue
+    this.asta = null;
   }
 
   ngOnInit() {

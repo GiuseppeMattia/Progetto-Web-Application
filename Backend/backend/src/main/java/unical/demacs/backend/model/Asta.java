@@ -1,5 +1,7 @@
 package unical.demacs.backend.model;
 
+import java.sql.Date;
+
 public class Asta {
 
     private int ID;
@@ -7,6 +9,23 @@ public class Asta {
     private float prezzo;
     private Utente acquirente;
     private boolean isTerminated;
+    private Date scadenza;
+
+    public boolean isTerminated() {
+        return isTerminated;
+    }
+
+    public void setTerminated(boolean terminated) {
+        isTerminated = terminated;
+    }
+
+    public Date getScadenza() {
+        return scadenza;
+    }
+
+    public void setScadenza(Date scadenza) {
+        this.scadenza = scadenza;
+    }
 
     public Boolean getTerminated() {
         return isTerminated;
