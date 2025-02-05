@@ -15,7 +15,6 @@ import java.util.Objects;
 @RequestMapping("/api/utente")
 public class UtenteController {
 
-
     private final UtenteService utenteService;
 
     public UtenteController() {
@@ -108,10 +107,10 @@ public class UtenteController {
 
     //PRENDO UN UTENTE NEL BODY, E PER SEMPLICITA, PRENDO UN PARAMETRO NELL'URL CHE RAPPRESENTA IL Boolean amministratore
     @PostMapping("/aggiorna")
-    public ResponseEntity<Boolean> aggiornaUtente(@RequestBody Utente utente, @RequestParam Boolean amministratore) {
+    public ResponseEntity<Boolean> aggiornaUtente(@RequestBody Utente utente) {
 
         try{
-            utenteService.update(utente, amministratore);
+            utenteService.update(utente);
             return ResponseEntity.ok(true);
         } catch (Exception e) {
             System.out.println(e.getMessage());

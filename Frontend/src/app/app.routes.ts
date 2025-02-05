@@ -45,6 +45,6 @@ export const routes: Routes = [
   { path: "venditore/:username", component: VenditoreComponent, canActivate:[authGuard,BanGuard]},
   { path: "creaAste", component: CreaAsteComponent,canActivate:[authGuard,BanGuard]},
   { path: "aste", component: AllAsteComponent, canActivate:[authGuard,BanGuard]},
-  { path: "modificaAsta/:id", component: ModificaAstaComponent, canActivate:[authGuard,BanGuard]}
+  { path: 'modificaAsta/:id', component: ModificaAstaComponent, canActivate:[authGuard,BanGuard]}
 ]
 

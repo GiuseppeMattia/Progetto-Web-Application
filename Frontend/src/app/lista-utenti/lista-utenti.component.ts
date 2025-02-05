@@ -28,6 +28,7 @@ export class ListaUtentiComponent implements OnInit {
   caricaUtenti(): void {
     this.api.trovaUtenti().subscribe(data => {
       this.utenti = data;
+      // console.log(this.utenti)
     });
   }
 
@@ -43,6 +44,7 @@ export class ListaUtentiComponent implements OnInit {
       alert("L'utente selezionato è già amministratore");
       return;
     }
+
     utente.amministratore = true; // Aggiorna localmente lo stato
     this.api.promuovi(utente).subscribe(() => {
       console.log("Utente promosso!");

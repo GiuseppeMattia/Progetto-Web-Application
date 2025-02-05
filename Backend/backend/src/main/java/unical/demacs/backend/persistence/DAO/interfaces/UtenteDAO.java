@@ -9,7 +9,7 @@ public interface UtenteDAO {
     List<Utente> findAll();
     Utente findByUsername(String username);
     void save(Utente utente);
-    void update(Utente utente, boolean amministratore);
+    void update(Utente utente);
     void delete(Utente utente);
     void ban(Utente utente);
 

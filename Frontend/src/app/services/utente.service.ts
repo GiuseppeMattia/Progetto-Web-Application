@@ -51,6 +51,7 @@ export class UtenteService {
       }),
     )
   }
+
   trovaUtenti():Observable<any>{
     return this.http.get(`${this.apiUrl}/trovaTutti`).pipe(
       map((data:any) =>
@@ -66,9 +67,11 @@ export class UtenteService {
       )
     );
   }
+
   promuovi(utente:UserModel): Observable<boolean>{
-    return this.http.post<boolean>(`${this.apiUrl}/aggiorna?amministratore=true`,utente)
+    return this.http.post<boolean>(`${this.apiUrl}/aggiorna`, utente)
   }
+
   ban(utente:UserModel){
     return this.http.post<boolean>(`${this.apiUrl}/ban`,utente)
   }

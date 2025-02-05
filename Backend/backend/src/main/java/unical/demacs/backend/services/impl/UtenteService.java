@@ -2,7 +2,6 @@ package unical.demacs.backend.services.impl;
 
 import unical.demacs.backend.model.Utente;
 import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
-import unical.demacs.backend.persistence.DBManager;
 import unical.demacs.backend.services.interfaces.IUtenteService;
 
 import java.util.List;
@@ -58,15 +57,10 @@ public class UtenteService implements IUtenteService {
     }
 
     @Override
-    public void update(Utente utente, boolean amministratore){
+    public void update(Utente utente){
 
         checkUtenteSeEsiste(utente.getUsername());
-
-        if(utente.getAmministratore()){
-            throw new IllegalArgumentException("L'utente " + utente.getUsername() + " è gia amministratore");
-        }
-
-        utenteDAO.update(utente, amministratore);
+        utenteDAO.update(utente);
     }
 
     @Override

@@ -1,1 +1,11 @@
-<p>modifica-asta works!</p>
+<form [formGroup]="updateForm">
+  <div class="mb-3">
+    <label for="data" class="form-label">Modifica la data di scadenza:<span class="text-danger">*</span></label>
+    <input type="datetime-local" formControlName="data" id="data" name="data" class="form-control border-dark shadow-sm">
+  </div>
+
+  <button class="btn btn-warning btn-primary" (click)="modifica()">Modifica asta</button>
+  <button routerLink="/home" type="button" class="btn btn-secondary">Torna alla home</button>
+
+</form>
+<footer><span class="text-danger">*Campo obbligatorio</span></footer>

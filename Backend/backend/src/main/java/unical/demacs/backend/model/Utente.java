@@ -1,6 +1,7 @@
 package unical.demacs.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Utente {
     private String email;
     private String telefono;
     private boolean bannato;
+
 
     public boolean isBannato() {
         return bannato;
@@ -55,7 +57,7 @@ public class Utente {
         this.username = username;
     }
 
-    public boolean getVenditore() {
+    public boolean isVenditore() {
         return venditore;
     }
 
@@ -63,7 +65,7 @@ public class Utente {
         this.venditore = venditore;
     }
 
-    public boolean getAmministratore() {
+    public boolean isAmministratore() {
         return amministratore;
     }
 

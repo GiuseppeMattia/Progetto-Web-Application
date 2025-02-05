@@ -12,8 +12,7 @@ export class AstaService {
   constructor(private http: HttpClient) {}
 
   getAsta(id: number): Observable<Asta> {
-    const params = new HttpParams().set('id', id.toString());
-    return this.http.post<Asta>(`${this.apiUrl}/trovaByID`, null, { params });
+    return this.http.post<Asta>(`${this.apiUrl}/trovaById`, id);
   }
 
   getAstaByAnnuncio(id: number){

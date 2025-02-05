@@ -1,7 +1,6 @@
 package unical.demacs.backend.persistence.DAO.JDBC;
 
 import unical.demacs.backend.model.Annuncio;
-import unical.demacs.backend.model.Recensione;
 import unical.demacs.backend.model.Utente;
 import unical.demacs.backend.persistence.DAO.Proxy.UtenteProxy;
 import unical.demacs.backend.persistence.DAO.interfaces.UtenteDAO;
@@ -88,11 +87,11 @@ public class UtenteDAOJDBC implements UtenteDAO {
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setBoolean(1, utente.getVenditore());
+            statement.setBoolean(1, utente.isVenditore());
             statement.setString(2, utente.getUsername());
             statement.setString(3, utente.getPassword());
             statement.setString(4, utente.getEmail());
-            statement.setBoolean(5, utente.getAmministratore());
+            statement.setBoolean(5, utente.isAmministratore());
             statement.setBoolean(6, utente.isBannato());
             statement.setString(7, utente.getTelefono());
             statement.executeUpdate();
@@ -105,15 +104,15 @@ public class UtenteDAOJDBC implements UtenteDAO {
 
     // TESTATA E FUNZIONA
     @Override
-    public void update(Utente utente, boolean amministratore) {
+    public void update(Utente utente) {
 
         //NOTA - LA FUNZIONE UPDATE SERVE SOLAMENTE PER SETTARLO (O MENO) AD AMMINISTRATORE, NIENT'ALTRO
 
         String query = "UPDATE utente SET amministratore = ? WHERE username = ?";
-
+        System.out.println("update: " + utente.isAmministratore());
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setBoolean(1, amministratore);
+            preparedStatement.setBoolean(1, utente.isAmministratore());
             preparedStatement.setString(2, utente.getUsername());
             preparedStatement.executeUpdate();
 

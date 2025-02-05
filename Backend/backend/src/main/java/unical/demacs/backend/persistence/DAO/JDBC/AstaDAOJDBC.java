@@ -195,15 +195,15 @@ public class AstaDAOJDBC implements AstaDAO {
         //SIA INFERIORE AL PREZZO ATTUALE DELL'ASTA.
 
         //LA update AGGIORNA E BASTA
-
-        String query = "UPDATE asta SET prezzo = ?, terminata = ?, acquirente = ? WHERE id = ?";
+        String query = "UPDATE asta SET prezzo = ?, terminata = ?, acquirente = ?, scadenza = ? WHERE id = ?";
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setFloat(1, asta.getPrezzo());
             statement.setBoolean(2, asta.getTerminated());
             statement.setString(3, asta.getAcquirente().getUsername());
-            statement.setInt(4, asta.getID());
+            statement.setDate(4, asta.getScadenza());
+            statement.setInt(5, asta.getID());
             statement.executeUpdate();
 
         } catch (SQLException e) {

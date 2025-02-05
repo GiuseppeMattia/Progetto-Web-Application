@@ -33,9 +33,8 @@ public class AstaController {
         }
     }
 
-    @GetMapping("/trovaById")
-    public ResponseEntity<Asta> trovaById(@RequestParam int id) {
-        System.out.println(id);
+    @PostMapping("/trovaById")
+    public ResponseEntity<Asta> trovaById(@RequestBody int id) {
         try{
             Asta asta = astaService.findById(id);
             return ResponseEntity.ok().body(asta);
@@ -114,6 +113,7 @@ public class AstaController {
             astaService.update(asta);
             return ResponseEntity.ok(true);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(404).body(false);
         }
     }
