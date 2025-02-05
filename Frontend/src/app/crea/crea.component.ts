@@ -120,14 +120,7 @@ export class CreaComponent implements OnInit{
       []
     )
 
-    // console.log(this.array);
-    // console.log(binaryString);  // Dovresti vedere la stringa binaria corretta
-    //
-    // console.log(btoa(binaryString))
-    console.log('Annuncio inviato al backend:', annuncio); // Log dell'oggetto prima di inviarlo
 
-
-    // Esegui la chiamata POST e gestisci la risposta
     this.annuncioService.creaAnnuncio(annuncio).subscribe(
       response => {
         console.log('Annuncio creato con successo', response);

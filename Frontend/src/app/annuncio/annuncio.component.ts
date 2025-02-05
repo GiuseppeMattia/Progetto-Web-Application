@@ -1,5 +1,5 @@
 import { Component, type OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import { CommonModule, NgIf } from "@angular/common";
 import { Annuncio } from "../modelli/annuncio.model";
 import { AnnuncioService } from "../services/annuncio.service";
@@ -16,7 +16,7 @@ import {UserModel} from '../modelli/userModel';  // Aggiunto FormBuilder e FormG
   templateUrl: "./annuncio.component.html",
   styleUrls: ["./annuncio.component.css"],
   standalone: true,
-  imports: [CommonModule, NgIf, HttpClientModule, ReactiveFormsModule],
+  imports: [CommonModule, NgIf, HttpClientModule, ReactiveFormsModule, RouterLink],
   providers: [AnnuncioService, RecensioneService, AuthService]
 })
 export class AnnuncioComponent implements OnInit {

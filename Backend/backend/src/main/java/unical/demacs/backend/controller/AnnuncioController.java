@@ -106,12 +106,12 @@ public class AnnuncioController {
 
     }
 
-    //NEL BODY, HA SENSO PASSARE TUTTO L'ANNUNCIO SE IO POI VADO AD UTILIZZARE SOLAMENTE L'ID??
-    @PostMapping("/aggiornaPrezzo")
-    public ResponseEntity<Boolean> aggiornaPrezzo(@RequestBody Annuncio annuncio, @RequestParam float prezzo) {
+
+    @PostMapping("/aggiornaAnnuncio")
+    public ResponseEntity<Boolean> aggiornaAnnuncio(@RequestBody Annuncio annuncio) {
 
       try{
-          annuncioService.update(annuncio, prezzo);
+          annuncioService.update(annuncio);
           return ResponseEntity.ok(true);
       } catch (Exception e) {
           System.out.println(e.getMessage());

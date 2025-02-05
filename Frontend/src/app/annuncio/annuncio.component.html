@@ -32,8 +32,8 @@
 
       <div class="d-grid gap-2">
         <button class="btn btn-warning btn-lg" (click)="contatta()">Contatta il venditore</button>
-        <ng-container *ngIf="annuncio!.venditore.username === this.user?.username">
-          <button class="btn btn-secondary">Modifica annuncio</button>
+        <ng-container *ngIf="annuncio!.venditore.username === this.user?.username || user?.amministratore">
+          <button class="btn btn-secondary" routerLink="/modificaannuncio/{{this.annuncio?.id}}">Modifica annuncio</button>
         </ng-container>
       </div>
     </div>

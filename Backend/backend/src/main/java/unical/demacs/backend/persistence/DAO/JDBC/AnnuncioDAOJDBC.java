@@ -189,14 +189,20 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
 
     //TESTATA E FUNZIONA
     @Override
-    public void update(Annuncio annuncio, float prezzoScontato) {
+    public void update(Annuncio annuncio) {
 
-        String query = "UPDATE annuncio SET prezzo_scontato=? WHERE id=?";
+        String query = "UPDATE annuncio SET prezzo=?, descrizione=?," +
+                         " titolo=?, prezzo_scontato=?, marca=?, modello=? WHERE id=?";
 
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setFloat(1, prezzoScontato);
-            statement.setInt(2, annuncio.getID());
+            statement.setFloat(1, annuncio.getPrezzo());
+            statement.setString(2, annuncio.getDescrizione());
+            statement.setString(3, annuncio.getTitolo());
+            statement.setFloat(4, annuncio.getPrezzoScontato());
+            statement.setString(5, annuncio.getMarca());
+            statement.setString(6, annuncio.getModello());
+            statement.setInt(7, annuncio.getID());
             statement.executeUpdate();
 
         } catch (SQLException e) {

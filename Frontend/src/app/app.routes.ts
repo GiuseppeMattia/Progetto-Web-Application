@@ -17,6 +17,7 @@ import {authGuard} from './guards/auth.guard';
 import {AdminGuard} from './guards/admin.guard';
 import {AnnunciProfiloComponent} from './annunci-profilo/annunci-profilo.component';
 import {AsteProfiloComponent} from './aste-profilo/aste-profilo.component';
+import {ModificaAnnuncioComponent} from './modifica-annuncio/modifica-annuncio.component';
 
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -35,7 +36,8 @@ export const routes: Routes = [
   { path: "banned", component: BannedComponent },
   { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[authGuard,BanGuard] },
   { path: 'mieiAnnunci', component: AnnunciProfiloComponent},
-  { path: 'mieAste', component: AsteProfiloComponent}
+  { path: 'mieAste', component: AsteProfiloComponent},
+  {path: 'modificaannuncio/:id', component: ModificaAnnuncioComponent, canActivate:[authGuard,BanGuard]}
 //aggiungi guard per listaX che verifica se sei admin
 ]
 

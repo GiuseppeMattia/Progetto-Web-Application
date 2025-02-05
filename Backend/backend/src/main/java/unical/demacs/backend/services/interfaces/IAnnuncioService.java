@@ -14,6 +14,6 @@ public interface IAnnuncioService {
     List<Annuncio> findAnnuncioByTitolo(String titolo);
     List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, int idCategoria);
     void save(Annuncio annuncio);
-    void update(Annuncio annuncio, float prezzoScontato);
+    void update(Annuncio annuncio);
     void delete(Annuncio annuncio);
 }

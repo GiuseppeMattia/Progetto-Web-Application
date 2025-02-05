@@ -21,9 +21,6 @@ export class AnnuncioService {
     return this.http.post<Annuncio>(`${this.apiUrl}/trovaByID`, null, { params });
   }
 
-  // getAnnunci(): Observable<Annuncio[]> {
-  //   return this.http.get<Annuncio[]>(`${this.apiUrl}/trovaTutti`);
-  // }
 
   trovaAnnunciByCategoria(IDCategoria: number): Observable<Annuncio[]> {
     return this.http.get<Annuncio[]>(`${this.apiUrl}/trovaByCategoria?IDCategoria=${IDCategoria}`);
@@ -105,7 +102,9 @@ export class AnnuncioService {
     return this.http.get<Annuncio[]>(`${this.apiUrl}/trovaByUtente?username=${username}`);
   }
 
-
+  aggiornaAnnuncio(annuncio: Annuncio){
+    return this.http.post<Annuncio>(`${this.apiUrl}/aggiornaAnnuncio`, annuncio);
+  }
 
 
 

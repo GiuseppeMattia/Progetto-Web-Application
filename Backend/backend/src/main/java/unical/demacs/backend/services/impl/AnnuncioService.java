@@ -103,14 +103,14 @@ public class AnnuncioService implements IAnnuncioService {
     }
 
     @Override
-    public void update(Annuncio annuncio, float prezzoScontato) {
+    public void update(Annuncio annuncio) {
 
         Annuncio daCercare = annuncioDAO.findById(annuncio.getID());
         if(daCercare == null){
             throw new IllegalArgumentException("L'annuncio che stai provando a modificare non esiste");
         }
 
-        annuncioDAO.update(annuncio, prezzoScontato);
+        annuncioDAO.update(annuncio);
     }
 
     @Override
