@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">Elenco delle aste</h1>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div *ngFor="let asta of aste" class="col">
+      <div class="card h-100 shadow-sm">
+        <img [src]="getImageUrl(asta.annuncio.foto)" class="card-img-top" [alt]="asta.annuncio.titolo">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ asta.annuncio.titolo }}</h5>
+          <p class="card-text truncate-text">{{ asta.annuncio.descrizione }}</p>
+
+          <div class="d-flex justify-content-between align-items-center mt-auto">
+            <strong class="text-danger fs-5">
+              €{{ asta.prezzo.toFixed(2) }}
+            </strong>
+            <span *ngIf="asta.isTerminated" class="badge bg-secondary">Terminata</span>
+          </div>
+
+          <div class="d-flex justify-content-between mt-2">
+            <a [routerLink]="['/asta', asta.id]" class="btn btn-primary btn-sm">Vedi dettagli</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="d-flex justify-content-center mb-3">
+      <a [routerLink]="['/profile']" class="btn btn-secondary">
+        ← Torna al profilo
+      </a>
+    </div>
+  </div>
+
+</div>
+
