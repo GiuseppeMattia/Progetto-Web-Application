@@ -10,8 +10,18 @@ html, body {
 }
 
 .footer {
-  background-color: #f8f9fa;
-  padding: 10px 0;
+  background-color: #2c2f33;
+  color: #ffffff;
   text-align: center;
   width: 100%;
+}
+
+.footer-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.footer-subtitle {
+  font-size: 0.9rem;
+  color: #d1d1d1;
 }
