@@ -49,6 +49,9 @@
           <ng-container *ngIf="(annuncio!.venditore.username === this.user?.username || user?.amministratore) && !this.asta">
             <button class="btn btn-outline-light btn-outline-light border-dark btn-lg text-warning " routerLink="/creaAste" [queryParams]="{ id: annuncio?.id }">Metti all'asta</button>
           </ng-container>
+          <ng-container *ngIf="(annuncio!.venditore.username === this.user?.username || user?.amministratore) && this.asta">
+            <button class="btn btn-secondary" routerLink="/modificaAsta/{{this.asta.id}}">Modifica asta</button>
+          </ng-container>
           <button class="btn btn-secondary" routerLink="/modificaannuncio/{{this.annuncio?.id}}">Modifica annuncio</button>
         </ng-container>
         <ng-container *ngIf="this.asta">

@@ -21,6 +21,7 @@ import {ModificaAnnuncioComponent} from './modifica-annuncio/modifica-annuncio.c
 import {VenditoreComponent} from './venditore/venditore.component';
 import {CreaAsteComponent} from './crea-aste/crea-aste.component';
 import {AllAsteComponent} from './all-aste/all-aste.component';
+import {ModificaAstaComponent} from './modifica-asta/modifica-asta.component';
 
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -43,6 +44,7 @@ export const routes: Routes = [
   { path: "modificaannuncio/:id", component: ModificaAnnuncioComponent, canActivate:[authGuard, BanGuard]},
   { path: "venditore/:username", component: VenditoreComponent, canActivate:[authGuard,BanGuard]},
   { path: "creaAste", component: CreaAsteComponent,canActivate:[authGuard,BanGuard]},
-  { path: "aste", component: AllAsteComponent, canActivate:[authGuard,BanGuard]}
+  { path: "aste", component: AllAsteComponent, canActivate:[authGuard,BanGuard]},
+  { path: "modificaAsta/:id", component: ModificaAstaComponent, canActivate:[authGuard,BanGuard]}
 ]
 
