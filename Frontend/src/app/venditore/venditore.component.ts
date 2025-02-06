@@ -41,7 +41,8 @@ export class VenditoreComponent implements OnInit {
     if (this.username) {
       this.annuncioService.trovaByUtente(this.username).subscribe(
         (annunci) => {
-          this.annunci = annunci;
+          this.annunci = annunci.filter(annuncio => !annuncio.venditore.bannato);
+          //se l'utente è bannato non ne carico gli annunci
         },
         (error) => {
           this.errorMessage = 'Errore nel caricamento degli annunci.';

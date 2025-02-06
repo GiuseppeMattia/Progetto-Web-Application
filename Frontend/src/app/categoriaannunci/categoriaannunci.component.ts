@@ -37,7 +37,7 @@ export class CategoriaAnnunciComponent implements OnInit {
   loadAnnunciEAste() {
     this.annuncioService.trovaAnnunciByCategoria(this.categoriaId).subscribe(
       (annunci) => {
-        this.annunci = annunci;
+        this.annunci = annunci.filter(annuncio => !annuncio.venditore.bannato);
         this.annunci.forEach(annuncio => {
           this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
             (asta) => {
@@ -50,6 +50,9 @@ export class CategoriaAnnunciComponent implements OnInit {
             }
           );
         });
+        if (this.annunci.length == 0){
+          this.errorMessage ="Non ci sono annunci di questa categoria"
+        }
       },
       (error) => {
         this.errorMessage = 'Impossibile caricare gli annunci. Si prega di riprovare più tardi.';

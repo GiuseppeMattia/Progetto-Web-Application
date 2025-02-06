@@ -33,7 +33,10 @@ export class AllAsteComponent implements OnInit{
      {
       this.astaService.getAste().subscribe(
         (aste) => {
-          this.aste = aste;
+          this.aste = aste.filter(asta => !asta.annuncio.venditore.bannato);
+          if (this.aste.length == 0){
+            this.errorMessage= "Non ci sono aste al momento"
+          }
         },
         () => {
           this.errorMessage = 'Errore nel caricamento delle aste.';

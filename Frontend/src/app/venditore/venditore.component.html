@@ -5,7 +5,7 @@
     {{ errorMessage }}
   </div>
 
-  <div *ngIf="annunci.length === 0" class="alert alert-info">
+  <div *ngIf="annunci.length === 0 && !errorMessage" class="alert alert-info">
     Nessun annuncio pubblicato dall'utente.
   </div>
 

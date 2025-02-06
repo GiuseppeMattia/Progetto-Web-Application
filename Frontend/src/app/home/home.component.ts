@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
   loadAnnunciEAste() {
     this.annuncioService.getAnnunci().subscribe(
       (annunci) => {
-        this.annunci = annunci;
+        this.annunci = annunci.filter(annuncio => !annuncio.venditore.bannato);
         this.annunci.forEach(annuncio => {
           this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
             (asta) => {
