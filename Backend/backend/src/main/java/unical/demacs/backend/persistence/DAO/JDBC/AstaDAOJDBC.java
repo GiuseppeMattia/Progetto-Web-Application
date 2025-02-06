@@ -196,7 +196,6 @@ public class AstaDAOJDBC implements AstaDAO {
 
         //LA update AGGIORNA E BASTA
         String query = "UPDATE asta SET prezzo = ?, terminata = ?, acquirente = ?, scadenza = ? WHERE id = ?";
-
         try{
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setFloat(1, asta.getPrezzo());

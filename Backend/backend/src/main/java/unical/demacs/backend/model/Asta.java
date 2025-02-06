@@ -11,9 +11,6 @@ public class Asta {
     private boolean isTerminated;
     private Date scadenza;
 
-    public boolean isTerminated() {
-        return isTerminated;
-    }
 
     public void setTerminated(boolean terminated) {
         isTerminated = terminated;

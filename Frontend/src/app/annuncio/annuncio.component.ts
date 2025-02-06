@@ -190,6 +190,7 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
 
     if (differenza <= 0) {
       this.asta.isTerminated = true;
+      console.log("L'asta terminata è:" + this.asta.isTerminated)
       this.astaService.aggiornaAsta(this.asta).subscribe(
         (response) =>{
           console.log("Fine")

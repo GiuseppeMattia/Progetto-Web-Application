@@ -8,8 +8,7 @@ import {Asta} from '../modelli/asta';
   selector: 'app-modifica-asta',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    RouterLink
+    ReactiveFormsModule
   ],
   templateUrl: './modifica-asta.component.html',
   styleUrl: './modifica-asta.component.css'
@@ -56,7 +55,7 @@ export class ModificaAstaComponent implements OnInit{
     }
 
     let asta=new Asta(
-      this.asta?.id,
+      this.asta?.ID,
       this.asta?.annuncio,
       this.asta.prezzo,
       this.asta.acquirente,

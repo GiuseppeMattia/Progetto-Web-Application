@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Annuncio } from '../modelli/annuncio.model';
 import { AnnuncioService } from '../services/annuncio.service';
-import {AuthService} from '../services/auth.service';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {FormsModule} from '@angular/forms';
-import {AstaService} from '../services/asta.service';
-import {Asta} from '../modelli/asta';
+import { AuthService } from '../services/auth.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { AstaService } from '../services/asta.service';
+import { Asta } from '../modelli/asta';
 
 @Component({
   selector: 'app-home',
@@ -19,39 +19,36 @@ import {Asta} from '../modelli/asta';
 })
 export class HomeComponent implements OnInit {
   annunci: Annuncio[] = [];
+  asteMap: Map<number, Asta> = new Map(); // Mappa per associare ad ogni annuncio un' asta
   errorMessage = '';
   isSeller: boolean = false;
-  protected aste: Asta[];
 
-  constructor(private annuncioService: AnnuncioService,
-              public authService: AuthService,
-              public router: Router,
-              private sanitizer: DomSanitizer,
-              private astaService: AstaService) {
-
-    this.aste = []
-  }
+  constructor(
+    private annuncioService: AnnuncioService,
+    public authService: AuthService,
+    public router: Router,
+    private sanitizer: DomSanitizer,
+    private astaService: AstaService
+  ) {}
 
   ngOnInit() {
-
     this.authService.isSeller$.subscribe(isSeller => {
-      this.isSeller=isSeller;
+      this.isSeller = isSeller;
     });
-    this.loadAnnunci();
+    this.loadAnnunciEAste();
   }
 
-  loadAnnunci() {
+  loadAnnunciEAste() {
     this.annuncioService.getAnnunci().subscribe(
       (annunci) => {
         this.annunci = annunci;
         this.annunci.forEach(annuncio => {
           this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
             (asta) => {
-              // Aggiungi l'asta corrispondente all'annuncio
-              this.aste.push(asta);
+              this.asteMap.set(annuncio.id, asta);
             },
             (error) => {
-              if(error.status != 404){
+              if (error.status !== 404) {
                 console.error('Errore nel caricamento dell\'asta per l\'annuncio', annuncio.id);
               }
             }
@@ -59,7 +56,6 @@ export class HomeComponent implements OnInit {
         });
       },
       (error) => {
-        // console.error('Errore nel caricamento degli annunci:', error);
         this.errorMessage = 'Impossibile caricare gli annunci. Si prega di riprovare più tardi.';
       }
     );
@@ -73,12 +69,14 @@ export class HomeComponent implements OnInit {
       byteArray[i] = byteCharacters.charCodeAt(i);
     }
 
-    const blob = new Blob([byteArray], { type: 'image/png' }); // Tipo MIME corretto
+    const blob = new Blob([byteArray], { type: 'image/png' });
     const url = URL.createObjectURL(blob);
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
-  sort(event: Event){
+
+
+sort(event: Event){
     const ordine = (event.target as HTMLSelectElement).value;
     if (ordine === 'ascendente') {
       this.annunci.sort((a, b) => a.prezzo - b.prezzo); // Ordina ascendente
