@@ -22,6 +22,7 @@ import {VenditoreComponent} from './venditore/venditore.component';
 import {CreaAsteComponent} from './crea-aste/crea-aste.component';
 import {AllAsteComponent} from './all-aste/all-aste.component';
 import {ModificaAstaComponent} from './modifica-asta/modifica-asta.component';
+import {venditoreGuard} from './guards/venditore.guard';
 
 export const routes: Routes = [
   { path: "register", component: RegisterComponent },
@@ -36,14 +37,14 @@ export const routes: Routes = [
   { path: "listaUtenti", component: ListaUtentiComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
   { path: "listaAnnunci", component: ListaAnnunciComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
   { path: "listaAste", component: ListaAsteComponent, canActivate:[authGuard,BanGuard,AdminGuard]},
-  { path: "creaAnnuncio", component: CreaComponent, canActivate:[authGuard,BanGuard]},
+  { path: "creaAnnuncio", component: CreaComponent, canActivate:[authGuard,BanGuard, venditoreGuard]},
   { path: "banned", component: BannedComponent },
   { path: 'categoria/:id', component: CategoriaAnnunciComponent, canActivate:[authGuard,BanGuard] },
   { path: 'mieiAnnunci', component: AnnunciProfiloComponent, canActivate:[authGuard,BanGuard]},
   { path: 'mieAste', component: AsteProfiloComponent, canActivate:[authGuard,BanGuard]},
   { path: "modificaannuncio/:id", component: ModificaAnnuncioComponent, canActivate:[authGuard, BanGuard]},
   { path: "venditore/:username", component: VenditoreComponent, canActivate:[authGuard,BanGuard]},
-  { path: "creaAste", component: CreaAsteComponent,canActivate:[authGuard,BanGuard]},
+  { path: "creaAste", component: CreaAsteComponent,canActivate:[authGuard,BanGuard, venditoreGuard]},
   { path: "aste", component: AllAsteComponent, canActivate:[authGuard,BanGuard]},
   { path: 'modificaAsta/:id', component: ModificaAstaComponent, canActivate:[authGuard,BanGuard]}
 ]
