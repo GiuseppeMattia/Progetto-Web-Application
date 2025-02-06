@@ -20,7 +20,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
         this.connection = connection;
     }
 
-    //TESTATA E FUNZIONANTE
     @Override
     public List<Annuncio> findAll() {
 
@@ -45,7 +44,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
 
     }
 
-    //TESTATA E FUNZIONANTE
     @Override
     public Annuncio findById(int id) {
 
@@ -67,7 +65,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
         }
     }
 
-    //TESTATA E FUNZIONANTE
     @Override
     public List<Annuncio> findByUsernameUtente(String username) {
 
@@ -91,7 +88,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public List<Annuncio> findByCategoria(int idCategoria) {
         String query = "SELECT * FROM annuncio WHERE id_categoria=?";
@@ -114,7 +110,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
 
     }
 
-    //TESTATA E FUNZIONA
     @Override
     public List<Annuncio> findAnnuncioByTitolo(String titolo) {
 
@@ -138,7 +133,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, int idCategoria) {
         String query = "SELECT * FROM annuncio WHERE titolo=? AND id_categoria=?";
@@ -162,7 +156,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public void save(Annuncio annuncio) {
 
@@ -187,7 +180,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public void update(Annuncio annuncio) {
 
@@ -214,7 +206,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
     @Override
     public void delete(Annuncio annuncio) {
 
-        //DEVO ELIMINARE ANCHE L'ASTA (SE ESISTE) E TUTTE LE RECENSIONI (SE ESISTONO) LEGATE A QUESTO ANNUNCIO
 
         Asta astaDaEliminare = DBManager.getInstance().getAstaDAO().findByAnnuncio(annuncio.getID());
         if(astaDaEliminare != null) {
@@ -228,7 +219,6 @@ public class AnnuncioDAOJDBC implements AnnuncioDAO {
             }
         }
 
-        //A QUESTO PUNTO, L'ANNUNCIO NON E' COLLEGATO A NULLA, QUINDI LO POSSO ELIMINARE
 
         String query = "DELETE FROM annuncio WHERE id=?";
 

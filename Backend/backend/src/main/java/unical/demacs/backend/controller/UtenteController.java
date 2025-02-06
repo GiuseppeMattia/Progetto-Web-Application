@@ -105,7 +105,6 @@ public class UtenteController {
     }
 
 
-    //PRENDO UN UTENTE NEL BODY, E PER SEMPLICITA, PRENDO UN PARAMETRO NELL'URL CHE RAPPRESENTA IL Boolean amministratore
     @PostMapping("/aggiorna")
     public ResponseEntity<Boolean> aggiornaUtente(@RequestBody Utente utente) {
 

@@ -1,7 +1,6 @@
 package unical.demacs.backend.controller;
 
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import unical.demacs.backend.model.Asta;
@@ -67,9 +66,6 @@ public class AstaController {
         }
     }
 
-
-    //SE terminata == true, TROVA TUTTE LE ASTE A CUI HO PARTECIPATO E CHE MI SONO PORTATO A CASA (lo storico)
-    //SE terminata == false, TROVA TUTTE LE ASTE A CUI IO SONO IL PROBABILE FUTURO ACQUIRENTE
 
     @GetMapping("/trovaByUtenteAcquirente")
     public ResponseEntity<List<Asta>> trovaByUtenteAcquirente(@RequestParam String username, @RequestParam boolean terminata){

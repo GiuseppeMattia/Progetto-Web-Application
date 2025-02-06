@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface AnnuncioDAO {
 
-    List<Annuncio> findAll();                                     //TROVO TUTTI GLI ANNUNCI
-    Annuncio findById(int id);                                    //TROVO UNO SPECIFICO ANNUNCIO
-    List<Annuncio> findByUsernameUtente(String username);         //TROVO TUTTI GLI ANNUNCI DI UNO SPECIFICO UTENTE
-    List<Annuncio> findByCategoria(int idCategoria);          //TROVO TUTTI GLI ANNUNCI DI UNA SPECIFICA CATEGORIA
+    List<Annuncio> findAll();
+    Annuncio findById(int id);
+    List<Annuncio> findByUsernameUtente(String username);
+    List<Annuncio> findByCategoria(int idCategoria);
     List<Annuncio> findAnnuncioByTitolo(String titolo);
     List<Annuncio> findAnnuncioByTitoloAndCategoria(String titolo, int idCategoria);
     void save(Annuncio annuncio);

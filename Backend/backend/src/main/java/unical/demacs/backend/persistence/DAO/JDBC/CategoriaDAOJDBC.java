@@ -18,8 +18,6 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
         this.connection = connection;
     }
 
-
-    //TESTATA E FUNZIONA
     @Override
     public List<Categoria> findAll() {
         String query = "SELECT * FROM categoria";
@@ -44,7 +42,6 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public Categoria findById(int id) {
         String query = "SELECT * FROM categoria WHERE id = ?";
@@ -67,8 +64,6 @@ public class CategoriaDAOJDBC implements CategoriaDAO {
         return null;
     }
 
-
-    //TESTATA E FUNZIONA
     @Override
     public Categoria findByName(String nome) {
 

@@ -21,7 +21,6 @@ public class UtenteDAOJDBC implements UtenteDAO {
         this.connection = connection;
     }
 
-    //TESTATA E FUNZIONA
     @Override
     public List<Utente> findAll() {
         String query = "SELECT * FROM utente";
@@ -31,8 +30,7 @@ public class UtenteDAOJDBC implements UtenteDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                //Utente utente = new UtenteProxy();
-                Utente utente = new Utente();
+                Utente utente = new UtenteProxy();
                 utente.setAmministratore(resultSet.getBoolean("amministratore"));
                 utente.setEmail(resultSet.getString("email"));
                 utente.setPassword(resultSet.getString("password"));
@@ -50,7 +48,6 @@ public class UtenteDAOJDBC implements UtenteDAO {
         }
     }
 
-    //TESTATA E FUNZIONA
     @Override
     public Utente findByUsername(String username) {
 
@@ -79,7 +76,6 @@ public class UtenteDAOJDBC implements UtenteDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public void save(Utente utente) {
 
@@ -102,11 +98,8 @@ public class UtenteDAOJDBC implements UtenteDAO {
 
     }
 
-    // TESTATA E FUNZIONA
     @Override
     public void update(Utente utente) {
-
-        //NOTA - LA FUNZIONE UPDATE SERVE SOLAMENTE PER SETTARLO (O MENO) AD AMMINISTRATORE, NIENT'ALTRO
 
         String query = "UPDATE utente SET amministratore = ? WHERE username = ?";
         System.out.println("update: " + utente.isAmministratore());
@@ -123,11 +116,9 @@ public class UtenteDAOJDBC implements UtenteDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public void delete(Utente utente) {
 
-        //PER ELIMINARE, UTILIZZO SOLAMENTE username DATO CHE E' CHIAVE PRIMARIA
         String query = "DELETE FROM utente WHERE username = ?";
 
         try{
@@ -139,12 +130,6 @@ public class UtenteDAOJDBC implements UtenteDAO {
             throw new RuntimeException(e);
         }
 
-        //DEVO ELIMINARE TUTTI I SUOI ANNUNCI
-
-        //NON ELIMINO LE SUE ASTE E LE SUE RECENSIONI PERCHE, QUANDO EFFETTUO LA DELETE NEGLI ANNUNCI
-        //ELIMINO ANCHE LE ASTE E LE RECENSIONI. QUINDI MI BASTA ELIMINARE SOLAMENTE GLI ANNUNCI IN QUESTO CASO
-
-        //TROVO GLI ANNUNCI DA ELIMINARE
         List<Annuncio> annunciDaEliminare = DBManager.getInstance().getAnnuncioDAO().findByUsernameUtente(utente.getUsername());
 
         for(Annuncio annuncio : annunciDaEliminare){

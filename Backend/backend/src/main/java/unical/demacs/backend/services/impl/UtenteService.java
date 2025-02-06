@@ -67,9 +67,6 @@ public class UtenteService implements IUtenteService {
     public void delete(Utente utente) {
 
         checkUtenteSeEsiste(utente.getUsername());
-
-        // NON FACCIO NESSUN CONTROLLO RIGUARDO AL FATTO CHE UN UTENTE ABBIA O MENO ANNUNCI IN
-        // VENDITA QUANDO VIENE ELIMINATO. CONTROLLO TUTTO NELLE CHIAMATE AL DB
         utenteDAO.delete(utente);
     }
 

@@ -32,9 +32,7 @@ public class Utente {
         this.telefono = telefono;
     }
 
-    //I SEGUENTI CAMPI SERVONO??
 
-    // protected List<Recensione> recensioniEffettuate;
     @JsonIgnore
     protected List<Asta> asteAttiveDaVenditore;
     @JsonIgnore
@@ -46,8 +44,6 @@ public class Utente {
         return asteAttiveDaAcquirente;
     }
 
-
-    //I GETTER DELLE LISTE ANDEREBBERO FATTI ASTRATTI? PERCHE TANTO VENGONO UTILIZZATI SOLO NEI PROXY
 
     public String getUsername() {
         return username;
@@ -88,14 +84,6 @@ public class Utente {
     public void setEmail(String email) {
         this.email = email;
     }
-
-//    public List<Recensione> getRecensioniEffettuate() {
-//        return recensioniEffettuate;
-//    }
-
-//    public void setRecensioniEffettuate(List<Recensione> recensioniEffettuate) {
-//        this.recensioniEffettuate = recensioniEffettuate;
-//    }
 
     public List<Asta> getAsteAttiveDaVenditore() {
         return asteAttiveDaVenditore;

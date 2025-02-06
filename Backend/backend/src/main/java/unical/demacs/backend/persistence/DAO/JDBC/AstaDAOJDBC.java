@@ -22,7 +22,6 @@ public class AstaDAOJDBC implements AstaDAO {
         this.connection = connection;
     }
 
-    //TESTATA E FUNZIONA
     @Override
     public List<Asta> findAll() {
         String query = "SELECT * FROM Asta";
@@ -44,8 +43,6 @@ public class AstaDAOJDBC implements AstaDAO {
         }
     }
 
-
-    //TESTATA E FUNZIONA
     @Override
     public Asta findById(int id) {
 
@@ -66,7 +63,6 @@ public class AstaDAOJDBC implements AstaDAO {
         }
     }
 
-    //TESTATA E FUNZIONA
     @Override
     public Asta findByAnnuncio(int idAnnuncio) {
         String query = "SELECT * FROM asta WHERE id_annuncio = ?";
@@ -88,7 +84,6 @@ public class AstaDAOJDBC implements AstaDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public List<Asta> findByCategoria(int idCategoria) {
 
@@ -112,8 +107,6 @@ public class AstaDAOJDBC implements AstaDAO {
     }
 
 
-
-    //TESTATA E FUNZIONA
     @Override
     public List<Asta> findByUtenteAcquirente(String username, boolean terminata) {
 
@@ -138,7 +131,6 @@ public class AstaDAOJDBC implements AstaDAO {
 
     }
 
-    //TESTATA E FUNZIONA
     @Override
     public List<Asta> findBYUtenteVenditore(String username) {
         String query = "SELECT * FROM asta, annuncio WHERE asta.id_annuncio = annuncio.id AND annuncio.venditore = ?";
@@ -161,16 +153,8 @@ public class AstaDAOJDBC implements AstaDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public void save(Asta asta) {
-        // NOTA BENE
-
-        //LA save NON CONTROLLA SE L'ASTA CHE STO ANDANDO A SALVARE ESISTE GIA
-        //LA save SALVA E BASTA
-
-        //PER RIMEDIARE, LATO front, ANDREBBE FATTA UNA CHIAMATA A QUESTO DAO SULLA FUNZIONE findByAnnuncio,
-        //IN MODO TALE CHE, SE ESISTE GIA UN ASTA APPARTENENTE AD UN ANNUNCIO, NON E' POSSIBILE CREARNE UNA NUOVA
 
         String query = "INSERT INTO asta( prezzo, terminata,  id_annuncio, scadenza) VALUES(?, ?, ?, ?)";
 
@@ -188,13 +172,9 @@ public class AstaDAOJDBC implements AstaDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public void update(Asta asta) {
-        //NOTA BENE. LA update NON CONTROLLA IN NESSUNO MODO CHE IL NUOVO PREZZO PROPOSTO
-        //SIA INFERIORE AL PREZZO ATTUALE DELL'ASTA.
 
-        //LA update AGGIORNA E BASTA
         String query = "UPDATE asta SET prezzo = ?, terminata = ?, acquirente = ?, scadenza = ? WHERE id = ?";
         try{
             PreparedStatement statement = connection.prepareStatement(query);
@@ -213,9 +193,6 @@ public class AstaDAOJDBC implements AstaDAO {
 
     @Override
     public void delete(Asta asta) {
-
-        //ANCHE QUI, LA delete NON CONTROLLA NULLA. NON CONTROLLA SE L'ASTA E' ATTIVA O MENO
-        //ANCHE PERCHE, IDEALMENTE, POSSO ELIMINARE ANCHE UN'ASTA ATTIVA
 
         String query = "DELETE FROM asta WHERE id = ?";
 

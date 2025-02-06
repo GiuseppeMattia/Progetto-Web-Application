@@ -20,7 +20,6 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
         this.connection = connection;
     }
 
-    //TESTATA E FUNZIONA
     @Override
     public List<Recensione> findByAnnuncio(int idAnnuncio) {
 
@@ -38,14 +37,6 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
                 recensione.setID(resultSet.getInt("id"));
                 recensione.setTesto(resultSet.getString("testo"));
                 recensione.setAutore(utente);
-                //IN QUESTO CASO, L'OGGETTO RECENSIONE RIMANE SENZA L'ANNUNCIO
-                //HA SENSO FARE UNA QUERY IN CUI TROVO L'ANNUNCIO, ALL'INTERNO DI UNA QUERY A CUI VIENE PASSATO L'ID ANNUNCIO?
-
-                // DA RISOLVERE
-
-                //
-
-                //
                 recensioni.add(recensione);
             }
 
@@ -56,8 +47,6 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
         }
     }
 
-
-    //TESTATA E FUNZIONA
     @Override
     public List<Recensione> findByUtente(String username) {
 
@@ -75,7 +64,6 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
                 recensione.setAutore(autore);
                 recensione.setID(resultSet.getInt("id"));
                 recensione.setTesto(resultSet.getString("testo"));
-                //ANCHE QUI, COME SOPRA, LA RECENSIONE RIMANE SENZA ANNUNCIO. VA INSERITO?
                 recensioni.add(recensione);
             }
 
@@ -86,7 +74,6 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
         }
     }
 
-    //TESTATA E FUNZIONA
     @Override
     public void save(Recensione recensione) {
 
@@ -105,7 +92,6 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
     }
 
 
-    //TESTATA E FUNZIONA
     @Override
     public void update(Recensione recensione, String testo) {
 
@@ -122,9 +108,6 @@ public class RecensioneDAOJDBC implements RecensioneDAO {
         }
     }
 
-
-
-    //TESTATA E FUNZIONA
     @Override
     public void delete(Recensione recensione) {
         String query = "DELETE FROM recensione WHERE id = ?";

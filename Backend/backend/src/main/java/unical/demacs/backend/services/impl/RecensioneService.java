@@ -36,7 +36,6 @@ public class RecensioneService implements IRecensioneService {
             throw new IllegalArgumentException("Non esiste un utente con username " + username);
         }
 
-        //METTERE IL CONTROLLO DELLA LISTA VUOTA
         return recensioneDAO.findByUtente(username);
     }
 

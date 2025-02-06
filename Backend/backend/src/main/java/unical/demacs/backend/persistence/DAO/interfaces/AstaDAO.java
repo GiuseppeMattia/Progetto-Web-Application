@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface AstaDAO {
 
-    List<Asta> findAll();                                                 //TROVA TUTTE LE ASTE ATTIVE
-    Asta findById(int id);                                               //TROVA UNA SPECIFICA ASTA
+    List<Asta> findAll();
+    Asta findById(int id);
     Asta findByAnnuncio(int idAnnuncio);
-    List<Asta> findByCategoria(int idCategoria);                     //TROVA TUTTE LE ASTE DI UNA CATEGORIA SPECIFICA
+    List<Asta> findByCategoria(int idCategoria);
     List<Asta> findByUtenteAcquirente(String username, boolean terminata);
     List<Asta> findBYUtenteVenditore(String username);
     void save(Asta asta);

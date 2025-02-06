@@ -9,15 +9,15 @@ import java.util.List;
 
 public class Annuncio {
 
-    protected int ID;   //
+    protected int ID;
     private Categoria categoria;
-    private String marca;   //
-    private String modello; //
-    private float prezzo;   //
-    private String descrizione; //
-    private byte[] foto;    //
-    private String titolo;  //
-    private Float prezzoScontato = null;    //
+    private String marca;
+    private String modello;
+    private float prezzo;
+    private String descrizione;
+    private byte[] foto;
+    private String titolo;
+    private Float prezzoScontato = null;
     private Utente venditore;
     protected List<Recensione> recensioni = null;
 
@@ -28,23 +28,6 @@ public class Annuncio {
 
     public void setRecensioni(List<Recensione> recensioni) {
         this.recensioni = recensioni;
-    }
-
-    @Override
-    public String toString() {
-        return "Annuncio{" +
-                "ID=" + ID +
-                ", categoria=" + categoria +
-                ", marca='" + marca + '\'' +
-                ", modello='" + modello + '\'' +
-                ", prezzo=" + prezzo +
-                ", descrizione='" + descrizione + '\'' +
-                // ", foto=" + Arrays.toString(foto) +
-                ", titolo='" + titolo + '\'' +
-                ", prezzoScontato=" + prezzoScontato +
-                ", venditore=" + venditore +
-                ", recensioni=" + recensioni +
-                '}';
     }
 
     public Categoria getCategoria() {
@@ -76,8 +59,6 @@ public class Annuncio {
     }
 
 
-    //QUESTA FUNZIONA VA TOLTA??
-    //L'ID E' AUTOINCREMENT SULLA BASE DI DATI, QUINDI IN TEORIA ANDREBBE TOLTO
     public void setID(int ID) {
         this.ID = ID;
     }
@@ -130,4 +111,20 @@ public class Annuncio {
         this.venditore = venditore;
     }
 
+    @Override
+    public String toString() {
+        return "Annuncio{" +
+                "ID=" + ID +
+                ", categoria=" + categoria +
+                ", marca='" + marca + '\'' +
+                ", modello='" + modello + '\'' +
+                ", prezzo=" + prezzo +
+                ", descrizione='" + descrizione + '\'' +
+                // ", foto=" + Arrays.toString(foto) +
+                ", titolo='" + titolo + '\'' +
+                ", prezzoScontato=" + prezzoScontato +
+                ", venditore=" + venditore +
+                ", recensioni=" + recensioni +
+                '}';
+    }
 }
