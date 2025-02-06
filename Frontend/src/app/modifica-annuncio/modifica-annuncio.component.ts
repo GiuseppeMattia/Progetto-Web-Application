@@ -53,6 +53,7 @@ export class ModificaAnnuncioComponent implements OnInit{
 
     this.annuncioService.getAnnuncio(Number(this.id)).subscribe(annuncio => {
       this.annuncio = annuncio;
+      // console.log(annuncio.venditore)
       this.modifyForm.patchValue({
         titolo: this.annuncio.titolo,
         prezzo: this.annuncio.prezzo,
@@ -61,12 +62,16 @@ export class ModificaAnnuncioComponent implements OnInit{
         descrizione: this.annuncio.descrizione,
         scontaprezzo: this.annuncio.prezzoScontato
       });
+
+      if (this.user?.username !== this.annuncio?.venditore.username && !this.user?.amministratore) {
+        console.log("Accesso negato: l'utente non è il venditore né un amministratore.");
+        // console.log(this.user?.username)
+        // console.log(this.annuncio?.venditore?.username)
+        this.router.navigate(['/home']);
+      }
     });
 
-    if (this.user?.username !== this.annuncio?.venditore.username && !this.user?.amministratore) {
-      console.log("Accesso negato: l'utente non è il venditore né un amministratore.");
-      this.router.navigate(['/home']);
-    }
+
 
     // console.log(this.user?.amministratore)
     // this.foto = this.getImageUrl(this.annuncio?.foto)

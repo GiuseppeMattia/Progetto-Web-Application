@@ -5,7 +5,7 @@
 
   <div *ngFor="let asta of aste" class="row align-items-center border-bottom py-2">
     <div class="col-md-3 fw-bold">Titolo: {{ asta.annuncio.titolo }}</div>
-    <div class="col-md-4">Prezzo: € {{ asta.prezzo.toFixed(2) }}</div>
+    <div class="col-md-4 ">Prezzo: € {{ asta.prezzo.toFixed(2) }}</div>
     <div class="col-md-3">Venditore: {{ asta.annuncio.venditore.username }}</div>
     <div class="col-md-2">
       <button class="btn btn-outline-danger w-100" (click)="eliminaAsta(asta)">Elimina</button>

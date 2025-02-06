@@ -15,21 +15,36 @@
           <h5 class="card-title">{{ annuncio.titolo }}</h5>
           <p class="card-text text-muted truncate-text">{{ annuncio.descrizione }}</p>
 
-          <div class="d-flex justify-content-between align-items-center mt-auto">
-            <strong class="price">
-              <span *ngIf="annuncio.prezzoScontato; else prezzoNormale">
-                €{{ annuncio.prezzoScontato.toFixed(2) }}
+          <!-- Se esiste un'asta per questo annuncio e non è terminata, mostra il prezzo dell'asta -->
+          <div *ngIf="asteMap.has(annuncio.id); else noAsta"
+               class="d-flex justify-content-between align-items-center mt-auto">
+            <strong class="text-warning fs-5">
+              <span>
+                €{{ asteMap.get(annuncio.id)?.prezzo?.toFixed(2) }}
               </span>
-              <ng-template #prezzoNormale>
-                <span class="text-dark">€{{ annuncio.prezzo.toFixed(2) }}</span>
-
-              </ng-template>
             </strong>
-            <a [routerLink]="['/annuncio', annuncio.id]" class="btn btn-outline-primary btn-sm">Vedi dettagli</a>
+            <a [routerLink]="['/annuncio', annuncio.id]" class="btn btn-primary btn-sm">Vedi dettagli</a>
+          </div>
+
+          <!-- Se non esiste un'asta, mostra il prezzo dell'annuncio -->
+          <ng-template #noAsta>
+            <div class="d-flex justify-content-between align-items-center mt-auto">
+              <strong class="text-danger fs-5">
+                <span *ngIf="annuncio.prezzoScontato; else prezzoNormale">
+                  €{{ annuncio.prezzoScontato?.toFixed(2) }}
+                </span>
+                <ng-template #prezzoNormale>
+                  <span class="text-dark">€{{ annuncio.prezzo?.toFixed(2) }}</span>
+                </ng-template>
+              </strong>
+              <a [routerLink]="['/annuncio', annuncio.id]" class="btn btn-primary btn-sm">Vedi dettagli</a>
+            </div>
+          </ng-template>
+
           </div>
         </div>
       </div>
-    </div>
+
   </div>
 
   <div class="text-center mt-4">

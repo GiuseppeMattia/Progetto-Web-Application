@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
 
 
 
-sort(event: Event){
+  sort(event: Event){
     const ordine = (event.target as HTMLSelectElement).value;
     if (ordine === 'ascendente') {
       this.annunci.sort((a, b) => a.prezzo - b.prezzo); // Ordina ascendente
