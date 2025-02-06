@@ -17,7 +17,7 @@
             <strong class="text-danger fs-5">
               €{{ asta.prezzo.toFixed(2) }}
             </strong>
-            <span *ngIf="asta.isTerminated" class="badge bg-secondary">Terminata</span>
+            <span *ngIf="asta.terminated" class="badge bg-secondary">Terminata</span>
           </div>
 
           <div class="d-flex justify-content-between mt-2">

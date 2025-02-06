@@ -58,7 +58,7 @@ export class AsteProfiloComponent implements OnInit {
   }
 
   eliminaAsta(id: number) {
-    const astaDaEliminare = this.aste.find(asta => asta.ID === id);
+    const astaDaEliminare = this.aste.find(asta => asta.id === id);
 
     if (!astaDaEliminare) {
       this.errorMessage = 'Errore: asta non trovata.';
@@ -67,7 +67,7 @@ export class AsteProfiloComponent implements OnInit {
 
     this.astaService.eliminaAsta(astaDaEliminare).subscribe(
       () => {
-        this.aste = this.aste.filter(asta => asta.ID !== id);
+        this.aste = this.aste.filter(asta => asta.id !== id);
       },
       () => {
         this.errorMessage = 'Errore nell’eliminazione dell’asta.';

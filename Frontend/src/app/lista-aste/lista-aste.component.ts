@@ -23,9 +23,9 @@ export class ListaAsteComponent implements OnInit {
   }
 
   eliminaAsta(asta: Asta) {
-    if (confirm(`Sei sicuro di voler eliminare l'asta "${asta.ID}"?`)) {
+    if (confirm(`Sei sicuro di voler eliminare l'asta "${asta.id}"?`)) {
       this.astaService.eliminaAsta(asta).subscribe(() => {
-        this.aste = this.aste.filter(a => a.ID !== asta.ID);
+        this.aste = this.aste.filter(a => a.id !== asta.id);
         console.log('Asta eliminata!');
       });
     }

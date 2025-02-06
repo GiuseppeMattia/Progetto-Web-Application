@@ -8,7 +8,7 @@ import {Asta} from '../modelli/asta';
   selector: 'app-modifica-asta',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule // AGGIUNGI IL ROUTER LINK SE C'È QUALCHE BUG QUI
   ],
   templateUrl: './modifica-asta.component.html',
   styleUrl: './modifica-asta.component.css'
@@ -54,16 +54,22 @@ export class ModificaAstaComponent implements OnInit{
       return;
     }
 
+    let oggi = new Date().getTime();
+
+
     let asta=new Asta(
-      this.asta?.ID,
+      this.asta?.id,
       this.asta?.annuncio,
       this.asta.prezzo,
       this.asta.acquirente,
-      this.asta.isTerminated,
+      this.asta.terminated,
       this.updateForm.get("data")?.value,
     )
 
-    console.log("Qua sì")
+
+    let terminated = (oggi > new Date(asta.scadenza).getTime())
+
+    asta.terminated = terminated;
 
 
     this.astaService.aggiornaAsta(asta).subscribe(

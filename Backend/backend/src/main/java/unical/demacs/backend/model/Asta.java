@@ -8,12 +8,12 @@ public class Asta {
     private Annuncio annuncio;
     private float prezzo;
     private Utente acquirente;
-    private boolean isTerminated;
+    private boolean terminated;
     private Date scadenza;
 
 
     public void setTerminated(boolean terminated) {
-        isTerminated = terminated;
+        this.terminated = terminated;
     }
 
     public Date getScadenza() {
@@ -25,11 +25,11 @@ public class Asta {
     }
 
     public Boolean getTerminated() {
-        return isTerminated;
+        return terminated;
     }
 
     public void setTerminated(Boolean terminated) {
-        isTerminated = terminated;
+        this.terminated = terminated;
     }
 
     public int getID() {
@@ -72,7 +72,7 @@ public class Asta {
                 //", annuncio=" + annuncio.getTitolo() +
                 ", prezzo=" + prezzo +
                 ", acquirente=" + acquirente.getUsername() +
-                ", isTerminated=" + isTerminated +
+                ", isTerminated=" + terminated +
                 '}';
     }
 }

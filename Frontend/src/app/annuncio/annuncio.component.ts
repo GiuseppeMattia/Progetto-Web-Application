@@ -189,8 +189,7 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
     const differenza = scadenza - adesso;
 
     if (differenza <= 0) {
-      this.asta.isTerminated = true;
-      console.log("L'asta terminata è:" + this.asta.isTerminated)
+      this.asta.terminated = true;
       this.astaService.aggiornaAsta(this.asta).subscribe(
         (response) =>{
           console.log("Fine")
@@ -208,6 +207,11 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
     const secondi = Math.floor((differenza % (1000 * 60)) / 1000);
 
     this.tempoRimanente = `${giorni}g ${ore}h ${minuti}m ${secondi}s`;
+  }
+
+  modificaAsta(){
+    console.log(this.asta?.id)
+    this.router.navigate([`/modificaAsta/${this.asta?.id}`])
   }
 
   ngOnDestroy() {

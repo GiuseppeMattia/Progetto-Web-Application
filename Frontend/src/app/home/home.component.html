@@ -19,7 +19,7 @@
           <p class="card-text truncate-text">{{ annuncio.descrizione }}</p>
 
           <!-- Se esiste un'asta per questo annuncio e non è terminata, mostra il prezzo dell'asta -->
-          <div *ngIf="asteMap.has(annuncio.id) && !asteMap.get(annuncio.id)?.isTerminated; else noAsta"
+          <div *ngIf="asteMap.has(annuncio.id); else noAsta"
                class="d-flex justify-content-between align-items-center mt-auto">
             <strong class="text-warning fs-5">
               <span>

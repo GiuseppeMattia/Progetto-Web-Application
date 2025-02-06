@@ -108,8 +108,8 @@ public class AstaController {
 
     @PostMapping("/aggiorna")
     public ResponseEntity<Boolean> aggiorna(@RequestBody Asta asta) {
-        System.out.println(asta.getTerminated());
         try{
+            System.out.println(asta.getID() + asta.getTerminated().toString());
             astaService.update(asta);
             return ResponseEntity.ok(true);
         } catch (Exception e) {
