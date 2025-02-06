@@ -1,16 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UserModel} from '../modelli/userModel';
-import {Categoria} from '../modelli/categoria';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {CategoriaService} from '../services/categoria.service';
 import {AuthService} from '../services/auth.service';
 import {AnnuncioService} from '../services/annuncio.service';
 import {Annuncio} from '../modelli/annuncio.model';
-import {AnnuncioComponent} from '../annuncio/annuncio.component';
-import {Recensione} from '../modelli/Recensione';
-import {NgForOf} from '@angular/common';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-modifica-annuncio',
@@ -129,6 +123,11 @@ export class ModificaAnnuncioComponent implements OnInit{
     );
 
   }
+
+  goBack() {
+    this.router.navigate([`/annuncio/${this.id}`]);
+  }
+
 
 
 }

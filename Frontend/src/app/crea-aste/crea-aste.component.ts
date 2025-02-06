@@ -61,4 +61,8 @@ export class CreaAsteComponent implements OnInit{
     );
   }
 
+  goBack(){
+    this.router.navigate(['/annuncio', this.annuncio?.id]);
+  }
+
 }

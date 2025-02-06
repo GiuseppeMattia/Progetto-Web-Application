@@ -1,26 +1,127 @@
+/* Font globale */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Contenitore principale */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Stile immagine principale */
 .main-image-container {
-  height: 400px;
+  height: 450px;
+  border-radius: 10px;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .main-image-container img {
   max-height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
 }
 
-.pricing h2 {
+.main-image-container img:hover {
+  transform: scale(1.05);
+}
+
+/* Titolo annuncio */
+h1 {
   font-size: 2rem;
+  font-weight: 700;
+  color: #222;
 }
 
+/* Prezzo e sconto */
+.pricing h2 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #e60023;
+}
+
+.pricing small {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.text-muted del {
+  color: #888;
+}
+
+/* Pulsanti */
 .btn-warning {
-  background-color: #ffd814;
-  border-color: #fcd200;
+  background-color: #ffb700;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
 }
 
 .btn-warning:hover {
-  background-color: #f7ca00;
-  border-color: #f0b800;
+  background-color: #ffa000;
+  transform: scale(1.05);
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* Card per offerte */
+.card {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+/* Tabella dettagli prodotto */
+.table {
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.table td {
+  background-color: #fff;
+}
+
+/* Recensioni */
+.card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
 }

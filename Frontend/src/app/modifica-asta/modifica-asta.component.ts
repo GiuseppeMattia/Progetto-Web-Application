@@ -75,5 +75,9 @@ export class ModificaAstaComponent implements OnInit{
     );
   }
 
+  goBack(){
+    this.router.navigate(['/annuncio',this.asta?.annuncio.id]);
+  }
+
 }
 
