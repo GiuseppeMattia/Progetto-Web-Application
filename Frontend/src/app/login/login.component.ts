@@ -69,15 +69,14 @@ export class LoginComponent implements OnInit{
     this.utenteService.mandaCaptcha(token).subscribe(
       {
         next: (response) => {
-          if (response.success) {
-            this.validateUser(); // Se il captcha è valido, procedi con il login
-          } else {
-            alert("Verifica reCAPTCHA non riuscita");
-          }
+         if (response.success){
+           this.validateUser()
+         } else {
+           alert ("Verifica reCAPTCHA non riuscita")
+         }
         },
         error: (error) => {
-         alert("Errore nel contattare il server")
-          this.inizializzaReCaptcha()
+          alert("Errore nel contattare il server");
         }
       }
     )

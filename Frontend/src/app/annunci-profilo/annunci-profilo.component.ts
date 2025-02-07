@@ -65,14 +65,14 @@ export class AnnunciProfiloComponent implements OnInit {
       return;
     }
 
-    this.annuncioService.eliminaAnnuncio(annuncioDaEliminare).subscribe(
-      () => {
-        this.annunci = this.annunci.filter(annuncio => annuncio.id !== id);
+    this.annuncioService.eliminaAnnuncio(annuncioDaEliminare).subscribe({
+      next: () => {
+        this.annunci=this.annunci.filter(annuncio =>annuncio.id !== id);
       },
-      (error) => {
-        this.errorMessage = 'Errore nell’eliminazione dell’annuncio.';
+      error: (error) => {
+        this.errorMessage='Errore nell’eliminazione dell’annuncio.';
       }
-    );
+    })
   }
 
 }

@@ -111,17 +111,14 @@ export class RegisterComponent implements OnInit{
 
       const newUser = new UserModel(username, password, tipo, email, amministratore, bannato, numero);
       this.utenteService.creaUtente(newUser).subscribe(
-        (response) => {
-          this.router.navigate(["/home"])
-        },
-        (error) => {
-          if(error.status === 400){
-            alert("Esiste già un utente con questo username")
-          }
-          else{
+        {
+          next: (response) => {
+            this.router.navigate(["/home"])
+          },
+          error: (error) => {
             alert("Si è verificato un errore sconosciuto")
           }
-        },
+        }
       )
     } else {
       alert("Per favore, compila tutti i campi richiesti correttamente.")
