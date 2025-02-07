@@ -61,7 +61,6 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("id");
     if (id) {
-      // console.log("ID ricevuto", id);
       this.loadAnnuncio(Number(id));
 
         this.aggiornaTimer(); // Calcola il tempo iniziale

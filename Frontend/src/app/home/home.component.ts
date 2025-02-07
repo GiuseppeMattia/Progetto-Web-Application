@@ -79,23 +79,22 @@ export class HomeComponent implements OnInit {
   sort(event: Event){
     const ordine = (event.target as HTMLSelectElement).value;
     if (ordine === 'ascendente') {
-      this.annunci.sort((a, b) => a.prezzo - b.prezzo); // Ordina ascendente
+      this.annunci.sort((a, b) => a.prezzo - b.prezzo);
     } else if (ordine === 'discendente') {
-      this.annunci.sort((a, b) => b.prezzo - a.prezzo); // Ordina discendente
+      this.annunci.sort((a, b) => b.prezzo - a.prezzo);
     }
     else if (ordine === 'nessuno'){
       this.shuffleArray(this.annunci);
     }
     else if(ordine === "menorecenti"){
-      this.annunci.sort((a, b) => a.id - b.id); // Ordina discendente
+      this.annunci.sort((a, b) => a.id - b.id);
     }
     else if(ordine === "piurecenti"){
-      this.annunci.sort((a, b) => b.id - a.id); // Ordina discendente
+      this.annunci.sort((a, b) => b.id - a.id);
 
     }
   }
 
-  // Mescola l'array
   shuffleArray(array: any[]) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

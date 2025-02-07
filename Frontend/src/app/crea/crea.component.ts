@@ -25,7 +25,6 @@ export class CreaComponent implements OnInit{
   protected createForm: FormGroup;
   private user: UserModel | null;
 
-  categoriaScelta: number | null =null;
   categorie:Categoria[]=[]
   private array: Uint8Array;
 
@@ -54,8 +53,6 @@ export class CreaComponent implements OnInit{
         const arrayBuffer = reader.result as ArrayBuffer;
         const byteArray = new Uint8Array(arrayBuffer);
         this.array = byteArray
-
-        console.log(byteArray);
       };
 
       reader.readAsArrayBuffer(file);
@@ -70,7 +67,6 @@ export class CreaComponent implements OnInit{
     this.categoriaService.trovaTutte().subscribe(
       (categorie) => {
         this.categorie = categorie;
-        console.log('Categorie caricate:', this.categorie);
       },
       (error) => {
         console.error('Errore nel caricamento delle categorie:', error);
@@ -123,7 +119,6 @@ export class CreaComponent implements OnInit{
 
     this.annuncioService.creaAnnuncio(annuncio).subscribe(
       response => {
-        console.log('Annuncio creato con successo', response);
         this.router.navigate(['/home']);
       },
       error => {
@@ -142,8 +137,6 @@ export class CreaComponent implements OnInit{
         if (!file.type.startsWith("image/")) {
           alert("Il file selezionato non è un'immagine!");
           fileInput.value = ""; // Resetta il campo file
-        } else {
-          console.log("Immagine caricata correttamente")
         }
       }
     });

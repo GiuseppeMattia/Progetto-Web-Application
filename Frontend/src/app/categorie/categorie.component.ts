@@ -25,7 +25,6 @@ export class CategorieComponent implements OnInit {
     this.categoriaService.trovaTutte().subscribe(
       (categorie) => {
         this.categorie = categorie;
-        console.log('Categorie caricate:', this.categorie); // For debugging
       },
       (error) => {
         console.error('Errore nel caricamento delle categorie:', error);

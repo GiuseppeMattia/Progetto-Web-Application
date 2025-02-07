@@ -47,13 +47,11 @@ export class ModificaAnnuncioComponent implements OnInit{
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(params => {
-      this.id = params.get('id'); // Prende il parametro dalla route
-      // console.log('ID dalla route:', this.id);
+      this.id = params.get('id');
     });
 
     this.annuncioService.getAnnuncio(Number(this.id)).subscribe(annuncio => {
       this.annuncio = annuncio;
-      // console.log(annuncio.venditore)
       this.modifyForm.patchValue({
         titolo: this.annuncio.titolo,
         prezzo: this.annuncio.prezzo,
@@ -64,17 +62,10 @@ export class ModificaAnnuncioComponent implements OnInit{
       });
 
       if (this.user?.username !== this.annuncio?.venditore.username && !this.user?.amministratore) {
-        console.log("Accesso negato: l'utente non è il venditore né un amministratore.");
-        // console.log(this.user?.username)
-        // console.log(this.annuncio?.venditore?.username)
         this.router.navigate(['/home']);
       }
     });
 
-
-
-    // console.log(this.user?.amministratore)
-    // this.foto = this.getImageUrl(this.annuncio?.foto)
   }
 
 
@@ -119,7 +110,6 @@ export class ModificaAnnuncioComponent implements OnInit{
 
     this.annuncioService.aggiornaAnnuncio(annuncio).subscribe(
       response => {
-        console.log('Annuncio aggiornato con successo', response);
         this.router.navigate([`/annuncio/${this.id}`]);
       },
       error => {

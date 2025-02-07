@@ -16,7 +16,6 @@ export class AnnuncioService {
   constructor(private http: HttpClient) {}
 
   getAnnuncio(id: number): Observable<Annuncio> {
-    // Invia l'id come parametro di query, non nel corpo
     const params = new HttpParams().set("id", id.toString());
     return this.http.post<Annuncio>(`${this.apiUrl}/trovaByID`, null, { params });
   }

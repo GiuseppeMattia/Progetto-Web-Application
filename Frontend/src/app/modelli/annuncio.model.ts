@@ -13,7 +13,7 @@ export class Annuncio {
               public prezzoScontato:number | null,
               public venditore: UserModel,
               public foto: any,
-              public recensioni: Recensione[]//string?
+              public recensioni: Recensione[]
               ) {
   }
 }

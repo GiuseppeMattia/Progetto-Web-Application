@@ -39,7 +39,7 @@ export class CreaAsteComponent implements OnInit{
   }
 
   crea(){
-    // Il prezzo è un campo obbligatorio
+    // Controllo che i campi obbligatori siano stati inseriti
     if (!this.createForm.get('prezzo')?.value || !this.createForm.get("data")?.value) {
       alert("Per favore, completa i campi richiesti");
       return;

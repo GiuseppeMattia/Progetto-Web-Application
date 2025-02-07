@@ -17,10 +17,4 @@ export class CategoriaService {
       map(response => response.map(cat => new Categoria(cat.id, cat.nome)))
     );
   }
-
-  trovaById(id: number): Observable<Categoria> {
-    return this.http.get<Categoria>(`${this.apiUrl}/trovaById?IDCategoria=${id}`);
-  }
-
-
 }

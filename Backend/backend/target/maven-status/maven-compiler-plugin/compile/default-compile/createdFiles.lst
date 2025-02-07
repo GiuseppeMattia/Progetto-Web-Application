@@ -27,7 +27,6 @@ unical\demacs\backend\services\interfaces\IAstaService.class
 unical\demacs\backend\persistence\DAO\JDBC\CategoriaDAOJDBC.class
 unical\demacs\backend\services\interfaces\IRecensioneService.class
 unical\demacs\backend\controller\UtenteController.class
-unical\demacs\backend\Main.class
 unical\demacs\backend\services\impl\UtenteService.class
 unical\demacs\backend\persistence\DAO\JDBC\UtenteDAOJDBC.class
 unical\demacs\backend\services\interfaces\IUtenteService.class

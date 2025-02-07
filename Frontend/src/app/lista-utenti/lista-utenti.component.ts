@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../modelli/userModel';
 import {Router, RouterLink} from '@angular/router';
 import { UtenteService } from '../services/utente.service';
-import { NgClass, NgForOf, CommonModule } from '@angular/common'; // ✅ IMPORTA CommonModule
+import { NgClass, NgForOf, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lista-utenti',
   standalone: true,
   imports: [
-    CommonModule, // ✅ AGGIUNTO PER RISOLVERE L'ERRORE DI ngClass
+    CommonModule,
     NgForOf,
     NgClass,
     RouterLink,
@@ -19,7 +19,7 @@ import { NgClass, NgForOf, CommonModule } from '@angular/common'; // ✅ IMPORTA
 export class ListaUtentiComponent implements OnInit {
   utenti: UserModel[] = [];
 
-  constructor(private router: Router, private api: UtenteService) {}
+  constructor(private api: UtenteService) {}
 
   ngOnInit(): void {
     this.caricaUtenti();
@@ -28,15 +28,12 @@ export class ListaUtentiComponent implements OnInit {
   caricaUtenti(): void {
     this.api.trovaUtenti().subscribe(data => {
       this.utenti = data;
-      // console.log(this.utenti)
     });
   }
 
   ban(utente: UserModel) {
-    utente.bannato = true; // Aggiorna localmente lo stato
-    this.api.ban(utente).subscribe(() => {
-      console.log("Utente bannato!");
-    });
+    utente.bannato = true;
+    this.api.ban(utente).subscribe()
   }
 
   setAdmin(utente: UserModel) {
@@ -45,9 +42,7 @@ export class ListaUtentiComponent implements OnInit {
       return;
     }
 
-    utente.amministratore = true; // Aggiorna localmente lo stato
-    this.api.promuovi(utente).subscribe(() => {
-      console.log("Utente promosso!");
-    });
+    utente.amministratore = true;
+    this.api.promuovi(utente).subscribe()
   }
 }

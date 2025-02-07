@@ -3,7 +3,6 @@ import {AuthService} from '../services/auth.service';
 import {inject} from '@angular/core';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  //guardia che controlla se hai fatto il login
   const authService=inject(AuthService)
   const router=inject(Router)
   if (!authService.isLoggedIn()){

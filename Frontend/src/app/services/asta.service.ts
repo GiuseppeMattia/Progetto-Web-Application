@@ -7,7 +7,7 @@ import { Asta } from '../modelli/asta';
   providedIn: 'root',
 })
 export class AstaService {
-  private apiUrl = 'http://localhost:8080/api/asta'; // Modifica l'URL del backend per le aste
+  private apiUrl = 'http://localhost:8080/api/asta';
 
   constructor(private http: HttpClient) {}
 
@@ -33,8 +33,6 @@ export class AstaService {
   }
 
   creaAsta(asta: Asta): Observable<boolean>{
-    // console.log("Annuncio passato all'asta service:")
-    // console.log(asta.annuncio)
     return this.http.post<boolean>(`${this.apiUrl}/crea`, asta)
   }
 

@@ -24,15 +24,13 @@ export class VenditoreComponent implements OnInit {
 
   constructor(
     private annuncioService: AnnuncioService,
-    private authService: AuthService,
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.username = params.get('username'); // Prende il parametro dalla route
-      // console.log('ID dalla route:', this.id);
+      this.username = params.get('username');
     });
     this.loadAnnunci();
   }

@@ -24,16 +24,14 @@ export class UtenteService {
     return this.http.post<boolean>(`${this.apiUrl}/valida`, utente).pipe(
       tap((isValid) => {
         if (isValid) {
-          // Prima otteniamo i dati aggiornati dell'utente
+          // Prima prendo i dati aggiornati dell'utente
           this.aggiornaUtente(utente).subscribe(
             (utenteAggiornato) => {
-              // Poi facciamo il login con i dati aggiornati
+              // Chiamo login con i dati aggiornati
               this.authService.login(utenteAggiornato)
-              // console.log('Utente aggiornato:', utenteAggiornato);
             },
             (error) => {
-              // console.error('Errore durante l\'aggiornamento dell\'utente:', error);
-              // In caso di errore, procediamo comunque con il login usando i dati originali
+              // In caso di errore, login con i dati non aggiornati
               this.authService.login(utente)
             }
           );
@@ -46,7 +44,7 @@ export class UtenteService {
   creaUtente(utente: UserModel): Observable<any> {
     return this.http.post(`${this.apiUrl}/crea`, utente).pipe(
       tap((response) => {
-        // Assumiamo che la registrazione implichi anche il login
+        // Se creto con successo, l'utente viene subito autenticato
         this.authService.login(utente)
       }),
     )

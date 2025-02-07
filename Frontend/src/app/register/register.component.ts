@@ -30,7 +30,6 @@ export class RegisterComponent implements OnInit{
     private fb: FormBuilder,
     private router: Router,
     private utenteService: UtenteService,
-    private authService: AuthService,
   ) {
     this.registerForm = this.fb.group({
       username: ["", Validators.required],
@@ -53,7 +52,6 @@ export class RegisterComponent implements OnInit{
     (window as any).onSubmitCaptcha = (token: string) => this.onSubmitCaptcha(token);
 
     script.onload = () => {
-      // console.log("reCAPTCHA caricato con successo.");
       this.inizializzaReCaptcha();
     };
   }
@@ -62,39 +60,32 @@ export class RegisterComponent implements OnInit{
     if ((window as any).grecaptcha) {
       try {
         (window as any).grecaptcha.ready(() => {
-          // console.log("reCAPTCHA pronto per l'uso.");
           (window as any).grecaptcha.reset();
         });
       } catch (error) {
         console.error("Errore nell'inizializzare reCAPTCHA:", error);
       }
-    } else {
-      // console.error("grecaptcha non è disponibile.");
     }
   }
 
   onSubmit(event: Event) {
-    event.preventDefault(); // Evita il submit immediato
+    event.preventDefault();
 
     if (this.registerForm.valid) {
-      (window as any).grecaptcha.render(); // Attiva il reCAPTCHA invisibile
+      (window as any).grecaptcha.render(); // Attiva il controllo reCAPTCHA invisibile
     } else {
       alert("Per favore, compila tutti i campi richiesti.")
     }
   }
 
   onSubmitCaptcha(token: string) {
-    // console.log("Token reCAPTCHA ricevuto:", token);
     this.utenteService.mandaCaptcha(token).subscribe(response => {
       if (response.success) {
-        //console.log("reCAPTCHA verificato con successo");
-        this.registerUser(); // Se il reCAPTCHA è valido, procedi con il login
+        this.registerUser(); // Se il captcha è valido, procedi con il login
       } else {
-        // console.error("Verifica reCAPTCHA fallita");
         alert("Verifica reCAPTCHA non riuscita");
       }
     }, error => {
-      // console.error("Errore nella verifica reCAPTCHA:", error);
       alert("Errore nel contattare il server");
     });
   }
@@ -118,7 +109,6 @@ export class RegisterComponent implements OnInit{
       const newUser = new UserModel(username, password, tipo, email, amministratore, bannato, numero);
       this.utenteService.creaUtente(newUser).subscribe(
         (response) => {
-          // console.log("Utente registrato con successo", response)
           this.router.navigate(["/home"])
         },
         (error) => {
@@ -128,7 +118,6 @@ export class RegisterComponent implements OnInit{
           else{
             alert("Si è verificato un errore sconosciuto")
           }
-          // console.error("Errore durante la validazione:", error)
         },
       )
     } else {

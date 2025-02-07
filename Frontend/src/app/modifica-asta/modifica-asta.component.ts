@@ -32,7 +32,6 @@ export class ModificaAstaComponent implements OnInit{
       if (id) {
         this.astaService.getAsta(Number(id)).subscribe(
           (asta) => {
-            // console.log("asta: ", asta);
             this.asta = asta;
           },
           (error) => {
@@ -50,7 +49,6 @@ export class ModificaAstaComponent implements OnInit{
     }
 
     if(!this.asta){
-      // console.log(this.asta)
       return;
     }
 

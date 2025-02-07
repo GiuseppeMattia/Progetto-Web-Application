@@ -13,23 +13,20 @@ export class BanGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.authService.currentUser.pipe(
-      map(user => user?.username), // Prendi l'username dell'utente corrente
+      map(user => user?.username),
       switchMap(username => {
         if (!username) {
-          //console.log("Nome utente non trovato.");
           //se non sono loggato non posso essere bannato, sarà compito di altre classi verificare il login dove necessario
           return of(true);
         }
         return this.utenteService.checkBan(username).pipe(
           map(isBanned => {
             if (isBanned) {
-              //console.log("Utente bannato, reindirizzo alla pagina apposita.");
               this.authService.logout();
               this.router.navigate(["/banned"]);
               return false;
             }
 
-            //console.log("Utente non bannato, accesso consentito.");
             return true;
           }),
           catchError(err => {
