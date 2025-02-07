@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {UserModel} from '../modelli/userModel';
 import {NgIf} from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';
-import {UtenteService} from '../services/utente.service';
-import {BehaviorSubject, type Observable} from 'rxjs';
 import {AuthService} from '../services/auth.service';
 
 @Component({

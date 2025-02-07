@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import  { HttpClient } from "@angular/common/http"
-import { type Observable, throwError } from "rxjs"
-import {catchError, map, tap} from "rxjs/operators"
+import { type Observable} from "rxjs"
+import {map, tap} from "rxjs/operators"
 import  { UserModel } from "../modelli/userModel"
 import  { AuthService } from "./auth.service"
 

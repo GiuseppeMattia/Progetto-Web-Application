@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '../modelli/userModel';
-import {Router, RouterLink} from '@angular/router';
+import { RouterLink} from '@angular/router';
 import { UtenteService } from '../services/utente.service';
 import { NgClass, NgForOf, CommonModule } from '@angular/common';
 

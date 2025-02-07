@@ -1,17 +1,14 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from "@angular/core"
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core"
 import { FormBuilder,  FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms"
-import {Router, RouterLink, RouterOutlet, Routes} from "@angular/router"
-import { HttpClientModule } from "@angular/common/http"
+import {Router, RouterLink, RouterOutlet} from "@angular/router"
 
 import  { UtenteService } from "../services/utente.service"
-import {AuthService} from '../services/auth.service';
 import {UserModel} from '../modelli/userModel';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    HttpClientModule,
     FormsModule,
     RouterLink,
     RouterOutlet,

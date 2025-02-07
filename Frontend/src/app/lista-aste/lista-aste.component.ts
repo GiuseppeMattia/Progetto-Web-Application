@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Asta } from '../modelli/asta';
-import {Router, RouterLink} from '@angular/router';
+import { RouterLink} from '@angular/router';
 import { AstaService } from '../services/asta.service';
 import { NgForOf } from '@angular/common';
 

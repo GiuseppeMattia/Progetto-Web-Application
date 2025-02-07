@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Annuncio} from '../modelli/annuncio.model';
 import {AnnuncioService} from '../services/annuncio.service';
-import {AuthService} from '../services/auth.service';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {NgForOf, NgIf} from '@angular/common';
 
 @Component({

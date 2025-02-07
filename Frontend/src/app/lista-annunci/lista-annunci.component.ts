@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Annuncio } from '../modelli/annuncio.model';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import { AnnuncioService } from '../services/annuncio.service';
 import { NgForOf } from '@angular/common';
 
