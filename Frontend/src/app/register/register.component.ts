@@ -76,15 +76,21 @@ export class RegisterComponent implements OnInit{
   }
 
   onSubmitCaptcha(token: string) {
-    this.utenteService.mandaCaptcha(token).subscribe(response => {
-      if (response.success) {
-        this.registerUser(); // Se il captcha è valido, procedi con il login
-      } else {
-        alert("Verifica reCAPTCHA non riuscita");
+    this.utenteService.mandaCaptcha(token).subscribe(
+      {
+        next: (response) => {
+          if (response.success) {
+            this.registerUser(); // Se il captcha è valido, procedi con la registrazione
+          } else {
+            alert("Verifica reCAPTCHA non riuscita");
+          }
+        },
+        error: (error) => {
+          alert("Errore nel contattare il server")
+          this.inizializzaReCaptcha();
+        }
       }
-    }, error => {
-      alert("Errore nel contattare il server");
-    });
+    )
   }
 
   fullPhoneNumber(): string {

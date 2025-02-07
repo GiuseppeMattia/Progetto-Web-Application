@@ -36,28 +36,34 @@ export class CategoriaAnnunciComponent implements OnInit {
 
   loadAnnunciEAste() {
     this.annuncioService.trovaAnnunciByCategoria(this.categoriaId).subscribe(
-      (annunci) => {
-        this.annunci = annunci.filter(annuncio => !annuncio.venditore.bannato);
-        this.annunci.forEach(annuncio => {
-          this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
-            (asta) => {
-              this.asteMap.set(annuncio.id, asta);
-            },
-            (error) => {
-              if (error.status !== 404) {
-                console.error('Errore nel caricamento dell\'asta per l\'annuncio', annuncio.id);
-              }
+      {
+        next: (annunci) => {
+          this.annunci=annunci.filter(annuncio =>!annuncio.venditore.bannato);
+          this.annunci.forEach(annuncio =>{
+              this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
+                {
+                  next: (asta) => {
+                    this.asteMap.set(annuncio.id, asta);
+                  },
+                  error: (error) => {
+                    if (error.status !== 404) {
+                      console.error('Errore nel caricamento dell\'asta per l\'annuncio', annuncio.id);
+                    }
+                  }
+                }
+              )
             }
+
           );
-        });
-        if (this.annunci.length == 0){
-          this.errorMessage ="Non ci sono annunci di questa categoria"
+          if (this.annunci.length == 0){
+            this.errorMessage ="Non ci sono annunci di questa categoria"
+          }
+        },
+        error: (error) => {
+          this.errorMessage = 'Impossibile caricare gli annunci. Si prega di riprovare più tardi.';
         }
-      },
-      (error) => {
-        this.errorMessage = 'Impossibile caricare gli annunci. Si prega di riprovare più tardi.';
       }
-    );
+    )
   }
 
 

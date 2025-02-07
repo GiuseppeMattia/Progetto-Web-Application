@@ -31,14 +31,14 @@ export class AnnunciProfiloComponent implements OnInit {
   loadAnnunci() {
     const user = this.authService.currentUserValue; // Prende l'utente autenticato
     if (user) {
-      this.annuncioService.trovaByUtente(user.username).subscribe(
-        (annunci) => {
-          this.annunci = annunci;
+      this.annuncioService.trovaByUtente(user.username).subscribe({
+        next: (annunci) => {
+          this.annunci=annunci;
         },
-        (error) => {
-          this.errorMessage = 'Errore nel caricamento degli annunci.';
+        error: (error) => {
+          this.errorMessage='Errore nel caricamento degli annunci.';
         }
-      );
+      });
     } else {
       this.errorMessage = 'Utente non autenticato.';
     }

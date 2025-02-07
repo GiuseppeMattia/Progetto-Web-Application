@@ -31,18 +31,18 @@ export class AllAsteComponent implements OnInit{
 
   loadAste() {
      {
-      this.astaService.getAste().subscribe(
-        (aste) => {
+      this.astaService.getAste().subscribe({
+        next: (aste) => {
           this.aste = aste.filter(asta => !asta.annuncio.venditore.bannato);
           if (this.aste.length == 0){
             this.errorMessage= "Non ci sono aste al momento"
           }
         },
-        () => {
-          this.errorMessage = 'Errore nel caricamento delle aste.';
+        error: (error) => {
+         this.errorMessage='Errore nel caricamento delle aste.';
         }
-      );
-    }
+      });
+     }
   }
 
   getImageUrl(byte: string): SafeUrl {

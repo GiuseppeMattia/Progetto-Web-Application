@@ -65,11 +65,13 @@ export class CreaComponent implements OnInit{
 
   loadCategorie(){
     this.categoriaService.trovaTutte().subscribe(
-      (categorie) => {
-        this.categorie = categorie;
-      },
-      (error) => {
-        console.error('Errore nel caricamento delle categorie:', error);
+      {
+        next: (categorie) => {
+          this.categorie = categorie
+        },
+        error: (error) => {
+          console.error('Errore nel caricamento delle categorie:', error);
+        }
       }
     );
   }
@@ -118,11 +120,13 @@ export class CreaComponent implements OnInit{
 
 
     this.annuncioService.creaAnnuncio(annuncio).subscribe(
-      response => {
-        this.router.navigate(['/home']);
-      },
-      error => {
-        console.error('Errore nella creazione dell\'annuncio', error);
+      {
+        next: (response) => {
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Errore nella creazione dell\'annuncio', error);
+        }
       }
     );
 

@@ -31,13 +31,15 @@ export class AsteProfiloComponent implements OnInit {
     const user = this.authService.currentUserValue;
     if (user) {
       this.astaService.trovaByUtenteVenditore(user.username).subscribe(
-        (aste) => {
-          this.aste = aste;
-        },
-        () => {
-          this.errorMessage = 'Errore nel caricamento delle aste.';
+        {
+          next: (aste) => {
+            this.aste=aste;
+          },
+          error: (error) => {
+            this.errorMessage='Errore nel caricamento delle aste'
+          }
         }
-      );
+      )
     } else {
       this.errorMessage = 'Utente non autenticato.';
     }
@@ -65,12 +67,14 @@ export class AsteProfiloComponent implements OnInit {
     }
 
     this.astaService.eliminaAsta(astaDaEliminare).subscribe(
-      () => {
-        this.aste = this.aste.filter(asta => asta.id !== id);
-      },
-      () => {
-        this.errorMessage = 'Errore nell’eliminazione dell’asta.';
+      {
+        next: () => {
+          this.aste=this.aste.filter(asta => asta.id !== id)
+        },
+        error: (error) => {
+          this.errorMessage= 'Errore nell’eliminazione dell’asta.';
+        }
       }
-    );
+    )
   }
 }

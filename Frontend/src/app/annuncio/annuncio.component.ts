@@ -74,23 +74,27 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
 
   loadAnnuncio(id: number) {
     this.annuncioService.getAnnuncio(id).subscribe(
-      (annuncio) => {
-        this.annuncio = annuncio;  // Assegna l'annuncio
-        this.astaService.getAstaByAnnuncio(this.annuncio.id).subscribe(
-          (asta) =>{
-            this.asta = asta;
-          },
-          (error) =>{
-            console.error("Errore nel caricamento dell'asta:", error);
-            this.errorMessage = "Impossibile caricare l'asta. Si prega di riprovare più tardi.";
-          }
-        );
-      },
-      (error) => {
-        console.error("Errore nel caricamento dell'annuncio:", error);
-        this.errorMessage = "Impossibile caricare l'annuncio. Si prega di riprovare più tardi.";
+      {
+        next: (annuncio) => {
+          this.annuncio=annuncio; //Assegna l'annuncio
+          this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
+                {
+                  next: (asta) => {
+                    this.asta=asta;
+                  },
+                  error: (error) => {
+                    console.error("Errore nel caricamento dell'asta:", error);
+                    this.errorMessage = "Impossibile caricare l'asta. Si prega di riprovare più tardi.";
+                  }
+                }
+              )
+            },
+        error: (error) => {
+          console.error("Errore nel caricamento dell'annuncio:", error);
+          this.errorMessage = "Impossibile caricare l'annuncio. Si prega di riprovare più tardi.";
+        }
       }
-    );
+    )
   }
 
 
@@ -134,16 +138,17 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
 
       // Chiamata al servizio per inviare la recensione
       this.recensioneService.creaRecensione(recensione).subscribe(
-        (response) => {
-          console.log('Recensione inviata con successo:', response);
-          // Aggiungi la recensione alla lista senza ricaricare l'annuncio
-          this.annuncio!.recensioni.push(recensione);
-          this.reviewForm.reset();  // Resetta il form
-        },
-        (error) => {
-          console.error('Errore nell\'invio della recensione', error);
+        {
+          next: (response) => {
+            // Aggiungi la recensione alla lista senza ricaricare l'annuncio
+            this.annuncio!.recensioni.push(recensione);
+            this.reviewForm.reset();  // Resetta il form
+          },
+          error: (error) => {
+            console.error("Errore nell\'invio della recensione", error);
+          }
         }
-      );
+      )
     }
   }
 
@@ -162,14 +167,16 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
           this.asta.prezzo = Number(this.priceForm.get("price")?.value);
           this.asta.acquirente = this.user;
           this.astaService.aggiornaAsta(this.asta).subscribe(
-            (response) =>{
-              window.location.reload()
-            },
-            (error ) =>{
-              alert("Impossibile aggiungere il prezzo");
-              return;
-        }
-          );
+            {
+              next: (response) => {
+               window.location.reload()
+              },
+              error: (error) => {
+                alert("Impossibile aggiungere il prezzo");
+                return
+              }
+            }
+          )
 
       }
       else{
@@ -188,11 +195,7 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
 
     if (differenza <= 0) {
       this.asta.terminated = true;
-      this.astaService.aggiornaAsta(this.asta).subscribe(
-        (response) =>{
-          console.log("Fine")
-        }
-      )
+      this.astaService.aggiornaAsta(this.asta).subscribe()
 
       this.unsubscribe$.next(); // Ferma il timer
       return;

@@ -23,13 +23,15 @@ export class CategorieComponent implements OnInit {
 
   loadCategorie() {
     this.categoriaService.trovaTutte().subscribe(
-      (categorie) => {
-        this.categorie = categorie;
-      },
-      (error) => {
-        console.error('Errore nel caricamento delle categorie:', error);
-        this.errorMessage = 'Impossibile caricare le categorie. Si prega di riprovare più tardi.';
+      {
+        next: (categorie) => {
+          this.categorie=categorie;
+        },
+        error: (error) => {
+          console.error('Errore nel caricamento delle categorie:', error);
+          this.errorMessage = 'Impossibile caricare le categorie. Si prega di riprovare più tardi.';
+        }
       }
-    );
+    )
   }
 }

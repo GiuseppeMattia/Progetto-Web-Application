@@ -30,14 +30,14 @@ export class ModificaAstaComponent implements OnInit{
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
-        this.astaService.getAsta(Number(id)).subscribe(
-          (asta) => {
+        this.astaService.getAsta(Number(id)).subscribe({
+          next: (asta) => {
             this.asta = asta;
           },
-          (error) => {
-            console.log("Errore nel recupero dell'asta", error);
+          error: (error) => {
+            console.error("Errore nel recupero dell'asta", error);
           }
-        );
+        });
       }
     });
   }

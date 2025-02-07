@@ -108,14 +108,14 @@ export class ModificaAnnuncioComponent implements OnInit{
       []
     )
 
-    this.annuncioService.aggiornaAnnuncio(annuncio).subscribe(
-      response => {
+    this.annuncioService.aggiornaAnnuncio(annuncio).subscribe({
+      next: (response) => {
         this.router.navigate([`/annuncio/${this.id}`]);
       },
-      error => {
-        console.error('Errore nella creazione dell\'annuncio', error);
+      error: (error) => {
+        console.error("Errore nella creazione dell'annuncio recupero dell'asta", error);
       }
-    );
+    });
 
   }
 

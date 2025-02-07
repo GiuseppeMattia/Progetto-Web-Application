@@ -40,25 +40,31 @@ export class HomeComponent implements OnInit {
 
   loadAnnunciEAste() {
     this.annuncioService.getAnnunci().subscribe(
-      (annunci) => {
-        this.annunci = annunci.filter(annuncio => !annuncio.venditore.bannato);
-        this.annunci.forEach(annuncio => {
-          this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
-            (asta) => {
-              this.asteMap.set(annuncio.id, asta);
-            },
-            (error) => {
-              if (error.status !== 404) {
-                console.error('Errore nel caricamento dell\'asta per l\'annuncio', annuncio.id);
-              }
+      {
+        next: (annunci) => {
+          this.annunci=annunci.filter(annuncio =>!annuncio.venditore.bannato);
+          this.annunci.forEach(annuncio =>{
+              this.astaService.getAstaByAnnuncio(annuncio.id).subscribe(
+                {
+                  next: (asta) => {
+                    this.asteMap.set(annuncio.id, asta);
+                  },
+                  error: (error) => {
+                    if (error.status !== 404) {
+                      console.error('Errore nel caricamento dell\'asta per l\'annuncio', annuncio.id);
+                    }
+                  }
+                }
+              )
             }
+
           );
-        });
-      },
-      (error) => {
-        this.errorMessage = 'Impossibile caricare gli annunci. Si prega di riprovare più tardi.';
+        },
+        error: (error) => {
+          this.errorMessage = 'Impossibile caricare gli annunci. Si prega di riprovare più tardi.';
+        }
       }
-    );
+    )
   }
 
   getImageUrl(byte: string): SafeUrl {
