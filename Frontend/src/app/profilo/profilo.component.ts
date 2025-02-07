@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserModel} from '../modelli/userModel';
 import {NgIf} from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';

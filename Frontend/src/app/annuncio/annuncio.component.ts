@@ -3,7 +3,6 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import { CommonModule, NgIf } from "@angular/common";
 import { Annuncio } from "../modelli/annuncio.model";
 import { AnnuncioService } from "../services/annuncio.service";
-import { HttpClientModule } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {RecensioneService} from '../services/recensione.service';
@@ -12,14 +11,14 @@ import {AuthService} from '../services/auth.service';
 import {UserModel} from '../modelli/userModel';
 import {Asta} from '../modelli/asta';
 import {AstaService} from '../services/asta.service';
-import {interval, Subject, takeUntil} from 'rxjs';  // Aggiunto FormBuilder e FormGroup
+import {interval, Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: "app-annuncio",
   templateUrl: "./annuncio.component.html",
   styleUrls: ["./annuncio.component.css"],
   standalone: true,
-  imports: [CommonModule, NgIf, HttpClientModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, NgIf, ReactiveFormsModule, RouterLink],
   providers: [AnnuncioService, RecensioneService, AuthService]
 })
 export class AnnuncioComponent implements OnInit, OnDestroy {
