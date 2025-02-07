@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit{
         },
         error: (error) => {
           alert("Errore nel contattare il server");
+          this.inizializzaReCaptcha() //necesario x altrimenti se backend spento non posso più fare tentativi
         }
       }
     )
@@ -95,37 +96,39 @@ export class LoginComponent implements OnInit{
       }
 
       this.utenteService.validaUtente(utente).subscribe(
-        (isValid) => {
-          if (isValid) {
-            this.utenteService.aggiornaUtente(utente).subscribe(
-              (utenteAggiornato) => {
-                if (utenteAggiornato.bannato) {
-                  this.authService.logout();  // Disconnette l'utente bannato
-                  this.router.navigate(['/banned']);
-                } else {
-                  this.authService.login(utenteAggiornato);
-                  this.router.navigate(["/home"]);
+        {
+          next:(isValid)=>{
+            if (isValid){
+              this.utenteService.aggiornaUtente(utente).subscribe(
+                {
+                  next: (utenteAggiornato)=>{
+                    if (utenteAggiornato.bannato){
+                      this.authService.logout();
+                      this.router.navigate(['/banned'])
+                    } else{
+                      this.authService.login(utenteAggiornato)
+                      this.router.navigate(['/home'])
+                    }
+                  }, error: (error)=>{
+                    alert("Errore nel recupero delle informazioni utente");
+                  }
                 }
-              },
-              (error) => {
-                alert("Errore nel recupero delle informazioni utente");
-              }
-            );
-          } else {
-            alert("Username o password non validi")
+              )
+            } else {
+              alert("Username o password non validi")
+            }
+      }, error: (error) =>{
+            if(error.status === 401){
+              alert("Password errata")
+            }
+            else if(error.status === 404){
+              alert("L'utente non esiste")
+            }
+            else{
+              alert("Si è verificato un errore sconosciuto")
+            }
           }
-        },
-        (error) => {
-          if(error.status === 401){
-            alert("Password errata")
-          }
-          else if(error.status === 404){
-            alert("L'utente non esiste")
-          }
-          else{
-            alert("Si è verificato un errore sconosciuto")
-          }
-        },
+        }
       )
     } else {
       alert("Per favore, compila tutti i campi richiesti.")
