@@ -124,6 +124,8 @@ export class AnnuncioComponent implements OnInit, OnDestroy {
   submitReview(): void {
     if (this.reviewForm.valid) {
       if (!this.user || !this.annuncio) {
+        alert("Accedi per poter pubblicare una recensione")
+        this.router.navigate(["/login"])
         return;
       }
 
