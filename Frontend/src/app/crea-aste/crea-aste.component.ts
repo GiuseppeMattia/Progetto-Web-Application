@@ -53,6 +53,19 @@ export class CreaAsteComponent implements OnInit{
     false,
     this.createForm.get("data")?.value,
   )
+
+    let oggi = new Date();
+    let dataInserita = new Date(this.createForm.get("data")?.value); // Converte la stringa in Date
+
+    if (dataInserita.getTime() <= oggi.getTime()) {
+      alert("Non puoi inserire una data precedente o uguale alla giornata odierna");
+      return;
+    }
+
+
+
+
+
     this.astaService.creaAsta(asta).subscribe(
       response => {
         alert("L'asta è stata creata con successo!")
